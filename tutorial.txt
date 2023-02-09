@@ -1,0 +1,117 @@
+Pasos Tutorial
+
+https://www.youtube.com/watch?v=YGqCZjdgJJk
+
+Instalar Composer
+
+composer global require laravel/instal
+
+===========================
+1. Crear proyecto (PowerShell)
+===========================
+laravel new [proyecto]
+laravel new laravel-api
+
+==================
+2. Abrir el editor 
+==================
+En el directorio code .
+
+================
+3. Crear modelos
+================
+php artisan make:model [modeo] -- all
+php artisan make:model Customer --all
+php artisan make:model Invoices --all
+
+=================================================
+4. Editar Models, Migrations, Factories y Seeders
+=================================================
+Models (Relaciones) | App\Models
+Migrations (Tablas) | Database\Migrations
+Factories (Datos Random) | Database\Factories
+Seeders (Insertar Randoms) | Database\Seeders
+
+===========
+5. Ejecutar
+===========
+php artisan migrate:fresh --seed
+
+=====
+Rutas
+=====
+App\Http\Contollers\Api\V1
+
+route::apiResource('customers', CustomerController::class);
+
+php artisan serve
+
+=========
+Resources
+=========
+php artisan make:resource V1\CustomerResource
+
+==============
+Mostrar por id
+==============
+contoller function show
+
+===============
+Mostrar en json
+===============
+php artisan make:resource V1\CustomerResource
+php artisan make:resource V1\CustomerCollection
+
+=============
+Filtros
+=============
+http://localhost:8000/api/v1/customers?postalCode[lt]=30000&type[eq]=I
+
+====================
+StoreCustomerRequest
+====================
+php artisan make:request StoreCustomerRequest
+
+============
+INSERT [PUT]
+============
+{
+	"name": "Edgar Posada",
+	"type": "I",
+	"email": "juarez.pelonete@gmail.com",
+	"address": "S. Stanton Ste 501",
+	"city": "El Paso",
+	"state": "Texas",
+	"postalCode": "12345"
+}
+
+====================
+UpdateustomerRequest
+====================
+php artisan make:request UpdateCustomerRequest
+
+====================
+Bulk [POST]
+====================
+[{
+	"customerId": "1",
+	"amount": "23",
+	"status": "B",
+	"billedDate": "2021-09-23 14:29:49",
+	"paidDate": null
+},{
+	"customerId": "1",
+	"amount": "500",
+	"status": "P",
+	"billedDate": "2021-04-23 14:29:49",
+	"paidDate": "2021-05-23 14:29:49"
+}]
+======
+LLaves
+======
+{
+	"admin":"1|xPqLMUe9KVafh5QvybNsXqQhAdVha6qBhfkUHwxF",
+	"update":"2|R5bigQ4xKgHCGivtaRzN6fcilkXcJPYDQwlLGZlV",
+	"basic":"3|pIh75qXHv8M7B6FyFZg14QUzJrVoRrtejJgH68fI"
+}
+//Contol de actividades y asistencia
