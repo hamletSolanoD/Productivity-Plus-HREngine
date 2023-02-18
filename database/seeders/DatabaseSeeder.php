@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Customer;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -16,7 +15,9 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             CustomerSeeder::class,            
-            EmployeeSeeder::class
+            EmployeeSeeder::class,
+            ClientSeeder::class,
+            CompanySeeder::class
         ]);
         // \App\Models\User::factory(10)->create();
     }
