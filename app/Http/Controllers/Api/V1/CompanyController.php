@@ -1,10 +1,16 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\V1;
 
 use App\Models\Company;
 use App\Http\Requests\StoreCompanyRequest;
 use App\Http\Requests\UpdateCompanyRequest;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+
+use App\Filters\V1\CompaniesFilter;
+use App\Http\Resources\V1\CompanyCollection;
 
 class CompanyController extends Controller
 {
@@ -13,9 +19,12 @@ class CompanyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $filter = new CompaniesFilter();
+        $filterItems = $filter->transform($request);
+        $companies = Company::where($filterItems);
+        return new CompanyCollection($companies->paginate()->appends($request->query()));
     }
 
     /**

@@ -1,10 +1,16 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\V1;
 
 use App\Models\Employee;
 use App\Http\Requests\StoreEmployeeRequest;
 use App\Http\Requests\UpdateEmployeeRequest;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+
+use App\Filters\V1\EmployeesFilter;
+use App\Http\Resources\V1\EmployeeCollection;
 
 class EmployeeController extends Controller
 {
@@ -13,9 +19,12 @@ class EmployeeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $filter = new EmployeesFilter();
+        $filterItems = $filter->transform($request);
+        $employees = Employee::where($filterItems);
+        return new EmployeeCollection($employees->paginate()->appends($request->query()));
     }
 
     /**

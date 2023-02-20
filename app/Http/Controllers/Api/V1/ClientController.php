@@ -6,6 +6,12 @@ use App\Models\Client;
 use App\Http\Requests\StoreClientRequest;
 use App\Http\Requests\UpdateClientRequest;
 
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+
+use App\Filters\V1\ClientsFilter;
+use App\Http\Resources\V1\ClientCollection;
+
 class ClientController extends Controller
 {
     /**
@@ -13,9 +19,12 @@ class ClientController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $filter = new ClientsFilter();
+        $filterItems = $filter->transform($request);
+        $clients = Client::where($filterItems);
+        return new ClientCollection($clients->paginate()->appends($request->query()));
     }
 
     /**

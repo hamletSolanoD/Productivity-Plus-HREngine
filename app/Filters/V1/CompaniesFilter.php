@@ -4,19 +4,16 @@ namespace App\Filters\V1;
 use Illuminate\Http\Request;
 use App\Filters\ApiFilter;
 
-class CustomersFilter extends ApiFilter{
+class CompaniesFilter extends ApiFilter{
     protected $safeParms = [
-        'name' => ['eq'],
-        'type' => ['eq'],
+        'uuid' => ['eq'],
+        'rfc' => ['eq'],
+        'employerregistry' => ['eq'],
+        'businessname' => ['eq'],
+        'tradename' => ['eq'],
+        'legalrepresentative' => ['eq'],
+        'phone' => ['eq'],
         'email' => ['eq'],
-        'address' => ['eq'],
-        'city' => ['eq'],
-        'state' => ['eq'],
-        'postalCode' => ['eq', 'gt', 'lt'],
-    ];
-
-    protected $columnMap = [
-        'postalCode' => 'postal_code'
     ];
 
     protected $operatorMap = [
