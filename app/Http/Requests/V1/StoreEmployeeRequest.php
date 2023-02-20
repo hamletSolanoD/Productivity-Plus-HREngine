@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\V1;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreEmployeeRequest extends FormRequest
 {
@@ -13,7 +14,8 @@ class StoreEmployeeRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
+        //return false;
     }
 
     /**
@@ -24,7 +26,11 @@ class StoreEmployeeRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'uuid' => ['uuid'],
+            'firstname' => ['required'],
+            'gender' => ['required'],
+            'birthdate' => ['required', Rule::in(['M', 'F', 'm', 'f'])],
+            'curp_value' => ['required'],
         ];
     }
 }

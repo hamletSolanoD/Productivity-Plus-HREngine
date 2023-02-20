@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\V1;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateCompanyRequest extends FormRequest
 {
@@ -12,8 +13,9 @@ class UpdateCompanyRequest extends FormRequest
      * @return bool
      */
     public function authorize()
-    {
-        return false;
+    {        
+        return true;
+        //return false;
     }
 
     /**

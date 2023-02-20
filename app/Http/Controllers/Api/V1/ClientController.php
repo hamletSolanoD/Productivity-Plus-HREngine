@@ -45,7 +45,19 @@ class ClientController extends Controller
      */
     public function store(StoreClientRequest $request)
     {
-        //
+        /*
+        {
+            "uuid":"422f4523-ad80-42bf-94de-977af544f3b3",
+            "rfc":"RFC653fr3",
+            "employerregistry":"A83636ADS",
+            "businessname":"Keystone Ltd",
+            "tradename":"Schinner-Mante",
+            "legalrepresentative":"Rudolph Henz",
+            "phone":"+15758734329",
+            "email":"rudolph.henz@solform.net"
+        }
+        */
+        return new ClientResource(Client::create($request->all()));
     }
 
     /**
@@ -79,7 +91,7 @@ class ClientController extends Controller
      */
     public function update(UpdateClientRequest $request, Client $client)
     {
-        //
+        $client->update($request->all());
     }
 
     /**

@@ -32,7 +32,7 @@ class CreateEmployeesTable extends Migration
             $table->string('paternalsurname');
             $table->string('maternalsurname')->nullable();
             $table->string('gender'); // M male or F female
-            $table->string('phone');
+            $table->string('phone')->nullable();
             $table->string('email')->nullable();
             $table->date('birthdate');
             $table->string('birthstate')->nullable();
@@ -42,7 +42,7 @@ class CreateEmployeesTable extends Migration
             $table->string('rfc_value')->nullable();
             $table->string('rfc_uuid')->nullable();
             $table->boolean('curp')->default(false);
-            $table->string('curp_value')->nullable();
+            $table->string('curp_value');
             $table->string('curp_uuid')->nullable();
             $table->boolean('nss')->default(false);
             $table->string('nss_value')->nullable();
@@ -51,6 +51,7 @@ class CreateEmployeesTable extends Migration
             $table->decimal('fonacot_total', 16, 2)->nullable();
             $table->decimal('fonacot_discount', 16, 2)->nullable();
             $table->string('fonacot_uuid')->nullable();
+            $table->boolean('infonavit')->default(false);
             $table->string('infonavit_creditnumber')->nullable();
             $table->decimal('infonavit_discount', 16, 2)->nullable();
             $table->decimal('infonavit_factor')->nullable();

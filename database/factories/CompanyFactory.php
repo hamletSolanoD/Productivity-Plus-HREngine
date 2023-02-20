@@ -16,7 +16,7 @@ class CompanyFactory extends Factory
         return [
             'uuid' => $this->faker->uuid(),
             'rfc' => $this->faker->bothify('RFC###???'),
-            'employerregistry' => $this->faker->email(),
+            'employerregistry' => $this->faker->bothify('A83###???'),
             'businessname' => $this->faker->company(),
             'tradename' => $this->faker->company(),
             'legalrepresentative' => $this->faker->name(),

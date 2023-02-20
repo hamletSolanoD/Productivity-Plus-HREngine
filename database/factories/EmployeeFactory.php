@@ -19,7 +19,7 @@ class EmployeeFactory extends Factory
         $rfc_value = $rfc ? $this->faker->bothify('RFC###???') : null;
         $rfc_uuid = $rfc ? $this->faker->uuid() : null;
         $curp = $this->faker->randomElement([true, false]);
-        $curp_value = $curp ? $this->faker->bothify('CURP###???') : null;
+        $curp_value = $this->faker->bothify('CURP###???');
         $curp_uuid = $curp ? $this->faker->uuid() : null;
         $nss = $this->faker->randomElement([true, false]);
         $nss_value = $nss ? $this->faker->bothify('NSS###???') : null;

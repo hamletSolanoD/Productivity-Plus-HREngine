@@ -30,7 +30,7 @@ class ClientFactory extends Factory
             'maternalsurname' => $maternalsurname,
             'gender' => $gender,
             'birthdate' => $date,
-            'employerregistry' => $this->faker->email(),
+            'employerregistry' => $this->faker->bothify('A83###???'),
             'businessname' => $this->faker->company(),
             'tradename' => $this->faker->company(),
             'legalrepresentative' => $legalrepresentative,

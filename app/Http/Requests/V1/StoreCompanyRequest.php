@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\V1;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class StoreClientRequest extends FormRequest
+class StoreCompanyRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +14,8 @@ class StoreClientRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
+        //return false;
     }
 
     /**
@@ -24,7 +26,12 @@ class StoreClientRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'uuid' => ['required'],
+            'rfc' => ['required'],
+            'address' => ['required'],
+            'city' => ['required'],
+            'state' => ['required'],
+            'postalCode' => ['required'],
         ];
     }
 }
