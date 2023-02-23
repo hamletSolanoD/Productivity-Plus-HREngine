@@ -34,27 +34,20 @@ class UserController extends Controller
                         return response()->json($data, 200);
                     } else {
                         $data = ['login' => true, 'message' => 'Incorrect password'];
-                        return response()->json($data, 204);
+                        return response()->json($data, 203);
                     }
                 } else {                    
                     $contact = $user['type'] == 'e' ? 'employer' : 'system provider';
-                    $data = ['login' => false, 'message' => 'Inactive User, please contact with your ' + $contact];
-                    return response()->json($data, 204);
+                    $data = ['login' => false, 'message' => 'Inactive User, please contact with your ' . $contact];
+                    return response()->json($data, 203);
                 }
             } else {
                 $data = ['login' => false, 'message' => 'Email is not registered'];
-                return response()->json($data, 204);
+                return response()->json($data, 203);
             }
         } else {
             $data = ['login' => false, 'message' => 'Please specify email and password'];
-            return response()->json($data);
+            return response()->json($data, 203);
         }
-        /*
-        $bulk = collect($request->all())->map(function ($arr, $key){
-            return Arr::except($arr, ['customerId', 'billedDate', 'paidDate']);
-        });        
-        Invoice::insert($bulk->toArray());
-        (
-        */
     }
 }
