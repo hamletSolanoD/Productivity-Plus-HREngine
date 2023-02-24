@@ -25,6 +25,7 @@ class CreateWorkdaysTable extends Migration
             $table->integer('minutes')->nullable();
             $table->double('latitude')->nullable();
             $table->double('longitude')->nullable();
+            $table->double('place')->nullable();
             $table->timestamps();
         });
     }

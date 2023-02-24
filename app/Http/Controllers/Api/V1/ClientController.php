@@ -44,7 +44,7 @@ class ClientController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(StoreClientRequest $request)
-    {
+    {        
         /*
         {
             "uuid":"422f4523-ad80-42bf-94de-977af544f3b3",

@@ -20,5 +20,6 @@ class Workday extends Model
         'minutes',
         'latitude',
         'longitude',
+        'place',
     ];
 }
