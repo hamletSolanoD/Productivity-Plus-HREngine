@@ -19,6 +19,7 @@ class Employee extends Model
         'company_uuid',
         'customer_id',
         'customer_uuid',
+        'type',
         'firstname',
         'paternalsurname',
         'maternalsurname',
@@ -29,6 +30,16 @@ class Employee extends Model
         'birthstate',
         'matrimonialregime',
         'maritalstatus',
+        'rfc_value',
+        'curp_value',
+        'nss_value',
+        'fonacot_total',
+        'fonacot_discount',
+        'infonavit_creditnumber',
+        'infonavit_discount',
+        'infonavit_factor',
+        'bankcontract_interbankkey',
+        /*
         'rfc',
         'rfc_value',
         'rfc_uuid',
@@ -75,5 +86,6 @@ class Employee extends Model
         'settlementreceipt_uuid',
         'administrativerecord',
         'administrativerecord_uuid',
+        */
     ];
 }

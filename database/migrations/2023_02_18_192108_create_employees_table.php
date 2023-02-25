@@ -28,6 +28,7 @@ class CreateEmployeesTable extends Migration
             $table->string('company_uuid')->nullable();
             $table->integer('customer_id')->nullable()->unsigned();
             $table->string('customer_uuid')->nullable();
+            $table->string('type'); //I internal (company) C Client (client) E External (company and client)
             $table->string('firstname');
             $table->string('paternalsurname');
             $table->string('maternalsurname')->nullable();
@@ -37,7 +38,18 @@ class CreateEmployeesTable extends Migration
             $table->date('birthdate');
             $table->string('birthstate')->nullable();
             $table->string('matrimonialregime')->nullable(); //SP Separation of Property', 'CS conjugal society
-            $table->string('maritalstatus')->nullable();
+            $table->string('maritalstatus')->nullable();            
+            $table->string('rfc')->nullable();    
+            $table->string('curp')->nullable();
+            $table->string('nss')->nullable();
+            $table->boolean('fonacot')->default(false);
+            $table->decimal('fonacot_total')->nullable();
+            $table->decimal('fonacot_discount')->nullable();
+            $table->boolean('infonavit')->default(false);
+            $table->string('infonavit_creditnumber')->nullable();
+            $table->decimal('infonavit_discount')->nullable();
+            $table->string('infonavit_factor')->nullable();
+            /*
             $table->boolean('rfc')->default(false);
             $table->string('rfc_value')->nullable();
             $table->string('rfc_uuid')->nullable();
@@ -85,6 +97,7 @@ class CreateEmployeesTable extends Migration
             $table->string('settlementreceipt_uuid')->nullable();
             $table->boolean('administrativerecord')->default(false);
             $table->string('administrativerecord_uuid')->nullable();
+            */
             $table->timestamps();
         });
     }

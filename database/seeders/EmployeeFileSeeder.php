@@ -2,10 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\Workday;
 use Illuminate\Database\Seeder;
 
-class WorkdaySeeder extends Seeder
+class EmployeeFileSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,8 +13,6 @@ class WorkdaySeeder extends Seeder
      */
     public function run()
     {
-        Workday::factory()
-            ->count(25)
-            ->create();
+        //
     }
 }

@@ -13,62 +13,36 @@ class EmployeeFactory extends Factory
      */
     public function definition()
     {
+        /*
+        'employeecontract_id',
+        'employeeaddress_id',
+        'employeebeneficiary_id',
+        'employeesalary_id',
+        */
+        $type = $this->faker->randomElement(['I', 'C', 'E']);
+        $company_id = $type != "C" ? \App\Models\Company::factory()->create()->id : null;
+        $company_uuid = $type != "C" ? \App\Models\Company::factory()->create()->uuid : null;
+        $customer_id = $type != "I" ? \App\Models\Customer::factory()->create()->id : null;
+        $customer_uuid = $type != "I" ?\App\Models\Customer::factory()->create()->uuid : null;
         $gender = $this->faker->randomElement(['M', 'F']);
         $firstname = $gender == 'M' ? $this->faker->firstNameMale() : $this->faker->firstNameFemale();
-        $rfc = $this->faker->randomElement([true, false]);
-        $rfc_value = $rfc ? $this->faker->bothify('RFC###???') : null;
-        $rfc_uuid = $rfc ? $this->faker->uuid() : null;
-        $curp = $this->faker->randomElement([true, false]);
-        $curp_value = $this->faker->bothify('CURP###???');
-        $curp_uuid = $curp ? $this->faker->uuid() : null;
-        $nss = $this->faker->randomElement([true, false]);
-        $nss_value = $nss ? $this->faker->bothify('NSS###???') : null;
-        $nss_uuid = $nss ? $this->faker->uuid() : null;
-        $fonacot = $this->faker->randomElement([true, false]);
+        $rfc = $this->faker->boolean() ? $this->faker->bothify('RFC###???') : null;
+        $curp = $this->faker->boolean() ? $this->faker->bothify('CURP###???') : null;
+        $nss = $this->faker->boolean() ? $this->faker->bothify('NSS###???') : null;
+        $fonacot = $this->faker->boolean();
         $fonacot_total = $fonacot ? $this->faker->randomFloat(2) : null;
         $fonacot_discount = $fonacot ? $this->faker->randomFloat(2) : null;
-        $fonacot_uuid = $fonacot ? $this->faker->uuid() : null;
+        $infonavit = $this->faker->boolean();    
+        $infonavit_creditnumber =  $nss ? $this->faker->bothify('INF###???') : null;
+        $infonavit_discount = $fonacot ? $this->faker->randomFloat(2) : null;
+        $infonavit_factor = $this->faker->randomElement(['VSM', 'UDIS', 'MXN']);
         $maritalstatus = $this->faker->randomElement(['S', 'M']);
         //S Single M Married
         $matrimonialregime =  $maritalstatus == 'M' ? $this->faker->randomElement(['SP', 'CS']) : null;
         //SP separate property Single CS conjugal society
-        /*
-        'infonavit_creditnumber',
-        'infonavit_discount',
-        'infonavit_factor',
-        'infonavit_uuid',
-        'bankcontract',
-        'bankcontract_interbankkey',
-        'bankcontract_uuid',
-        'jobapplication',
-        'jobapplication_uuid',
-        'birthcertificate',
-        'birthcertificate_uuid',
-        'studycertificate',
-        'studycertificate_uuid',
-        'proofofaddress',
-        'proofofaddress_uuid',
-        'workcontract',
-        'workcontract_uuid',
-        'workregulation',
-        'workregulation_uuid',
-        'bankpolicy',
-        'bankpolicy_uuid',
-        'id',
-        'id_uuid',
-        'infonavitprequalification',
-        'infonavitprequalification_uuid',
-        'fonacotdisclaimer',
-        'fonacotdisclaimer_uuid',
-        'agreementformat',
-        'agreementformat_uuid',
-        'settlementreceipt',
-        'settlementreceipt_uuid',
-        'administrativerecord',
-        'administrativerecord_uuid',
-        */
         return [
             'uuid' => $this->faker->uuid(),
+            'type' => $type,
             'firstname' => $firstname,
             'paternalsurname' => $this->faker->lastName(),
             'maternalsurname' => $this->faker->lastName(),
@@ -80,27 +54,15 @@ class EmployeeFactory extends Factory
             'matrimonialregime' => $matrimonialregime,
             'maritalstatus' => $maritalstatus,
             'rfc' => $rfc,
-            'rfc_value' => $rfc_value,
-            'rfc_uuid' => $rfc_uuid,
             'curp' => $curp,
-            'curp_value' => $curp_value,
-            'curp_uuid' => $curp_uuid,
             'nss' => $nss,
-            'nss_value' => $nss_value,
-            'nss_uuid'=> $nss_uuid,
             'fonacot' => $fonacot,
             'fonacot_total' => $fonacot_total,
             'fonacot_discount' => $fonacot_discount,
-            'fonacot_uuid' => $fonacot_uuid,
+            'infonavit' => $infonavit,
+            'infonavit_creditnumber' => $infonavit_creditnumber,
+            'infonavit_discount' => $infonavit_discount,
+            'infonavit_factor' => $infonavit_factor,
         ];
-        /*
-        'employeecontract_id',
-        'employeeaddress_id',
-        'employeebeneficiary_id',
-        'employeesalary_id',
-        'company_id',
-        'company_guid',
-        'customer_id',
-        */
     }
 }
