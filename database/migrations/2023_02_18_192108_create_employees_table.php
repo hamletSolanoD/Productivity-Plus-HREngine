@@ -26,8 +26,8 @@ class CreateEmployeesTable extends Migration
             //$table->foreignId('employeesalary_id')->nullable()->references('id')->on('employeesalary');
             $table->integer('company_id')->nullable()->unsigned();
             $table->string('company_uuid')->nullable();
-            $table->integer('customer_id')->nullable()->unsigned();
-            $table->string('customer_uuid')->nullable();
+            $table->integer('client_id')->nullable()->unsigned();
+            $table->string('client_uuid')->nullable();
             $table->string('type'); //I internal (company) C Client (client) E External (company and client)
             $table->string('firstname');
             $table->string('paternalsurname');

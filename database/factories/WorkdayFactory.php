@@ -15,26 +15,26 @@ class WorkdayFactory extends Factory
     public function definition()
     {
         $employee_uuid = \App\Models\Employee::factory()->create()->uuid;
+        $client_uuid = \App\Models\Employee::factory()->create()->client_uuid;
+        $company_uuid = \App\Models\Employee::factory()->create()->company_uuid;
         $status = $this->faker->randomElement(['O', 'C', 'P']); //open closed paused
         $startWeek = Carbon::now()->subWeek()->startOfWeek();
         $endWeek   = Carbon::now()->subWeek()->endOfWeek();
         $start = $this->faker->dateTimeBetween($startWeek, $endWeek);
         $start_c = new Carbon($start);
-        //$start = $date_c->addHours(rand(1, 23));
-        $end =  $status != "O" ? $start_c->addHours(rand(8, 12)) : null;
-        $minutes = $status != "O" ? $end->diffInMinutes($start) : null;
-        /*
-        $start = $this->faker->dateTimeBetween($date, '+1 day');
-        $start_c = new Carbon($start);
-        $end = $status != "O" ? $this->faker->dateTimeBetween($start, '+8 hour') : null;
-        $end_c = new Carbon($end);
-        $minutes = $status != "O" ? $end_c->diffInMinutes($start_c) : null;
-        */
+        $end =  $status == "C" ? $start_c->addHours(rand(8, 12)) : null;
+        $pause =  $status == "P" ? $start_c->addHours(rand(4, 6)) : null;
+        $last = $status == "C" ? $end :  null;
+        $last = $status == "P" ? $pause : $last;
+        $minutes = $status != "O" ? $last->diffInMinutes($start) : null;
         return [
             'employee_uuid' => $employee_uuid,
+            'client_uuid' => $client_uuid,
+            'company_uuid' => $company_uuid,
             'status' => $status,
             'date' => $start,
             'start' => $start,
+            'pause' => $pause,
             'end' => $end,
             'minutes' => $minutes,
             'latitude' => $this->faker->latitude,

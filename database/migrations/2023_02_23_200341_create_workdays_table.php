@@ -21,6 +21,8 @@ class CreateWorkdaysTable extends Migration
             $table->string('status');
             $table->date('date');
             $table->dateTime('start');
+            $table->dateTime('pause')->nullable();
+            $table->dateTime('resume')->nullable();
             $table->dateTime('end')->nullable();
             $table->integer('minutes')->nullable();
             $table->double('latitude')->nullable();

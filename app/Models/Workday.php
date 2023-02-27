@@ -16,6 +16,8 @@ class Workday extends Model
         'status',
         'date',
         'start',
+        'pause',
+        'resume',
         'end',
         'minutes',
         'latitude',

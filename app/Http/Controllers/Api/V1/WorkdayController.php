@@ -86,4 +86,7 @@ class WorkdayController extends Controller
     {
         //
     }
+    /*
+    getJornada(): meotodo que devuelve si es un nuevo dia laboral o si es un dia laboral en curso, la manera de definir esto sera por una comparativa donde si la ultima actividad registrada es una salida, entonces crear nuevo dia laboral o si la ultima actividad registrada tiene una diferencia de ahorita mayor o igual a la cantidad de horas laborales en contrato significa que a la persona se le olvido el dia antrior registrar su salida y es un nuevo dia laboral 
+    */
 }

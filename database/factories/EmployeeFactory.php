@@ -22,8 +22,8 @@ class EmployeeFactory extends Factory
         $type = $this->faker->randomElement(['I', 'C', 'E']);
         $company_id = $type != "C" ? \App\Models\Company::factory()->create()->id : null;
         $company_uuid = $type != "C" ? \App\Models\Company::factory()->create()->uuid : null;
-        $customer_id = $type != "I" ? \App\Models\Customer::factory()->create()->id : null;
-        $customer_uuid = $type != "I" ?\App\Models\Customer::factory()->create()->uuid : null;
+        $client_id = $type != "I" ? \App\Models\Client::factory()->create()->id : null;
+        $client_uuid = $type != "I" ?\App\Models\Client::factory()->create()->uuid : null;
         $gender = $this->faker->randomElement(['M', 'F']);
         $firstname = $gender == 'M' ? $this->faker->firstNameMale() : $this->faker->firstNameFemale();
         $rfc = $this->faker->boolean() ? $this->faker->bothify('RFC###???') : null;
@@ -44,8 +44,8 @@ class EmployeeFactory extends Factory
             'uuid' => $this->faker->uuid(),
             'company_id' => $company_id,
             'company_uuid' => $company_uuid,
-            'customer_id' => $customer_id,
-            'customer_uuid' => $customer_uuid,
+            'client_id' => $client_id,
+            'client_uuid' => $client_uuid,
             'type' => $type,
             'gender' => $gender,
             'firstname' => $firstname,
