@@ -30,11 +30,11 @@ class EmployeeFactory extends Factory
         $curp = $this->faker->boolean() ? $this->faker->bothify('CURP###???') : null;
         $nss = $this->faker->boolean() ? $this->faker->bothify('NSS###???') : null;
         $fonacot = $this->faker->boolean();
-        $fonacot_total = $fonacot ? $this->faker->randomFloat(2) : null;
-        $fonacot_discount = $fonacot ? $this->faker->randomFloat(2) : null;
+        $fonacot_total = $fonacot ? $this->faker->numberBetween(1000,100000) : null;
+        $fonacot_discount = $fonacot ? $fonacot_total / $this->faker->numberBetween(1,60) : null;
         $infonavit = $this->faker->boolean();    
         $infonavit_creditnumber =  $nss ? $this->faker->bothify('INF###???') : null;
-        $infonavit_discount = $fonacot ? $this->faker->randomFloat(2) : null;
+        $infonavit_discount = $fonacot ? $this->faker->numberBetween(1,1600) : null;
         $infonavit_factor = $this->faker->randomElement(['VSM', 'UDIS', 'MXN']);
         $maritalstatus = $this->faker->randomElement(['S', 'M']);
         //S Single M Married
@@ -42,11 +42,15 @@ class EmployeeFactory extends Factory
         //SP separate property Single CS conjugal society
         return [
             'uuid' => $this->faker->uuid(),
+            'company_id' => $company_id,
+            'company_uuid' => $company_uuid,
+            'customer_id' => $customer_id,
+            'customer_uuid' => $customer_uuid,
             'type' => $type,
+            'gender' => $gender,
             'firstname' => $firstname,
             'paternalsurname' => $this->faker->lastName(),
             'maternalsurname' => $this->faker->lastName(),
-            'gender' => $gender,
             'phone' => $this->faker->phoneNumber(),
             'email' => $this->faker->email(),
             'birthdate' => $this->faker->date(),

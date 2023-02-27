@@ -12,6 +12,7 @@ class EmployeeFile extends Model
     protected $fillable = [
         'employee_id',
         'employee_uuid',
+        'count',
         'checked',
         'file',
         'uuid',

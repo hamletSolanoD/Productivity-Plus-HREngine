@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\EmployeeFile;
 use Illuminate\Database\Seeder;
 
 class EmployeeFileSeeder extends Seeder
@@ -13,6 +14,8 @@ class EmployeeFileSeeder extends Seeder
      */
     public function run()
     {
-        //
+        EmployeeFile::factory()
+            ->count(200)
+            ->create();
     }
 }
