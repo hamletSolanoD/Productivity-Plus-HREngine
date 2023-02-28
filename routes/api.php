@@ -30,4 +30,5 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
     Route::post('invoices/bulk', ['uses' => 'InvoiceController@bulkStore']);
     Route::post('users/login', ['uses' => 'UserController@userLogin']);
     Route::post('timeclock/get', ['uses' => 'WorkdayController@getWorkday']);
+    Route::post('timeclock/check', ['uses' => 'WorkdayController@checkWorkday']);
 });
