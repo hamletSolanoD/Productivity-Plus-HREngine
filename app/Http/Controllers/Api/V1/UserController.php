@@ -20,7 +20,13 @@ class UserController extends Controller
     {
         //
     }
-
+    /*
+    request
+    {
+        "email": "admin@gmail.com",
+        "password": "Sist8293"
+    }
+    */
     public function userLogin(UserLoginRequest $request)
     {
         $email = $request->input('email');

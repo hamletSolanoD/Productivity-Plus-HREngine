@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('type');
             $table->boolean('employee_id');
             $table->string('name');
+            //$table->string('uuid');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

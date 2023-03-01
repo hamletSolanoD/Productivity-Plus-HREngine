@@ -92,6 +92,7 @@ class WorkdayController extends Controller
     }
     
     /*
+    request
     {
         "employee_uuid": "7b984f91-be17-3dcd-af52-9e74fcfb3327",
         "company_uuid": "88ac45cb-35e8-36ab-beef-53934a1116e6",
@@ -130,8 +131,19 @@ class WorkdayController extends Controller
     }
 
     /*
+    request
     {
         "action": "in",
+        "employee_uuid": "7b984f91-be17-3dcd-af52-9e74fcfb3327",
+        "company_uuid": "88ac45cb-35e8-36ab-beef-53934a1116e6",
+        "client_uuid": "69c25a44-8cab-3405-b654-90d9aefa2696",
+        "place": "Av. de los Insurgentes 5022, Mascareñas, 32340 Cd Juárez, Chih.",
+        "latitude": 31.7309652,
+        "longitude": -106.440468
+    }
+    {
+        "action": "out",
+        
         "employee_uuid": "7b984f91-be17-3dcd-af52-9e74fcfb3327",
         "company_uuid": "88ac45cb-35e8-36ab-beef-53934a1116e6",
         "client_uuid": "69c25a44-8cab-3405-b654-90d9aefa2696",
@@ -143,6 +155,7 @@ class WorkdayController extends Controller
     public function checkWorkday(CheckWorkdayRequest $request)
     {
         $action = $request->input('action');
+        $uuid = $request->input('uuid');
         $employee_uuid = $request->input('employee_uuid');
         $company_uuid = $request->input('company_uuid');
         $client_uuid = $request->input('client_uuid');
@@ -152,7 +165,7 @@ class WorkdayController extends Controller
         if($action == "in"){            
             $start = new \DateTime("now", new \DateTimeZone('America/Denver') );
             $date = $start->format("Y-m-d");
-            $id = DB::table('users')->insertGetId([
+            $id = DB::table('workdays')->insertGetId([
                 'employee_uuid' => $employee_uuid,
                 'company_uuid'   => $company_uuid,
                 'client_uuid'   => $client_uuid,
@@ -164,6 +177,9 @@ class WorkdayController extends Controller
                 'longitude' => $longitude
             ]);
             return response()->json(['id' => $id], 200);
+        }
+        if($action == "out"){
+
         }
         /*
         'employee_uuid',
