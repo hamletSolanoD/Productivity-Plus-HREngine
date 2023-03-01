@@ -4,11 +4,14 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Models\Workday;
 use App\Http\Requests\V1\GetWorkdayRequest;
+use App\Http\Requests\V1\CheckWorkdayRequest;
 use App\Http\Requests\StoreWorkdayRequest;
 use App\Http\Requests\UpdateWorkdayRequest;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class WorkdayController extends Controller
 {
@@ -88,18 +91,29 @@ class WorkdayController extends Controller
         //
     }
     
-    public function getWorkday(GetWorkdayRequest $request)
+    /*
     {
+        "employee_uuid": "7b984f91-be17-3dcd-af52-9e74fcfb3327",
+        "company_uuid": "88ac45cb-35e8-36ab-beef-53934a1116e6",
+        "client_uuid": "69c25a44-8cab-3405-b654-90d9aefa2696"
+    }
+    */
+    public function getWorkday(GetWorkdayRequest $request)
+    {        
+        //1. agregar los dias laborales del contrato
         $employee_uuid = $request->input('employee_uuid');
         $company_uuid = $request->input('company_uuid');
         $client_uuid = $request->input('client_uuid');
-        //return response()->json(['employee_uuid' => $employee_uuid, 'company_uuid' => $company_uuid, 'client_uuid' => $client_uuid], 200);             
-        if(!empty($employee_uuid) && (!empty($company_uuid) || !empty($client_uuid))){            
-            $workday = WorkDay::where('employee_uuid', $employee_uuid)->first();
+        if(!empty($employee_uuid) && (!empty($company_uuid) || !empty($client_uuid))){      
+            $id = DB::table('workdays')->where('employee_uuid', '=', $employee_uuid)->orderBy('id', 'desc')->take(1)->value('id');
+            $workday = WorkDay::where('id', $id)->first();
+            //$workday = WorkDay::where('employee_uuid', $employee_uuid)->last();
             if(!empty($workday)){
-                //cata.rivera.jrz@gmail.com
+                $now = new \DateTime("now", new \DateTimeZone('America/Denver') );
+                $now_c = new Carbon($now);
                 if($workday['status'] == "O"){
-                    $data = ['new' => false, 'message' => 'Work day opened', 'workday' => $workday];
+                    $lapsedMinutes = $now_c->diffInMinutes($workday['start']);
+                    $data = ['new' => false, 'message' => 'Work day opened', 'workday' => $workday, 'lapsedMinutes' => $lapsedMinutes];
                     return response()->json($data, 203);
                 } else {
                     $data = ['new' => true, 'message' => 'New work day the last work day is closed o paused'];
@@ -114,6 +128,61 @@ class WorkdayController extends Controller
             return response()->json($data, 203);
         }
     }
+
+    /*
+    {
+        "action": "in",
+        "employee_uuid": "7b984f91-be17-3dcd-af52-9e74fcfb3327",
+        "company_uuid": "88ac45cb-35e8-36ab-beef-53934a1116e6",
+        "client_uuid": "69c25a44-8cab-3405-b654-90d9aefa2696",
+        "place": "Av. de los Insurgentes 5022, Mascareñas, 32340 Cd Juárez, Chih.",
+        "latitude": 31.7309652,
+        "longitude": -106.440468
+    }
+    */
+    public function checkWorkday(CheckWorkdayRequest $request)
+    {
+        $action = $request->input('action');
+        $employee_uuid = $request->input('employee_uuid');
+        $company_uuid = $request->input('company_uuid');
+        $client_uuid = $request->input('client_uuid');
+        $place = $request->input('place');
+        $latitude = $request->input('latitude');
+        $longitude = $request->input('longitude');
+        if($action == "in"){            
+            $start = new \DateTime("now", new \DateTimeZone('America/Denver') );
+            $date = $start->format("Y-m-d");
+            $id = DB::table('users')->insertGetId([
+                'employee_uuid' => $employee_uuid,
+                'company_uuid'   => $company_uuid,
+                'client_uuid'   => $client_uuid,
+                'status' => 'O',
+                'date' => $date,
+                'start' => $start,
+                'place' => $place,
+                'latitude' => $latitude,
+                'longitude' => $longitude
+            ]);
+            return response()->json(['id' => $id], 200);
+        }
+        /*
+        'employee_uuid',
+        'client_uuid',
+        'company_uuid',
+        'status',
+        'date',
+        'start',
+        'pause',
+        'resume',
+        'end',
+        'minutes',
+        'latitude',
+        'longitude',
+        'place',
+        */
+    }
+    /*
+    
     /*
     employee_uuid
     comp_uuid
