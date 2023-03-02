@@ -16,10 +16,9 @@ class CreateEmployeeFilesTable extends Migration
         Schema::create('employee_files', function (Blueprint $table) {
             $table->id();
             $table->integer('employee_id');
-            $table->string('employee_uuid');
-            $table->string('file');  
-            $table->string('uuid');          
-            //$table->integer('count');
+            $table->string('employee_uuid');  
+            $table->string('uuid');
+            $table->string('file');
             $table->boolean('checked');
             $table->timestamps();
         });

@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {
@@ -14,14 +15,17 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+        $employee_id = \App\Models\Employee::factory()->create()->id;
+        $employee_uuid = \App\Models\Employee::factory()->create()->uuid;
         $user = User::create([
             'active' => true,
             'type' => 'e', 
-            'employee_id' => 1,            
-            'uuid' => '18432dbc-b872-11ed-afa1-0242ac120002',  
+            'employee_id' => $employee_id,
+            'employee_uuid' => $employee_uuid,
+            'uuid' => $this->faker->uuid(),
             'name' => 'Admin', 
             'email' => 'admin@gmail.com',
-            'password' => bcrypt('Sist8293')
+            'password' => Hash::make('Sist8293')
         ]);
     }
 }

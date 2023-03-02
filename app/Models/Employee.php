@@ -9,6 +9,11 @@ class Employee extends Model
 {
     use HasFactory;
     
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
     protected $fillable = [
         'uuid',
         'employeecontract_id',
@@ -39,53 +44,16 @@ class Employee extends Model
         'infonavit_discount',
         'infonavit_factor',
         'bankcontract_interbankkey',
-        /*
-        'rfc',
-        'rfc_value',
-        'rfc_uuid',
-        'curp',
-        'curp_value',
-        'curp_uuid',
-        'nss',
-        'nss_value',
-        'nss_uuid',
-        'fonacot',
-        'fonacot_total',
-        'fonacot_discount',
-        'fonacot_uuid',
-        'infonavit_creditnumber',
-        'infonavit_discount',
-        'infonavit_factor',
-        'infonavit_uuid',
-        'bankcontract',
-        'bankcontract_interbankkey',
-        'bankcontract_uuid',
-        'jobapplication',
-        'jobapplication_uuid',
-        'birthcertificate',
-        'birthcertificate_uuid',
-        'studycertificate',
-        'studycertificate_uuid',
-        'proofofaddress',
-        'proofofaddress_uuid',
-        'workcontract',
-        'workcontract_uuid',
-        'workregulation',
-        'workregulation_uuid',
-        'bankpolicy',
-        'bankpolicy_uuid',
+    ];
+
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<int, string>
+     */
+    protected $hidden = [
         'id',
-        'id_uuid',
-        'infonavitprequalification',
-        'infonavitprequalification_uuid',
-        'fonacotdisclaimer',
-        'fonacotdisclaimer_uuid',
-        'agreementformat',
-        'agreementformat_uuid',
-        'settlementreceipt',
-        'settlementreceipt_uuid',
-        'administrativerecord',
-        'administrativerecord_uuid',
-        */
+        'created_at',
+        'updated_at',
     ];
 }

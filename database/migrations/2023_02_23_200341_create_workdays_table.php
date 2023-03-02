@@ -18,13 +18,14 @@ class CreateWorkdaysTable extends Migration
             $table->string('employee_uuid');
             $table->string('client_uuid')->nullable();
             $table->string('company_uuid')->nullable();
-            //$table->string('uuid');
+            $table->string('uuid');
             $table->string('status');
             $table->date('date');
             $table->dateTime('start');
-            //quitar
+            /*
             $table->dateTime('pause')->nullable();            
             $table->dateTime('resume')->nullable();
+            */
             $table->dateTime('end')->nullable();
             $table->integer('minutes')->nullable();
             $table->double('latitude')->nullable();

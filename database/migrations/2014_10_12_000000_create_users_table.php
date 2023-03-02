@@ -18,6 +18,7 @@ class CreateUsersTable extends Migration
             $table->boolean('active');
             $table->string('type');
             $table->boolean('employee_id');
+            $table->boolean('employee_uuid');
             $table->string('name');
             $table->string('uuid');
             $table->string('email')->unique();
