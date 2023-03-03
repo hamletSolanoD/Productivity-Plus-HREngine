@@ -1,5 +1,4 @@
 <?php
-
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -14,12 +13,14 @@ class UserFactory extends Factory
      * @return array
      */
     public function definition()
-    {               
+    {
         $employee_id = \App\Models\Employee::factory()->create()->id;
         $employee_uuid = \App\Models\Employee::factory()->create()->uuid;
         $email = \App\Models\Employee::factory()->create()->email;
         $firstname = \App\Models\Employee::factory()->create()->firstname;
         $paternalsurname = \App\Models\Employee::factory()->create()->paternalsurname;
+        $uuid = $this->faker->uuid();
+        $active = $this->faker->active();
         return [
             'uuid' => $this->faker->uuid(),
             'active' => $this->faker->boolean(),
