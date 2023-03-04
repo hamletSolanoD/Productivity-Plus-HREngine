@@ -10,7 +10,7 @@ namespace App\Http\Resources\V1;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class InvoiceResource extends JsonResource
+class UserResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -23,11 +23,13 @@ class InvoiceResource extends JsonResource
         //return parent::toArray($request);
         return [
             'id' => $this->id,
-            'customerId' => $this->customer_id,
-            'amount' => $this->amount,
-            'status' => $this->status,
-            'billedDate' => $this->billed_date,
-            'paidDate' => $this->paid_date,
+            'active' => $this->active,
+            'employee_id' => $this->employee_id,
+            'employee_uuid' => $this->employee_uuid,
+            'name' => $this->name,
+            'uuid' => $this->uuid,
+            'email' => $this->email,
+            'password' => $this->password,
         ];
     }
 }

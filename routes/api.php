@@ -27,6 +27,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
     Route::apiResource('clients', ClientController::class);
     Route::apiResource('companies', CompanyController::class);
     Route::apiResource('employees', EmployeeController::class);
+    Route::apiResource('users', UserController::class);
     Route::post('invoices/bulk', ['uses' => 'InvoiceController@bulkStore']);
     Route::post('users/login', ['uses' => 'UserController@userLogin']);
     Route::post('timeclock/get', ['uses' => 'WorkdayController@getWorkday']);

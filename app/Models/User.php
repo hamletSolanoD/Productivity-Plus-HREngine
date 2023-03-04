@@ -21,6 +21,7 @@ class User extends Authenticatable
         'active',
         'type',
         'employee_id',
+        'employee_uuid',
         'uuid',
         'name',
         'email',

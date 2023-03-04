@@ -10,7 +10,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\Hash;
 
-class StoreUserRequest extends FormRequest
+class UpdateUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -19,8 +19,8 @@ class StoreUserRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
         //return false;
+        return true;
     }
 
     /**
@@ -31,21 +31,25 @@ class StoreUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'active' => 'required',
-            'type' => 'required',
-            'employee_id' => 'required_if:type,=,e|integer',
-            'employee_uuid' => 'required_if:type,=,e|size:36',
-            'name' => 'required',
-            'uuid' => 'required|size:36',
-            'email' => 'required|email|unique:users,email',
+            
+            'active' => ['sometimes', 'required'],
+            /*
+            'active' => 'sometimes|required',
+            'type' => 'sometimes|required',
+            'employee_id' => 'sometimes|required_if:type,=,e|integer',
+            'employee_uuid' => 'sometimes|required_if:type,=,e|size:36',
+            'name' => 'sometimes|required',
+            'uuid' => 'sometimes|required|size:36',
+            'email' => 'sometimes|required|email|unique:users,email',
             'password' => [
-                'required',
+                'sometimes|required',
                 Password::min(8)
                 ->letters()
                 ->mixedCase()
                 ->numbers()
                 ->symbols()
             ],
+            */
         ];
     }
     

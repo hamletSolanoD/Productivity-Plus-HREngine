@@ -1,5 +1,11 @@
 <?php
-
+/*
+╔══════════════════════════════════════════════════╗
+║        © 2023 Productivity Plus HR Engine        ║
+╠══════════════════════════════════════════════════╣
+║   In memory of Patricia Ivonne Alvarez Avitia!   ║
+╚══════════════════════════════════════════════════╝
+*/
 namespace App\Http\Resources\V1;
 
 use Illuminate\Http\Resources\Json\JsonResource;
