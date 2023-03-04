@@ -22,8 +22,8 @@ class UserFactory extends Factory
         $uuid = $this->faker->uuid();
         $active = $this->faker->active();
         return [
-            'uuid' => $this->faker->uuid(),
-            'active' => $this->faker->boolean(),
+            'uuid' => $uuid,
+            'active' => $active,
             'type' => 'e', 
             'employee_id' => $employee_id, 
             'employee_uuid' => $employee_uuid, 

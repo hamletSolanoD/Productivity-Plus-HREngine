@@ -18,12 +18,16 @@ class CreateEmployeesTable extends Migration
             $table->string('uuid');
             $table->integer('employeecontract_id')->nullable()->unsigned();
             //$table->foreignId('employeecontract_id')->nullable()->references('id')->on('employeecontract');
+            $table->string('employeecontract_uuid')->nullable();
             $table->integer('employeeaddress_id')->nullable()->unsigned();
             //$table->foreignId('employeeaddress_id')->nullable()->references('id')->on('employeeaddress');
+            $table->string('employeeaddress_uuid')->nullable();
             $table->integer('employeebeneficiary_id')->nullable()->unsigned();
             //$table->foreignId('employeebeneficiary_id')->nullable()->references('id')->on('employeebeneficiary');
+            $table->string('employeebeneficiary_uuid')->nullable();
             $table->integer('employeesalary_id')->nullable()->unsigned();
             //$table->foreignId('employeesalary_id')->nullable()->references('id')->on('employeesalary');
+            $table->string('employeesalary_uuid')->nullable();
             $table->integer('company_id')->nullable()->unsigned();
             $table->string('company_uuid')->nullable();
             $table->integer('client_id')->nullable()->unsigned();

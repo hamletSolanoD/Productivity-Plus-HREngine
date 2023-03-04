@@ -20,7 +20,6 @@ class CustomerFactory extends Factory
         $name = $type == 'I' ? $this->faker->name() : $this->faker->company();
         return [
             'name' => $name,
-            'uuid' => $this->faker->uuid(),
             'type' => $type,
             'email' => $this->faker->email(),
             'address' => $this->faker->streetAddress(),

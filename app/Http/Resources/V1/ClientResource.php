@@ -15,15 +15,21 @@ class ClientResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
-            'name' => $this->name,
+            'uuid' => $this->uuid,
             'type' => $this->type,
+            'rfc' => $this->rfc,
+            'firstname' => $this->firstname,
+            'paternalsurname' => $this->paternalsurname,
+            'maternalsurname' => $this->maternalsurname,
+            'gender' => $this->gender,
+            'birthdate' => $this->birthdate,
+            'employerregistry' => $this->employerregistry,
+            'businessname' => $this->businessname,
+            'tradename' => $this->tradename,
+            'legalrepresentative' => $this->legalrepresentative,
+            'phone' => $this->phone,
             'email' => $this->email,
-            'address' => $this->address,
-            'city' => $this->city,
-            'state' => $this->state,
-            'postalCode' => $this->postal_code,
-            'invoices' => InvoiceResource::collection($this->whenLoaded('invoices')),
         ];
     }
+    //20230303
 }

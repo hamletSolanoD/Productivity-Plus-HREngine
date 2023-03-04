@@ -16,7 +16,7 @@ class ClientFactory extends Factory
         $type = $this->faker->randomElement(['I', 'B']);
         $name = $type == 'I' ? $this->faker->name() : $this->faker->company();
         $gender = $type == 'I' ? $this->faker->randomElement(['M', 'F']) : null;
-        $firstname = $type == 'I' && $gender == 'M' ? $this->faker->firstNameMale() : $this->faker->firstNameFemale();
+        $firstname = $type == 'I'? $gender == 'M' ? $this->faker->firstNameMale() : $this->faker->firstNameFemale() : null;
         $paternalsurname = $type == 'I' ? $this->faker->lastName() : null;
         $maternalsurname = $type == 'I' ?$this->faker->lastName() : null;
         $date = $this->faker->date();

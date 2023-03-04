@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Workday;
+use App\Models\Activity;
 use Illuminate\Database\Seeder;
 
-class WorkdaySeeder extends Seeder
+class ActivitySeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,7 +14,7 @@ class WorkdaySeeder extends Seeder
      */
     public function run()
     {
-        Workday::factory()
+        Activity::factory()
             ->count(20)
             ->create();
     }

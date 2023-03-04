@@ -15,7 +15,7 @@ class EmployeeFileSeeder extends Seeder
     public function run()
     {
         EmployeeFile::factory()
-            ->count(200)
+            ->count(100)
             ->create();
     }
 }

@@ -33,9 +33,9 @@ class EmployeeFactory extends Factory
         $fonacot_total = $fonacot ? $this->faker->numberBetween(1000,100000) : null;
         $fonacot_discount = $fonacot ? $fonacot_total / $this->faker->numberBetween(1,60) : null;
         $infonavit = $this->faker->boolean();    
-        $infonavit_creditnumber =  $nss ? $this->faker->bothify('INF###???') : null;
-        $infonavit_discount = $fonacot ? $this->faker->numberBetween(1,1600) : null;
-        $infonavit_factor = $this->faker->randomElement(['VSM', 'UDIS', 'MXN']);
+        $infonavit_creditnumber =  $infonavit ? $this->faker->bothify('INF###???') : null;
+        $infonavit_discount = $infonavit ? $this->faker->numberBetween(1,1600) : null;
+        $infonavit_factor = $infonavit ? $this->faker->randomElement(['VSM', 'UDIS', 'MXN']) : null;
         $maritalstatus = $this->faker->randomElement(['S', 'M']);
         //S Single M Married
         $matrimonialregime =  $maritalstatus == 'M' ? $this->faker->randomElement(['SP', 'CS']) : null;

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Models\Client;
-use App\Http\Requests\StoreClientRequest;
-use App\Http\Requests\UpdateClientRequest;
+use App\Http\Requests\V1\StoreClientRequest;
+use App\Http\Requests\V1\UpdateClientRequest;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -44,7 +44,8 @@ class ClientController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(StoreClientRequest $request)
-    {        
+    {
+
         /*
         {
             "uuid":"422f4523-ad80-42bf-94de-977af544f3b3",

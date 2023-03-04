@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateWorkdaysTable extends Migration
+class CreateActivitiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,24 +13,17 @@ class CreateWorkdaysTable extends Migration
      */
     public function up()
     {
-        Schema::create('workdays', function (Blueprint $table) {
+        Schema::create('activities', function (Blueprint $table) {
             $table->id();
-            $table->string('employee_uuid');
-            $table->string('client_uuid')->nullable();
-            $table->string('company_uuid')->nullable();
+            $table->foreignId('workday_id')->references('id')->on('workdays');
+            $table->string('workday_uuid');
             $table->string('uuid');
+            $table->string('type');
             $table->string('status');
-            $table->date('date');
             $table->dateTime('start');
-            /*
-            $table->dateTime('pause')->nullable();            
-            $table->dateTime('resume')->nullable();
-            */
             $table->dateTime('end')->nullable();
             $table->integer('minutes')->nullable();
-            $table->double('latitude')->nullable();
-            $table->double('longitude')->nullable();
-            $table->string('place')->nullable();
+            $table->string('description');
             $table->timestamps();
         });
     }
@@ -42,6 +35,6 @@ class CreateWorkdaysTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('workdays');
+        Schema::dropIfExists('activities');
     }
 }
