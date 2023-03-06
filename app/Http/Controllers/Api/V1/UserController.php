@@ -42,12 +42,15 @@ class UserController extends Controller
      */
     /*
     [url] http://localhost:8000/api/v1/users [post] 
-    [request] { "active": true,	"type": "e", "employee_id": 1, "employee_uuid": "a77667d7-58f3-34dc-9353-185562051836",	"name": "User",	"uuid": "00e5a5dd-b65f-4215-bde2-0932d8619582",	"email": "user@gmail.com", "password -> "S1$4.Cr3@" }
+    [request] { "active": true,	"type": "e", "employee_id": 1, "employee_uuid": "a77667d7-58f3-34dc-9353-185562051836",	"name": "User",	"uuid": "00e5a5dd-b65f-4215-bde2-0932d8619582",	"email": "user@gmail.com", "password": "S1$4.Cr3@" }
     */
     public function store(StoreUserRequest $request)
     {
-        return new UserResource(User::create($request->all()));
+        $user = new UserResource(User::create($request->all()));
+        $user = $user->setHidden(['id', 'employee_id', 'password', "updated_at", "created_at"])->toArray();
+        return response()->json(["success"=>true, "message"=>"created user", "data" => $user], 200);
     }
+
     /*
     [url] http://localhost:8000/api/v1/users [patch] 
     [request] { "active": false }
@@ -55,6 +58,8 @@ class UserController extends Controller
     public function update(UpdateUserRequest $request, User $user)
     {
         $user->update($request->all());
+        $user = $user->setHidden(['id', 'employee_id', 'password', "email_verified_at", "remember_token", "updated_at", "created_at"])->toArray();        
+        return response()->json(["success"=>true, "message"=>"updated user", "data" => $user], 200);
     }
 
 
