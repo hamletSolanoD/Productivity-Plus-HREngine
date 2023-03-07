@@ -15,19 +15,17 @@ class CreateWorkdaysTable extends Migration
     {
         Schema::create('workdays', function (Blueprint $table) {
             $table->id();
+            $table->integer('employer_id');
+            $table->string('employer_uuid');
+            $table->integer('employee_id');
             $table->string('employee_uuid');
-            $table->string('client_uuid')->nullable();
-            $table->string('company_uuid')->nullable();
             $table->string('uuid');
             $table->string('status');
             $table->date('date');
             $table->dateTime('start');
-            /*
-            $table->dateTime('pause')->nullable();            
-            $table->dateTime('resume')->nullable();
-            */
             $table->dateTime('end')->nullable();
             $table->integer('minutes')->nullable();
+            $table->string('timezone')->nullable();
             $table->double('latitude')->nullable();
             $table->double('longitude')->nullable();
             $table->string('place')->nullable();

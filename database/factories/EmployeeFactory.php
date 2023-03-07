@@ -32,7 +32,7 @@ class EmployeeFactory extends Factory
         $fonacot = $this->faker->boolean();
         $fonacot_total = $fonacot ? $this->faker->numberBetween(1000,100000) : null;
         $fonacot_discount = $fonacot ? $fonacot_total / $this->faker->numberBetween(1,60) : null;
-        $infonavit = $this->faker->boolean();    
+        $infonavit = $this->faker->boolean();
         $infonavit_creditnumber =  $infonavit ? $this->faker->bothify('INF###???') : null;
         $infonavit_discount = $infonavit ? $this->faker->numberBetween(1,1600) : null;
         $infonavit_factor = $infonavit ? $this->faker->randomElement(['VSM', 'UDIS', 'MXN']) : null;

@@ -31,25 +31,21 @@ class UpdateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            
             'active' => ['sometimes', 'required'],
-            /*
-            'active' => 'sometimes|required',
-            'type' => 'sometimes|required',
-            'employee_id' => 'sometimes|required_if:type,=,e|integer',
-            'employee_uuid' => 'sometimes|required_if:type,=,e|size:36',
-            'name' => 'sometimes|required',
-            'uuid' => 'sometimes|required|size:36',
-            'email' => 'sometimes|required|email|unique:users,email',
+            'type' => ['sometimes', 'required'],
+            'employee_id' => ['sometimes', 'required_if:type,=,e', 'integer'],
+            'employee_uuid' => ['sometimes', 'required_if:type,=,e', 'size:36'],
+            'name' => ['sometimes', 'required'],
+            'uuid' => ['sometimes', 'required', 'size:36'],
+            'email' => ['sometimes', 'required', 'email', 'unique:users,email'],
             'password' => [
-                'sometimes|required',
+                'sometimes', 'required',
                 Password::min(8)
                 ->letters()
                 ->mixedCase()
                 ->numbers()
                 ->symbols()
             ],
-            */
         ];
     }
     

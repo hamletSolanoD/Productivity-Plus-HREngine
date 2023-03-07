@@ -1,5 +1,11 @@
 <?php
-
+/*
+╔══════════════════════════════════════════════════╗
+║        © 2023 Productivity Plus HR Engine        ║
+╠══════════════════════════════════════════════════╣
+║   In memory of Patricia Ivonne Alvarez Avitia!   ║
+╚══════════════════════════════════════════════════╝
+*/
 namespace App\Http\Controllers\Api\V1;
 
 use App\Models\Workday;
@@ -95,38 +101,31 @@ class WorkdayController extends Controller
     request
     {
         "employee_uuid": "7b984f91-be17-3dcd-af52-9e74fcfb3327",
-        "company_uuid": "88ac45cb-35e8-36ab-beef-53934a1116e6",
-        "client_uuid": "69c25a44-8cab-3405-b654-90d9aefa2696"
+        "employer_uuid": "88ac45cb-35e8-36ab-beef-53934a1116e6",
     }
     */
     public function getWorkday(GetWorkdayRequest $request)
     {        
         //1. agregar los dias laborales del contrato
         $employee_uuid = $request->input('employee_uuid');
-        $company_uuid = $request->input('company_uuid');
-        $client_uuid = $request->input('client_uuid');
-        if(!empty($employee_uuid) && (!empty($company_uuid) || !empty($client_uuid))){      
-            $id = DB::table('workdays')->where('employee_uuid', '=', $employee_uuid)->orderBy('id', 'desc')->take(1)->value('id');
-            $workday = WorkDay::where('id', $id)->first();
-            //$workday = WorkDay::where('employee_uuid', $employee_uuid)->last();
-            if(!empty($workday)){
-                $now = new \DateTime("now", new \DateTimeZone('America/Denver') );
-                $now_c = new Carbon($now);
-                if($workday['status'] == "O"){
-                    $lapsedMinutes = $now_c->diffInMinutes($workday['start']);
-                    $data = ['new' => false, 'message' => 'Work day opened', 'workday' => $workday, 'lapsedMinutes' => $lapsedMinutes];
-                    return response()->json($data, 203);
-                } else {
-                    $data = ['new' => true, 'message' => 'New work day the last work day is closed o paused'];
-                    return response()->json($data, 200);
-                }
+        $employer_uuid = $request->input('employer_uuid');
+        $timezone = $request->input('timezone');
+        $id = DB::table('workdays')->where('employee_uuid', '=', $employee_uuid)->orderBy('id', 'desc')->take(1)->value('id');
+        $workday = WorkDay::where('id', $id)->first();
+        if(!empty($workday)){
+            $now = new \DateTime("now", new \DateTimeZone('America/Denver') );
+            $now_c = new Carbon($now);
+            if($workday['status'] == "O"){
+                $lapsedMinutes = $now_c->diffInMinutes($workday['start']);
+                $data = ['new' => false, 'message' => 'Work day opened', 'workday' => $workday, 'lapsedMinutes' => $lapsedMinutes];
+                return response()->json($data, 203);
             } else {
-                $data = ['new' => true, 'message' => 'New work day'];
+                $data = ['new' => true, 'message' => 'New work day the last work day is closed o paused'];
                 return response()->json($data, 200);
             }
         } else {
-            $data = ['login' => false, 'message' => 'Please specify employee_uuid and company_uuid or company_uuid'];
-            return response()->json($data, 203);
+            $data = ['new' => true, 'message' => 'New work day'];
+            return response()->json($data, 200);
         }
     }
 

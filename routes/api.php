@@ -28,8 +28,8 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
     Route::apiResource('companies', CompanyController::class);
     Route::apiResource('employees', EmployeeController::class);
     Route::apiResource('users', UserController::class);
+    Route::apiResource('workdays', WorkdayController::class);
     Route::post('invoices/bulk', ['uses' => 'InvoiceController@bulkStore']);
-    Route::post('users/login', ['uses' => 'UserController@userLogin']);
-    Route::post('timeclock/get', ['uses' => 'WorkdayController@getWorkday']);
-    Route::post('timeclock/check', ['uses' => 'WorkdayController@checkWorkday']);
+    Route::post('workdays/get', ['uses' => 'WorkdayController@getWorkday']);
+    //Route::post('timeclock/check', ['uses' => 'WorkdayController@checkWorkday']);
 });

@@ -5,8 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Workday extends Model
-{    
+class Employer extends Model
+{
     use HasFactory;
     
     /**
@@ -15,20 +15,23 @@ class Workday extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'employee_uuid',
-        'employer_uuid',
+        'outsource',
         'uuid',
-        'status',
-        'date',
-        'start',
-        'end',
-        'timezone',
-        'minutes',
-        'latitude',
-        'longitude',
-        'place',
+        'persontype',
+        'rfc',
+        'firstname',
+        'paternalsurname',
+        'maternalsurname',
+        'gender',
+        'birthdate',
+        'employerregistry',
+        'businessname',
+        'tradename',
+        'legalrepresentative',
+        'phone',
+        'email',
+        'outsourceat',
     ];
-    
     /**
      * The attributes that should be hidden for serialization.
      *

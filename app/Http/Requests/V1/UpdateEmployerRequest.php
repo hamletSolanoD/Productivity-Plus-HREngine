@@ -3,9 +3,8 @@
 namespace App\Http\Requests\V1;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
-class StoreEmployeeRequest extends FormRequest
+class UpdateEmployerRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,8 +13,7 @@ class StoreEmployeeRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
-        //return false;
+        return false;
     }
 
     /**
@@ -26,11 +24,7 @@ class StoreEmployeeRequest extends FormRequest
     public function rules()
     {
         return [
-            'uuid' => ['required'],
-            'firstname' => ['required'],
-            'gender' => ['required'],
-            'birthdate' => ['required', Rule::in(['M', 'F', 'm', 'f'])],
-            'curp_value' => ['required'],
+            //
         ];
     }
 }

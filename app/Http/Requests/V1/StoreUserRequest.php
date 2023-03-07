@@ -9,6 +9,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\V1\FailedValidation;
 
 class StoreUserRequest extends FormRequest
 {
@@ -48,7 +49,7 @@ class StoreUserRequest extends FormRequest
             ],
         ];
     }
-    
+
     public function failedValidation(Validator $validator){
         throw new HttpResponseException(response()->json([
             'success'   => false,
@@ -57,7 +58,7 @@ class StoreUserRequest extends FormRequest
         ]));
     }
 
-    protected function prepareForValidation()
+    protected function passedValidation()
     {
         $this->merge([
             'password' => Hash::make($this->password)

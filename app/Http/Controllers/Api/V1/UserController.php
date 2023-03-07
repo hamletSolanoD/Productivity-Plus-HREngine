@@ -35,65 +35,78 @@ class UserController extends Controller
     }
 
     /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    /*    
+    [url] http://localhost:8000/api/v1/users/{uuid} [delete] 
+    */
+    public function destroy(Request $request, $uuid)
+    {
+        $user = User::where('uuid', $uuid)->first();
+        if(empty($user)){
+            return response()->json(["success" => false, "message" => "user uuid ".$uuid." dosent exist"], 200);
+        }
+        $user->delete();
+        return response()->json(["success" => true, "message" => "deleted user"], 200);
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\V1\StoreUserRequest  $request
      * @return \Illuminate\Http\Response
      */
     /*
-    [url] http://localhost:8000/api/v1/users [post] 
+    [url] http://localhost:8000/api/v1/users/{uuid} [post] 
     [request] { "active": true,	"type": "e", "employee_id": 1, "employee_uuid": "a77667d7-58f3-34dc-9353-185562051836",	"name": "User",	"uuid": "00e5a5dd-b65f-4215-bde2-0932d8619582",	"email": "user@gmail.com", "password": "S1$4.Cr3@" }
     */
     public function store(StoreUserRequest $request)
     {
-        $user = new UserResource(User::create($request->all()));
-        $user = $user->setHidden(['id', 'employee_id', 'password', "updated_at", "created_at"])->toArray();
-        return response()->json(["success"=>true, "message"=>"created user", "data" => $user], 200);
+        new UserResource(User::create($request->all()));
+        $user = User::where('uuid', $request->input('uuid'))->first();
+        return response()->json(["success" => true, "message" => "created user", "data" => $user], 200);
     }
 
     /*
-    [url] http://localhost:8000/api/v1/users [patch] 
+    [url] http://localhost:8000/api/v1/users/{uuid} [patch] 
     [request] { "active": false }
     */
-    public function update(UpdateUserRequest $request, User $user)
+    public function update(UpdateUserRequest $request, $uuid /*User $user*/)
     {
+        $user = User::where('uuid', $uuid)->first();
+        if(empty($user)){
+            return response()->json(["success" => false, "message" => "user uuid ".$uuid." dosent exist"], 200);
+        }
         $user->update($request->all());
-        $user = $user->setHidden(['id', 'employee_id', 'password', "email_verified_at", "remember_token", "updated_at", "created_at"])->toArray();        
-        return response()->json(["success"=>true, "message"=>"updated user", "data" => $user], 200);
+        return response()->json(["success" => true, "message" => "updated user", "data" => $user], 200);
     }
 
 
     /*
-    [url] http://localhost:8000/api/v1/users/login [get]
+    [url] http://localhost:8000/api/v1/users/login [post]
     [request] { "email": "admin@gmail.com", "password": "Sist8293" }
     */
     public function userLogin(UserLoginRequest $request)
     {
         $email = $request->input('email');
         $password = $request->input('password');
-        if(!empty($email) && !empty($password)){
-            $user = User::where('email', $email)->first();
-            if(!empty($user)){
-                if($user['active']){
-                    if(Hash::check($password, $user['password'])){
-                        $data = ['login' => true, 'message' => 'User logged', 'user' => $user];
-                        return response()->json($data, 200);
-                    } else {
-                        $data = ['login' => true, 'message' => 'Incorrect password'];
-                        return response()->json($data, 203);
-                    }
-                } else {                    
-                    $contact = $user['type'] == 'e' ? 'employer' : 'system provider';
-                    $data = ['login' => false, 'message' => 'Inactive User, please contact with your ' . $contact];
-                    return response()->json($data, 203);
+        $user = User::where('email', $email)->first();
+        if(!empty($user)){
+            if($user['active']){
+                if(Hash::check($password, $user['password'])){
+                    return response()->json(['login' => true, 'message' => 'User logged', 'user' => $user], 200);
+                } else {
+                    return response()->json(['login' => true, 'message' => 'Incorrect password'], 203);
                 }
-            } else {
-                $data = ['login' => false, 'message' => 'Email is not registered'];
-                return response()->json($data, 203);
+            } else {                    
+                $contact = $user['type'] == 'e' ? 'employer' : 'system provider';
+                return response()->json(['login' => false, 'message' => 'Inactive User, please contact with your ' . $contact], 203);
             }
         } else {
-            $data = ['login' => false, 'message' => 'Please specify email and password'];
-            return response()->json($data, 203);
+            return response()->json(['login' => false, 'message' => 'Email is not registered'], 203);
         }
     }
 }
