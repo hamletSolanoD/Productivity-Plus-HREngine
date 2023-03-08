@@ -27,6 +27,9 @@ class Workday extends Model
         'latitude',
         'longitude',
         'place',
+        'latitude_out',
+        'longitude_out',
+        'place_out',
     ];
     
     /**
@@ -36,6 +39,8 @@ class Workday extends Model
      */
     protected $hidden = [
         'id',
+        'employee_id',
+        'employer_id',
         'created_at',
         'updated_at',
     ];

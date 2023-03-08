@@ -13,17 +13,21 @@ class EmployeeFactory extends Factory
      */
     public function definition()
     {
-        /*
+        /*  
         'employeecontract_id',
+        'employeecontract_uuid',
         'employeeaddress_id',
+        'employeeaddress_uuid',
         'employeebeneficiary_id',
+        'employeebeneficiary_uuid',
         'employeesalary_id',
+        'employeesalary_uuid',
+        'employer_id',
+        'employer_uuid',
         */
-        $type = $this->faker->randomElement(['I', 'C', 'E']);
-        $company_id = $type != "C" ? \App\Models\Company::factory()->create()->id : null;
-        $company_uuid = $type != "C" ? \App\Models\Company::factory()->create()->uuid : null;
-        $client_id = $type != "I" ? \App\Models\Client::factory()->create()->id : null;
-        $client_uuid = $type != "I" ?\App\Models\Client::factory()->create()->uuid : null;
+        //$type = \App\Models\Company::factory()->create()->id ? $this->faker->randomElement(['I', 'C', 'E']);
+        $employer_id = \App\Models\Employer::factory()->create()->id;
+        $employer_uuid = \App\Models\Employer::factory()->create()->uuid;
         $gender = $this->faker->randomElement(['M', 'F']);
         $firstname = $gender == 'M' ? $this->faker->firstNameMale() : $this->faker->firstNameFemale();
         $rfc = $this->faker->boolean() ? $this->faker->bothify('RFC###???') : null;
@@ -42,11 +46,9 @@ class EmployeeFactory extends Factory
         //SP separate property Single CS conjugal society
         return [
             'uuid' => $this->faker->uuid(),
-            'company_id' => $company_id,
-            'company_uuid' => $company_uuid,
-            'client_id' => $client_id,
-            'client_uuid' => $client_uuid,
-            'type' => $type,
+            'employer_id' => $employer_id,
+            'employer_uuid' => $employer_uuid,
+            //'type' => $type,
             'gender' => $gender,
             'firstname' => $firstname,
             'paternalsurname' => $this->faker->lastName(),

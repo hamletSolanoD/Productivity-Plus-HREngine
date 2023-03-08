@@ -25,10 +25,13 @@ class CreateWorkdaysTable extends Migration
             $table->dateTime('start');
             $table->dateTime('end')->nullable();
             $table->integer('minutes')->nullable();
-            $table->string('timezone')->nullable();
-            $table->double('latitude')->nullable();
-            $table->double('longitude')->nullable();
-            $table->string('place')->nullable();
+            $table->string('timezone');
+            $table->double('latitude');
+            $table->double('longitude');
+            $table->string('place');
+            $table->double('latitude_out')->nullable();
+            $table->double('longitude_out')->nullable();
+            $table->string('place_out')->nullable();
             $table->timestamps();
         });
     }

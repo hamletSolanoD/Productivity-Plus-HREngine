@@ -9,7 +9,11 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Models\Workday;
+use App\Models\Employee;
+use App\Models\Employer;
 use App\Http\Requests\V1\GetWorkdayRequest;
+use App\Http\Requests\V1\InWorkdayRequest;
+use App\Http\Requests\V1\OutWorkdayRequest;
 use App\Http\Requests\V1\CheckWorkdayRequest;
 use App\Http\Requests\StoreWorkdayRequest;
 use App\Http\Requests\UpdateWorkdayRequest;
@@ -18,6 +22,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Response;
 
 class WorkdayController extends Controller
 {
@@ -98,59 +103,102 @@ class WorkdayController extends Controller
     }
     
     /*
-    request
-    {
-        "employee_uuid": "7b984f91-be17-3dcd-af52-9e74fcfb3327",
-        "employer_uuid": "88ac45cb-35e8-36ab-beef-53934a1116e6",
-    }
+    [url] http://localhost:8000/api/v1/workdays/get [post]
+    { "employer_uuid": "1336eb7e-b2c7-32af-b82e-2c2f488ccd7c", "employee_uuid": "9e35e454-8f31-3f04-b8fb-77d2ed9eaee9" }
     */
     public function getWorkday(GetWorkdayRequest $request)
     {        
         //1. agregar los dias laborales del contrato
+        //se guardan todos los datos en UTC y se muestran en el timezone seleccionado
         $employee_uuid = $request->input('employee_uuid');
         $employer_uuid = $request->input('employer_uuid');
         $timezone = $request->input('timezone');
         $id = DB::table('workdays')->where('employee_uuid', '=', $employee_uuid)->orderBy('id', 'desc')->take(1)->value('id');
         $workday = WorkDay::where('id', $id)->first();
         if(!empty($workday)){
-            $now = new \DateTime("now", new \DateTimeZone('America/Denver') );
-            $now_c = new Carbon($now);
+            $now_c = Carbon::now();
             if($workday['status'] == "O"){
                 $lapsedMinutes = $now_c->diffInMinutes($workday['start']);
+                $start_tz = new \DateTime($workday['start'], new \DateTimeZone('UTC') );
+                $start_tz->setTimeZone(new \DateTimeZone($workday['timezone']));
+                $workday['start'] = $start_tz->format('Y-m-d H:i:s');
+                $workday = $workday->makeHidden("employer_id", "employee_id")->toArray();
                 $data = ['new' => false, 'message' => 'Work day opened', 'workday' => $workday, 'lapsedMinutes' => $lapsedMinutes];
                 return response()->json($data, 203);
             } else {
-                $data = ['new' => true, 'message' => 'New work day the last work day is closed o paused'];
+                $data = ['new' => true, 'message' => 'New work day the last work day is closed'];
                 return response()->json($data, 200);
             }
         } else {
-            $data = ['new' => true, 'message' => 'New work day'];
+            $data = ['new' => true, 'message' => 'New work day'];            
             return response()->json($data, 200);
         }
     }
 
-    /*
-    request
+    public function inWorkday(InWorkdayRequest $request)
     {
-        "action": "in",
-        "employee_uuid": "7b984f91-be17-3dcd-af52-9e74fcfb3327",
-        "company_uuid": "88ac45cb-35e8-36ab-beef-53934a1116e6",
-        "client_uuid": "69c25a44-8cab-3405-b654-90d9aefa2696",
-        "place": "Av. de los Insurgentes 5022, Mascareñas, 32340 Cd Juárez, Chih.",
-        "latitude": 31.7309652,
-        "longitude": -106.440468
+        //error employee a empoyer id
+        //[date] timezone
+        $uuid = $request->input('uuid');
+        $employee_uuid = $request->input('employee_uuid');
+        $employee = Employee::where('uuid', $employee_uuid)->first();
+        $employee_id = !empty($employee) ? $employee->id : 0;
+        $employer_uuid = $request->input('empolyer_uuid');
+        $employer = Employer::where('uuid', $employer_uuid)->first();
+        $employer_id = !empty($employer) ? $employer->id : 0;
+        $place = $request->input('place');
+        $latitude = $request->input('latitude');
+        $longitude = $request->input('longitude');
+        $timezone = $request->input('longitude');
+        $start = Carbon::now();
+        $date = $start->format("Y-m-d");
+        $id = DB::table('workdays')->insertGetId([
+            'employee_uuid' => $employee_uuid,
+            'employee_id' => $employee_id,
+            'employer_uuid'   => $employer_uuid,
+            'employer_id'   => $employer_id,
+            'status' => 'O',
+            'uuid' => $uuid,
+            'date' => $date,
+            'start' => $start,
+            'timezone' => $longitude,
+            'place' => $place,
+            'latitude' => $latitude,
+            'longitude' => $longitude,
+            'created_at' => $start
+        ]);
+        if(!empty($id)){
+            return response()->json(['success'   => true, 'message'   => 'Cheched in'], 200);
+        } else {            
+            return response()->json(['success'   => false, 'message'   => 'System error'], 203);
+        }
     }
+
+    public function outWorkday(OutWorkdayRequest $request)
     {
-        "action": "out",
-        
-        "employee_uuid": "7b984f91-be17-3dcd-af52-9e74fcfb3327",
-        "company_uuid": "88ac45cb-35e8-36ab-beef-53934a1116e6",
-        "client_uuid": "69c25a44-8cab-3405-b654-90d9aefa2696",
-        "place": "Av. de los Insurgentes 5022, Mascareñas, 32340 Cd Juárez, Chih.",
-        "latitude": 31.7309652,
-        "longitude": -106.440468
+        $uuid = $request->input('uuid');
+        $workday = Workday::where('uuid', $uuid)->first();
+        $place_out = $request->input('place_out');
+        $latitude_out = $request->input('latitude_out');
+        $longitude_out = $request->input('longitude_out');
+        if(empty($workday)){
+            return;
+        }
+        $workday->status = "C";
+        $end = Carbon::now();
+        $minutes = Carbon::now()->diffInMinutes($workday->start);
+        $workday->minutes = $minutes;
+        $workday->end = $end;
+        $workday->place_out = $place_out;
+        $workday->latitude_out = $latitude_out;
+        $workday->longitude_out = $longitude_out;
+        if($workday->save()){
+            return response()->json(['success'   => true, 'message'   => 'Cheched out'], 200);
+        } else {            
+            return response()->json(['success'   => false, 'message'   => 'System error'], 203);
+        }
     }
-    */
+
     public function checkWorkday(CheckWorkdayRequest $request)
     {
         $action = $request->input('action');
@@ -180,21 +228,6 @@ class WorkdayController extends Controller
         if($action == "out"){
 
         }
-        /*
-        'employee_uuid',
-        'client_uuid',
-        'company_uuid',
-        'status',
-        'date',
-        'start',
-        'pause',
-        'resume',
-        'end',
-        'minutes',
-        'latitude',
-        'longitude',
-        'place',
-        */
     }
     /*
     
