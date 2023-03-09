@@ -107,7 +107,7 @@ class WorkdayController extends Controller
     { "employer_uuid": "1336eb7e-b2c7-32af-b82e-2c2f488ccd7c", "employee_uuid": "9e35e454-8f31-3f04-b8fb-77d2ed9eaee9" }
     */
     public function getWorkday(GetWorkdayRequest $request)
-    {        
+    {
         //1. agregar los dias laborales del contrato
         //se guardan todos los datos en UTC y se muestran en el timezone seleccionado
         $employee_uuid = $request->input('employee_uuid');
@@ -134,7 +134,10 @@ class WorkdayController extends Controller
             return response()->json($data, 200);
         }
     }
-
+    /*
+    [url] http://localhost:8000/api/v1/workdays/get [post]
+    { "employer_uuid": "1336eb7e-b2c7-32af-b82e-2c2f488ccd7c", "employee_uuid": "9e35e454-8f31-3f04-b8fb-77d2ed9eaee9" }
+    */
     public function inWorkday(InWorkdayRequest $request)
     {
         //error employee a empoyer id

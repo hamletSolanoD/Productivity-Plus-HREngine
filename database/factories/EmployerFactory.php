@@ -13,6 +13,7 @@ class EmployerFactory extends Factory
      */
     public function definition()
     {
+        $active = $this->faker->boolean();
         $outsource = $this->faker->boolean();
         $persontype = $this->faker->randomElement(['F', 'M']);//F Fisica M Moral
         $name = $persontype == 'F' ? $this->faker->name() : $this->faker->company();
@@ -24,6 +25,7 @@ class EmployerFactory extends Factory
         $legalrepresentative = $persontype == "M" ? $this->faker->name() : null;
         $outsourceat = $outsource ? $this->faker->company() : null;
         return [
+            'active' => $active,
             'outsource' => $outsource,
             'uuid' => $this->faker->uuid(),
             'persontype' => $persontype,

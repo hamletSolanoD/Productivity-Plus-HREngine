@@ -15,6 +15,7 @@ class Employer extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'active',
         'outsource',
         'uuid',
         'persontype',

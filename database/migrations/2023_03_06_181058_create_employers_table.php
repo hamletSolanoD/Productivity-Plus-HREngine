@@ -15,6 +15,7 @@ class CreateEmployersTable extends Migration
     {
         Schema::create('employers', function (Blueprint $table) {
             $table->id();
+            $table->boolean('active');
             $table->boolean('outsource');
             $table->string('uuid');
             $table->string('persontype');//M moral F fisica

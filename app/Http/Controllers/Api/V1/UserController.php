@@ -9,6 +9,8 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Models\User;
+use App\Models\Employee;
+use App\Models\Employer;
 use App\Http\Requests\V1\UserLoginRequest;
 
 use App\Http\Controllers\Controller;
@@ -90,23 +92,46 @@ class UserController extends Controller
     [request] { "email": "admin@gmail.com", "password": "Sist8293" }
     */
     public function userLogin(UserLoginRequest $request)
-    {
+    {        
+        /*
+        Login | 200
+        Inactive user | 401
+        Inactive employer | 402
+        Error data | 409
+        Incomplete data | 406 
+        */
         $email = $request->input('email');
         $password = $request->input('password');
         $user = User::where('email', $email)->first();
-        if(!empty($user)){
+        if(!empty($user)){            
+            $employee = Employee::where('id', $user['employee_id'])->first();
+            if(empty($employee)){
+                return response("data error", 428);
+            }
+            $employer = Employer::where('id', $employee['employer_id'])->first();
+            if(empty($employer)){
+                return response("data error", 428);
+            }
+            if(!$employer['active']){
+                return response("Inactive employer", 402);
+            }
+            $employer = Employer::where('email', $email)->first();
             if($user['active']){
-                if(Hash::check($password, $user['password'])){
-                    return response()->json(['login' => true, 'message' => 'User logged', 'user' => $user], 200);
+                if(Hash::check($password, $user['password'])){                    
+                    return response()->json($user, 200);
+                    //return response()->json(['login' => true, 'message' => 'User logged', 'user' => $user], 200);
                 } else {
-                    return response()->json(['login' => true, 'message' => 'Incorrect password'], 203);
+                    return response("Incorrect password", 409);
+                    //return response()->json(['login' => true, 'message' => 'Incorrect password'], 203);
                 }
-            } else {                    
-                $contact = $user['type'] == 'e' ? 'employer' : 'system provider';
-                return response()->json(['login' => false, 'message' => 'Inactive User, please contact with your ' . $contact], 203);
+            } else {
+                return response("Inactive user", 401);
+                //$contact = $user['type'] == 'e' ? 'employer' : 'system provider';
+                //return response()->json(['login' => false, 'message' => 'Inactive User, please contact with your ' . $contact], 203);
             }
         } else {
-            return response()->json(['login' => false, 'message' => 'Email is not registered'], 203);
+            return response("email is not registered", 409);
+            //return response()->json(['login' => false, 'message' => 'Email is not registered'], 203);
         }
     }
 }
