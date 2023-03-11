@@ -50,14 +50,10 @@ class UpdateUserRequest extends FormRequest
     }
     
     public function failedValidation(Validator $validator){
-        throw new HttpResponseException(response()->json([
-            'success'   => false,
-            'message'   => 'Validation errors',
-            'data'      => $validator->errors()
-        ]));
+        throw new HttpResponseException(response($validator->errors(), 406));
     }
 
-    protected function prepareForValidation()
+    protected function passedValidation()
     {
         $this->merge([
             'password' => Hash::make($this->password)

@@ -1,4 +1,11 @@
 <?php
+/*
+╔══════════════════════════════════════════════════╗
+║        © 2023 Productivity Plus HR Engine        ║
+╠══════════════════════════════════════════════════╣
+║   In memory of Patricia Ivonne Alvarez Avitia!   ║
+╚══════════════════════════════════════════════════╝
+*/
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -15,9 +22,11 @@ class CreateActivityFilesTable extends Migration
     {
         Schema::create('activity_files', function (Blueprint $table) {
             $table->id();
-            $table->integer('activity_id');
-            $table->string('activity_uuid');  
-            $table->string('uuid');
+            $table->foreignId('activity_id')->nullable()->references('id')->on('activities');
+            $table->string('activity_uuid')->nullable();
+            $table->foreign('activity_uuid')->references('uuid')->on('activities');
+            $table->string('uuid')->unique();
+            $table->string('extension');
             $table->timestamps();
         });
     }

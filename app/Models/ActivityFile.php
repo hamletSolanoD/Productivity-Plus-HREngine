@@ -14,11 +14,9 @@ class ActivityFile extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'activity_id',
         'activity_uuid',
         'uuid',
-        'file',
-        'checked',
+        'extension',
     ];
 
     /**
@@ -28,6 +26,7 @@ class ActivityFile extends Model
      */
     protected $hidden = [
         'id',
+        'activity_id',
         'created_at',
         'updated_at',
     ];

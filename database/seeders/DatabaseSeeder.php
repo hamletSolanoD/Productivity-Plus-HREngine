@@ -19,6 +19,8 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             WorkdaySeeder::class,
             EmployeeFileSeeder::class,
+            ActivitySeeder::class,
+            ActivityFileSeeder::class,
         ]);
         // \App\Models\User::factory(10)->create();
     }

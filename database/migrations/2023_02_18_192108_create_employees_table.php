@@ -1,5 +1,11 @@
 <?php
-
+/*
+╔══════════════════════════════════════════════════╗
+║        © 2023 Productivity Plus HR Engine        ║
+╠══════════════════════════════════════════════════╣
+║   In memory of Patricia Ivonne Alvarez Avitia!   ║
+╚══════════════════════════════════════════════════╝
+*/
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,22 +21,38 @@ class CreateEmployeesTable extends Migration
     {
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
-            $table->string('uuid');
-            $table->integer('employeecontract_id')->nullable()->unsigned();
-            //$table->foreignId('employeecontract_id')->nullable()->references('id')->on('employeecontract');
+            $table->integer('employeecontract_id')->nullable();
             $table->string('employeecontract_uuid')->nullable();
-            $table->integer('employeeaddress_id')->nullable()->unsigned();
-            //$table->foreignId('employeeaddress_id')->nullable()->references('id')->on('employeeaddress');
+            /*
+            $table->foreignId('employeecontract_id')->nullable()->references('id')->on('employeecontracts');
+            $table->string('employeecontract_uuid')->nullable();
+            $table->foreign('employeecontract_uuid')->references('uuid')->on('employeecontracts');
+            */
+            $table->integer('employeeaddress_id')->nullable();
             $table->string('employeeaddress_uuid')->nullable();
-            $table->integer('employeebeneficiary_id')->nullable()->unsigned();
-            //$table->foreignId('employeebeneficiary_id')->nullable()->references('id')->on('employeebeneficiary');
+            /*
+            $table->foreignId('employeeaddress_id')->nullable()->references('id')->on('employeeaddress');
+            $table->string('employeeaddress_uuid')->nullable();
+            $table->foreign('employeeaddress_uuid')->references('uuid')->on('employeeaddress');
+            */
+            $table->integer('employeebeneficiary_id')->nullable();
             $table->string('employeebeneficiary_uuid')->nullable();
-            $table->integer('employeesalary_id')->nullable()->unsigned();
-            //$table->foreignId('employeesalary_id')->nullable()->references('id')->on('employeesalary');
+            /*
+            $table->foreignId('employeebeneficiary_id')->nullable()->references('id')->on('employeebeneficiares');
+            $table->string('employeebeneficiary_uuid')->nullable();
+            $table->foreign('employeebeneficiary_uuid')->references('uuid')->on('employeebeneficiares');
+            */
+            $table->integer('employeesalary_id')->nullable();
             $table->string('employeesalary_uuid')->nullable();
-            $table->integer('employer_id');
-            $table->string('employer_uuid');
-            //$table->string('type'); //I internal (company) C Client (client) E External (company and client)
+            /*
+            $table->foreignId('employeesalary_id')->nullable()->references('id')->on('employeesalaries');
+            $table->string('employeesalary_uuid')->nullable();
+            $table->foreign('employeesalary_uuid')->references('uuid')->on('employeesalaries');
+            */
+            $table->foreignId('employer_id')->nullable()->references('id')->on('employers');
+            $table->string('employer_uuid')->nullable();
+            $table->foreign('employer_uuid')->references('uuid')->on('employers');
+            $table->string('uuid')->unique();
             $table->string('firstname');
             $table->string('paternalsurname');
             $table->string('maternalsurname')->nullable();

@@ -14,10 +14,12 @@ class WorkdayFactory extends Factory
      */
     public function definition()
     {
-        $employer_id = \App\Models\Employer::factory()->create()->id;
-        $employer_uuid = \App\Models\Employer::factory()->create()->uuid;
-        $employee_id = \App\Models\Employee::factory()->create()->id;
-        $employee_uuid = \App\Models\Employee::factory()->create()->uuid;
+        $employee = \App\Models\Employee::factory()->create();
+        $employer = \App\Models\Employer::factory()->create();
+        $employer_id = $employer->id;
+        $employer_uuid = $employer->uuid;
+        $employee_id = $employee->id;
+        $employee_uuid = $employee->uuid;
         $status = $this->faker->randomElement(['O', 'C']); //open closed
         $startWeek = Carbon::now()->subWeek()->startOfWeek();
         $endWeek   = Carbon::now()->subWeek()->endOfWeek();

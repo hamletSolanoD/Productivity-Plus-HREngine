@@ -1,5 +1,11 @@
 <?php
-
+/*
+╔══════════════════════════════════════════════════╗
+║        © 2023 Productivity Plus HR Engine        ║
+╠══════════════════════════════════════════════════╣
+║   In memory of Patricia Ivonne Alvarez Avitia!   ║
+╚══════════════════════════════════════════════════╝
+*/
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -17,7 +23,7 @@ class CreateEmployersTable extends Migration
             $table->id();
             $table->boolean('active');
             $table->boolean('outsource');
-            $table->string('uuid');
+            $table->string('uuid')->unique();
             $table->string('persontype');//M moral F fisica
             $table->string('rfc');      
             $table->string('firstname')->nullable();

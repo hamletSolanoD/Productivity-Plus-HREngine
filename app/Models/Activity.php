@@ -14,7 +14,15 @@ class Activity extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'workday_uuid',
         'uuid',
+        'type',
+        'status',
+        'start',
+        'end',
+        'timezone',
+        'minutes',
+        'description',
     ];
 
     /**
@@ -24,6 +32,7 @@ class Activity extends Model
      */
     protected $hidden = [
         'id',
+        'workday_id',
         'created_at',
         'updated_at',
     ];

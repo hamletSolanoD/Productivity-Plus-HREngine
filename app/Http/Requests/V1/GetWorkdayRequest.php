@@ -1,5 +1,11 @@
 <?php
-
+/*
+╔══════════════════════════════════════════════════╗
+║        © 2023 Productivity Plus HR Engine        ║
+╠══════════════════════════════════════════════════╣
+║   In memory of Patricia Ivonne Alvarez Avitia!   ║
+╚══════════════════════════════════════════════════╝
+*/
 namespace App\Http\Requests\V1;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -36,10 +42,6 @@ class GetWorkdayRequest extends FormRequest
 
     
     public function failedValidation(Validator $validator){
-        throw new HttpResponseException(response()->json([
-            'success'   => false,
-            'message'   => 'Validation errors',
-            'data'      => $validator->errors()
-        ]));
+        throw new HttpResponseException(response($validator->errors(), 406));
     }
 }

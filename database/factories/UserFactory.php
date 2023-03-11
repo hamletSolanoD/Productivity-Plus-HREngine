@@ -14,11 +14,12 @@ class UserFactory extends Factory
      */
     public function definition()
     {
-        $employee_id = \App\Models\Employee::factory()->create()->id;
-        $employee_uuid = \App\Models\Employee::factory()->create()->uuid;
-        $email = \App\Models\Employee::factory()->create()->email;
-        $firstname = \App\Models\Employee::factory()->create()->firstname;
-        $paternalsurname = \App\Models\Employee::factory()->create()->paternalsurname;
+        $employee = \App\Models\Employee::factory()->create();
+        $employee_id = $employee->id;
+        $employee_uuid = $employee->uuid;
+        $email = $employee->email;
+        $firstname = $employee->firstname;
+        $paternalsurname = $employee->paternalsurname;
         $uuid = $this->faker->uuid();
         $active = $this->faker->active();
         return [

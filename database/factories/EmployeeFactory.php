@@ -26,8 +26,9 @@ class EmployeeFactory extends Factory
         'employer_uuid',
         */
         //$type = \App\Models\Company::factory()->create()->id ? $this->faker->randomElement(['I', 'C', 'E']);
-        $employer_id = \App\Models\Employer::factory()->create()->id;
-        $employer_uuid = \App\Models\Employer::factory()->create()->uuid;
+        $employer = \App\Models\Employer::factory()->create();
+        $employer_id = $employer->id;
+        $employer_uuid = $employer->uuid;
         $gender = $this->faker->randomElement(['M', 'F']);
         $firstname = $gender == 'M' ? $this->faker->firstNameMale() : $this->faker->firstNameFemale();
         $rfc = $this->faker->boolean() ? $this->faker->bothify('RFC###???') : null;

@@ -1,5 +1,11 @@
 <?php
-
+/*
+╔══════════════════════════════════════════════════╗
+║        © 2023 Productivity Plus HR Engine        ║
+╠══════════════════════════════════════════════════╣
+║   In memory of Patricia Ivonne Alvarez Avitia!   ║
+╚══════════════════════════════════════════════════╝
+*/
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,9 +21,10 @@ class CreateEmployeeFilesTable extends Migration
     {
         Schema::create('employee_files', function (Blueprint $table) {
             $table->id();
-            $table->integer('employee_id');
-            $table->string('employee_uuid');  
-            $table->string('uuid');
+            $table->foreignId('employee_id')->nullable()->references('id')->on('employees');
+            $table->string('employee_uuid')->nullable();
+            $table->foreign('employee_uuid')->references('uuid')->on('employees');
+            $table->string('uuid')->unique();
             $table->string('file');
             $table->boolean('checked');
             $table->timestamps();

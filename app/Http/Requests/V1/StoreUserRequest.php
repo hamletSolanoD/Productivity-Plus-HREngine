@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Requests\V1;
+use App\Models\Employee;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -9,7 +10,6 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Requests\V1\FailedValidation;
 
 class StoreUserRequest extends FormRequest
 {
@@ -34,10 +34,10 @@ class StoreUserRequest extends FormRequest
         return [
             'active' => 'required',
             'type' => 'required',
-            'employee_id' => 'required_if:type,=,e|integer',
+            //'employee_id' => 'required_if:type,=,e|integer',
             'employee_uuid' => 'required_if:type,=,e|size:36',
             'name' => 'required',
-            'uuid' => 'required|size:36',
+            'uuid' => 'required|size:36|unique:users,uuid',
             'email' => 'required|email|unique:users,email',
             'password' => [
                 'required',
@@ -51,16 +51,17 @@ class StoreUserRequest extends FormRequest
     }
 
     public function failedValidation(Validator $validator){
-        throw new HttpResponseException(response()->json([
-            'success'   => false,
-            'message'   => 'Validation errors',
-            'data'      => $validator->errors()
-        ]));
+        throw new HttpResponseException(response($validator->errors(), 406));
     }
 
     protected function passedValidation()
     {
+        $employee = Employee::where('uuid', $this->employee_uuid)->first();
+        if(empty($employee)){
+            throw new HttpResponseException(response("employee uuid dosent exist", 428));
+        }
         $this->merge([
+            'employee_id' => $employee->id,
             'password' => Hash::make($this->password)
         ]);
     }

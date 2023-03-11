@@ -15,8 +15,9 @@ class EmployeeFileFactory extends Factory
      */
     public function definition()
     {
-        $employee_id = \App\Models\Employee::factory()->create()->id;
-        $employee_uuid = \App\Models\Employee::factory()->create()->uuid;
+        $employee = \App\Models\Employee::factory()->create();
+        $employee_id = $employee->id;
+        $employee_uuid = $employee->uuid;
         $file = $this->faker->randomElement(['rfc', 'curp', 'nss', 'fonacot', 'infonavit', 'bankcontract', 'jobapplication', 'birthcertificate', 'studycertificate', 'proofofaddress', 'workcontract', 'workregulation', 'bankpolicy', 'idcard', 'infonavitprequalification', 'fonacotdisclaimer', 'agreementformat', 'settlementreceipt', 'administrativerecord']);
         return [
             'employee_id' => $employee_id,

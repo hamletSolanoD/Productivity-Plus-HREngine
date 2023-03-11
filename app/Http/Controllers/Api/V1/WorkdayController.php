@@ -11,12 +11,16 @@ namespace App\Http\Controllers\Api\V1;
 use App\Models\Workday;
 use App\Models\Employee;
 use App\Models\Employer;
+
 use App\Http\Requests\V1\GetWorkdayRequest;
 use App\Http\Requests\V1\InWorkdayRequest;
 use App\Http\Requests\V1\OutWorkdayRequest;
 use App\Http\Requests\V1\CheckWorkdayRequest;
 use App\Http\Requests\StoreWorkdayRequest;
 use App\Http\Requests\UpdateWorkdayRequest;
+
+use App\Http\Resources\V1\WorkdayResource;
+use App\Http\Resources\V1\WorkdayCollection;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -88,7 +92,12 @@ class WorkdayController extends Controller
      */
     public function update(UpdateWorkdayRequest $request, Workday $workday)
     {
-        //
+        $workday = Workday::where('uuid', $uuid)->first();
+        if(empty($workday)){
+            throw new HttpResponseException(response("workday uuid dosent exist", 428));
+        }
+        $workday->update($request->all());
+        return response("updated workday", 200);
     }
 
     /**
@@ -97,9 +106,15 @@ class WorkdayController extends Controller
      * @param  \App\Models\Workday  $workday
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Workday $workday)
+    public function destroy(Request $request, $uuid)
     {
-        //
+        $workday = Workday::where('uuid', $uuid)->first();
+        if(empty($workday)){
+            throw new HttpResponseException(response("workday uuid dosent exist", 428));
+        }
+        $workday->delete();
+        return response("deleted workday", 200);
+        //return response()->json(["success" => true, "message" => "deleted user"], 200);
     }
     
     /*
@@ -108,6 +123,11 @@ class WorkdayController extends Controller
     */
     public function getWorkday(GetWorkdayRequest $request)
     {
+        /*
+        workday | 200
+        workday closed | 409
+        workday not found | 428
+        */
         //1. agregar los dias laborales del contrato
         //se guardan todos los datos en UTC y se muestran en el timezone seleccionado
         $employee_uuid = $request->input('employee_uuid');
@@ -123,60 +143,46 @@ class WorkdayController extends Controller
                 $start_tz->setTimeZone(new \DateTimeZone($workday['timezone']));
                 $workday['start'] = $start_tz->format('Y-m-d H:i:s');
                 $workday = $workday->makeHidden("employer_id", "employee_id")->toArray();
-                $data = ['new' => false, 'message' => 'Work day opened', 'workday' => $workday, 'lapsedMinutes' => $lapsedMinutes];
-                return response()->json($data, 203);
-            } else {
-                $data = ['new' => true, 'message' => 'New work day the last work day is closed'];
-                return response()->json($data, 200);
+                $workday['lapsedMinutes'] = $lapsedMinutes;
+                return response()->json($user, 200);
+                //$data = ['new' => false, 'message' => 'Work day opened', 'workday' => $workday, 'lapsedMinutes' => $lapsedMinutes];
+                //return response()->json($data, 203);
+            } else {                
+                return response("Workday closed", 409);
+                //$data = ['new' => true, 'message' => 'New work day the last work day is closed'];
+                //return response()->json($data, 200);
             }
         } else {
-            $data = ['new' => true, 'message' => 'New work day'];            
-            return response()->json($data, 200);
+            return response("employee dosent have workday", 428);
+            //$data = ['new' => true, 'message' => 'New work day'];            
+            //return response()->json($data, 200);
         }
+        
     }
+    
     /*
-    [url] http://localhost:8000/api/v1/workdays/get [post]
-    { "employer_uuid": "1336eb7e-b2c7-32af-b82e-2c2f488ccd7c", "employee_uuid": "9e35e454-8f31-3f04-b8fb-77d2ed9eaee9" }
+    [url] http://localhost:8000/api/v1/workdays/in [post]
+    { "uuid": "a5e2d452-1bce-4d34-9b21-21a34255ab86", "employee_uuid": "4ba4ceef-c6c6-3f1d-ae19-7b58436e3f36", "employer_uuid": "4c793288-e5fb-3638-b292-3d161edb72cb", "place": "3079 Gorczany Loaf Apt. 301 Cormierside, WY 41845", "latitude":33.484421, "longitude":127.429321, "timezone": "America/Denver" }
     */
     public function inWorkday(InWorkdayRequest $request)
     {
-        //error employee a empoyer id
-        //[date] timezone
         $uuid = $request->input('uuid');
+        $employee_id = $request->input('employee_id');
         $employee_uuid = $request->input('employee_uuid');
-        $employee = Employee::where('uuid', $employee_uuid)->first();
-        $employee_id = !empty($employee) ? $employee->id : 0;
+        $employer_id = $request->input('empolyer_id');
         $employer_uuid = $request->input('empolyer_uuid');
-        $employer = Employer::where('uuid', $employer_uuid)->first();
-        $employer_id = !empty($employer) ? $employer->id : 0;
         $place = $request->input('place');
         $latitude = $request->input('latitude');
         $longitude = $request->input('longitude');
-        $timezone = $request->input('longitude');
-        $start = Carbon::now();
-        $date = $start->format("Y-m-d");
-        $id = DB::table('workdays')->insertGetId([
-            'employee_uuid' => $employee_uuid,
-            'employee_id' => $employee_id,
-            'employer_uuid'   => $employer_uuid,
-            'employer_id'   => $employer_id,
-            'status' => 'O',
-            'uuid' => $uuid,
-            'date' => $date,
-            'start' => $start,
-            'timezone' => $longitude,
-            'place' => $place,
-            'latitude' => $latitude,
-            'longitude' => $longitude,
-            'created_at' => $start
-        ]);
-        if(!empty($id)){
-            return response()->json(['success'   => true, 'message'   => 'Cheched in'], 200);
-        } else {            
-            return response()->json(['success'   => false, 'message'   => 'System error'], 203);
-        }
+        $timezone = $request->input('timezone');
+        new WorkdayResource(WorkDay::create($request->all()));
+        return response("Workday in", 200);
     }
 
+    /*
+    [url] http://localhost:8000/api/v1/workdays/out [post]
+    { "uuid": "ae37dfea-6db0-3d30-a3b2-c5eed0f6e99f", "place_out": "3079 Gorczany Loaf Apt. 301 Cormierside, WY 41845", "latitude_out": 33.484421, "longitude_out": 127.429321 }
+    */
     public function outWorkday(OutWorkdayRequest $request)
     {
         $uuid = $request->input('uuid');
@@ -196,49 +202,9 @@ class WorkdayController extends Controller
         $workday->latitude_out = $latitude_out;
         $workday->longitude_out = $longitude_out;
         if($workday->save()){
-            return response()->json(['success'   => true, 'message'   => 'Cheched out'], 200);
+            return response("workday out", 200);
         } else {            
-            return response()->json(['success'   => false, 'message'   => 'System error'], 203);
+            return response("system error", 500);
         }
     }
-
-    public function checkWorkday(CheckWorkdayRequest $request)
-    {
-        $action = $request->input('action');
-        $uuid = $request->input('uuid');
-        $employee_uuid = $request->input('employee_uuid');
-        $company_uuid = $request->input('company_uuid');
-        $client_uuid = $request->input('client_uuid');
-        $place = $request->input('place');
-        $latitude = $request->input('latitude');
-        $longitude = $request->input('longitude');
-        if($action == "in"){            
-            $start = new \DateTime("now", new \DateTimeZone('America/Denver') );
-            $date = $start->format("Y-m-d");
-            $id = DB::table('workdays')->insertGetId([
-                'employee_uuid' => $employee_uuid,
-                'company_uuid'   => $company_uuid,
-                'client_uuid'   => $client_uuid,
-                'status' => 'O',
-                'date' => $date,
-                'start' => $start,
-                'place' => $place,
-                'latitude' => $latitude,
-                'longitude' => $longitude
-            ]);
-            return response()->json(['id' => $id], 200);
-        }
-        if($action == "out"){
-
-        }
-    }
-    /*
-    
-    /*
-    employee_uuid
-    comp_uuid
-    getJornada(): meotodo que devuelve si es un nuevo dia laboral o si es un dia laboral en curso, 
-    la manera de definir esto sera por una comparativa donde si la ultima actividad registrada es una salida.
-    entonces crear nuevo dia laboral o si la ultima actividad registrada tiene una diferencia de ahorita mayor o igual a la cantidad de horas laborales en contrato significa que a la persona se le olvido el dia antrior registrar su salida y es un nuevo dia laboral 
-    */
 }

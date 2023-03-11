@@ -1,5 +1,11 @@
 <?php
-
+/*
+╔══════════════════════════════════════════════════╗
+║        © 2023 Productivity Plus HR Engine        ║
+╠══════════════════════════════════════════════════╣
+║   In memory of Patricia Ivonne Alvarez Avitia!   ║
+╚══════════════════════════════════════════════════╝
+*/
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,11 +21,13 @@ class CreateWorkdaysTable extends Migration
     {
         Schema::create('workdays', function (Blueprint $table) {
             $table->id();
-            $table->integer('employer_id');
-            $table->string('employer_uuid');
-            $table->integer('employee_id');
-            $table->string('employee_uuid');
-            $table->string('uuid');
+            $table->foreignId('employer_id')->nullable()->references('id')->on('employers');
+            $table->string('employer_uuid')->nullable();
+            $table->foreign('employer_uuid')->references('uuid')->on('employers');
+            $table->foreignId('employee_id')->nullable()->references('id')->on('employees');
+            $table->string('employee_uuid')->nullable();
+            $table->foreign('employee_uuid')->references('uuid')->on('employees');
+            $table->string('uuid')->unique();
             $table->string('status');
             $table->date('date');
             $table->dateTime('start');

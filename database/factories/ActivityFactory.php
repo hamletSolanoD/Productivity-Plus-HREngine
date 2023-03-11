@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Carbon\Carbon;
 
 class ActivityFactory extends Factory
 {
@@ -13,28 +14,28 @@ class ActivityFactory extends Factory
      */
     public function definition()
     {
-        /*        
-            $table->string('uuid');
-            $table->string('type');
-            $table->string('status');
-            $table->dateTime('start');
-            $table->dateTime('end')->nullable();
-            $table->string('description');
-        */
-        $activity_id = \App\Models\Activity::factory()->create()->id;
-        $activity_uuid = \App\Models\Activity::factory()->create()->uuid;
-        $activity_start = \App\Models\Activity::factory()->create()->start;
-        $type = $this->faker->randomElement(['W', 'B']);//W Work B Brake $activity_start
-        $end =  $status == "C" ? $start_c->addHours(rand(8, 12)) : null;
+        $workday = \App\Models\Workday::factory()->create();
+        $workday_id = $workday->id;
+        $workday_uuid = $workday->uuid;
+        $type = $this->faker->randomElement(['W', 'B']);//W Work B Brake brake
+        $status = $this->faker->randomElement(['O', 'C']);//O Open C Close
+        $workday_start_c = new Carbon($workday->start);
+        $workday_end = empty($workday->end)? $workday_start_c->addHours(rand(8, 12))  :$workday->start;
+        $start = $this->faker->dateTimeBetween($workday->start, $workday_end);
+        $start_c = new Carbon($start);
+        $end =  $status == "C" ? $start_c->addHours(rand(1, 4)) : null;
         $minutes = $status == "C" ? $end->diffInMinutes($start) : null;
         return [
-            'activity_id' => $activity_id,
-            'activity_uuid' => $activity_uuid,
+            'workday_id' => $workday_id,
+            'workday_uuid' => $workday_uuid,
             'uuid' => $this->faker->uuid(),
             'type' => $type,
-            'start' => $file,
-            'end' => $file,
-            'description' => $this->faker->boolean(),
+            'status' => $status,
+            'start' => $start,
+            'end' => $end,
+            'minutes' => $minutes,
+            'timezone' => 'America/Denver',
+            'description' => $this->faker->uuid() ? $this->faker->sentence() : null,
         ];
     }
 }

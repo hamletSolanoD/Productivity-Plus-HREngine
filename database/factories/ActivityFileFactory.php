@@ -12,16 +12,15 @@ class ActivityFileFactory extends Factory
      * @return array
      */
     public function definition()
-    {        
-        $activity_id = \App\Models\Activity::factory()->create()->id;
-        $activity_uuid = \App\Models\Activity::factory()->create()->uuid;
-        $file = $this->faker->randomElement(['rfc', 'curp', 'nss', 'fonacot', 'infonavit', 'bankcontract', 'jobapplication', 'birthcertificate', 'studycertificate', 'proofofaddress', 'workcontract', 'workregulation', 'bankpolicy', 'idcard', 'infonavitprequalification', 'fonacotdisclaimer', 'agreementformat', 'settlementreceipt', 'administrativerecord']);
+    {
+        $activity = \App\Models\Activity::factory()->create();
+        $activity_id = $activity->id;
+        $activity_uuid = $activity->uuid;
         return [
             'activity_id' => $activity_id,
             'activity_uuid' => $activity_uuid,
             'uuid' => $this->faker->uuid(),
-            'file' => $file,
-            'checked' => $this->faker->boolean(),
+            'extension' => $this->faker->fileExtension()
         ];
     }
 }

@@ -1,5 +1,11 @@
 <?php
-
+/*
+╔══════════════════════════════════════════════════╗
+║        © 2023 Productivity Plus HR Engine        ║
+╠══════════════════════════════════════════════════╣
+║   In memory of Patricia Ivonne Alvarez Avitia!   ║
+╚══════════════════════════════════════════════════╝
+*/
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -17,10 +23,11 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->boolean('active');
             $table->string('type');
-            $table->integer('employee_id');
-            $table->string('employee_uuid');
+            $table->foreignId('employee_id')->nullable()->references('id')->on('employees');
+            $table->string('employee_uuid')->nullable();
+            $table->foreign('employee_uuid')->references('uuid')->on('employees');
             $table->string('name');
-            $table->string('uuid');
+            $table->string('uuid')->unique();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
