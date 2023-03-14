@@ -36,7 +36,7 @@ class WorkdayFactory extends Factory
             'uuid' => $uuid,
             'status' => $status,
             'date' => $start,
-            'start' => $start,
+            'start' => $start_c->format("Y-m-d"),
             'end' => $end,
             'minutes' => $minutes,
             'timezone' => 'America/Denver',

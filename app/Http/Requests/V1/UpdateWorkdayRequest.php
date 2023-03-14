@@ -17,7 +17,8 @@ class UpdateWorkdayRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
+        //return false;
     }
 
     /**
@@ -40,5 +41,9 @@ class UpdateWorkdayRequest extends FormRequest
             'latitude_out' => ['sometimes', 'required'],
             'longitude_out' => ['sometimes', 'required'],
         ];
+    }
+    
+    public function failedValidation(Validator $validator){
+        throw new HttpResponseException(response($validator->errors(), 406));
     }
 }

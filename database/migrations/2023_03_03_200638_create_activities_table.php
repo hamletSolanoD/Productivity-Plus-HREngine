@@ -21,17 +21,24 @@ class CreateActivitiesTable extends Migration
     {
         Schema::create('activities', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('workday_id')->nullable()->references('id')->on('workdays');
-            $table->string('workday_uuid')->nullable();
+            $table->foreignId('workday_id')->references('id')->on('workdays');
+            $table->string('workday_uuid');
             $table->foreign('workday_uuid')->references('uuid')->on('workdays');
             $table->string('uuid')->unique();
             $table->string('type');
             $table->string('status');
             $table->dateTime('start');
+            $table->dateTime('date');
             $table->dateTime('end')->nullable();
             $table->integer('minutes')->nullable();
             $table->string('timezone');
             $table->string('description')->nullable();
+            $table->string('place')->nullable();
+            $table->double('latitude')->nullable();
+            $table->double('longitude')->nullable();
+            $table->string('place_end')->nullable();
+            $table->double('latitude_end')->nullable();
+            $table->double('longitude_end')->nullable();
             $table->timestamps();
         });
     }

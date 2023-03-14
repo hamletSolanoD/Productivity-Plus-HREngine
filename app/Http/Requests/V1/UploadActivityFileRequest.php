@@ -4,7 +4,7 @@ namespace App\Http\Requests\V1;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateActivityRequest extends FormRequest
+class UploadActivityFileRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,8 +13,7 @@ class UpdateActivityRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
-        //return false;
+        return false;
     }
 
     /**

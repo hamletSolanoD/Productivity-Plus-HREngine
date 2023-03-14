@@ -1,17 +1,17 @@
 <?php
 
 namespace App\Http\Requests\V1;
-use App\Models\Employee;
-use App\Models\Employer;
+
+use App\Models\Workday;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
+use Carbon\Carbon;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
-use Carbon\Carbon;
 
-class InWorkdayRequest extends FormRequest
+class StartActivityRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -32,14 +32,15 @@ class InWorkdayRequest extends FormRequest
     public function rules()
     {
         return [
-            'uuid' => 'required|unique:workdays,uuid',
-            'employee_uuid' => 'required',
-            'employer_uuid' => 'required',
-            'place' => 'required',
-            'latitude' => 'required',
-            'longitude' => 'required',
-            'timezone' => 'required',
-        ];    
+            'workday_uuid' => ['required'],
+            'uuid' => ['required', 'unique:activities,uuid'],
+            'type' => ['required'],
+            'timezone' => ['required'],
+            'description' => ['sometimes', 'required'],
+            'place' => ['sometimes', 'required'],
+            'longitud' => ['sometimes', 'required'],
+            'latitude' => ['sometimes', 'required'],
+        ];
     }
 
     public function failedValidation(Validator $validator){
@@ -48,21 +49,17 @@ class InWorkdayRequest extends FormRequest
     
     protected function passedValidation()
     {
-        $employee = Employee::where('uuid', $this->employee_uuid)->first();
-        if(empty($employee)){
-            throw new HttpResponseException(response("employee uuid dosent exist", 428));
-        }
-        $employer = Employer::where('uuid', $this->employer_uuid)->first();
-        if(empty($employer)){
-            throw new HttpResponseException(response("employer uuid dosent exist", 428));
+        $workday = Workday::where('uuid', $this->workday_uuid)->first();
+        if(empty($workday)){
+            throw new HttpResponseException(response("workday uuid dosent exist", 428));
         }
         $start = Carbon::now();
         $date = $start->format("Y-m-d"); 
         $this->merge([
-            'employee_id' => $employee->id,
+            'workday_id' => $workday->id,
             'status' => 'O',            
             'start' => $start,
-            'date' => $start->format("Y-m-d")
+            'date' => $start->format("Y-m-d"),
         ]);
     }
 }

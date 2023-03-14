@@ -22,8 +22,8 @@ class CreateActivityFilesTable extends Migration
     {
         Schema::create('activity_files', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('activity_id')->nullable()->references('id')->on('activities');
-            $table->string('activity_uuid')->nullable();
+            $table->foreignId('activity_id')->references('id')->on('activities');
+            $table->string('activity_uuid');
             $table->foreign('activity_uuid')->references('uuid')->on('activities');
             $table->string('uuid')->unique();
             $table->string('extension');

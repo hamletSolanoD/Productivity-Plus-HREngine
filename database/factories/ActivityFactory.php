@@ -32,10 +32,14 @@ class ActivityFactory extends Factory
             'type' => $type,
             'status' => $status,
             'start' => $start,
+            'date' => $start_c->format("Y-m-d"),
             'end' => $end,
             'minutes' => $minutes,
             'timezone' => 'America/Denver',
             'description' => $this->faker->uuid() ? $this->faker->sentence() : null,
+            'latitude' => $this->faker->latitude,
+            'longitude' => $this->faker->longitude,
+            'place' => $this->faker->address,
         ];
     }
 }

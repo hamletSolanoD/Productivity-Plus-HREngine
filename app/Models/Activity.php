@@ -14,15 +14,23 @@ class Activity extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'workday_id',
         'workday_uuid',
         'uuid',
         'type',
         'status',
         'start',
+        'date',
         'end',
         'timezone',
         'minutes',
         'description',
+        'place',
+        'latitude',
+        'longitude',
+        'place_end',
+        'latitude_end',
+        'longitude_end',
     ];
 
     /**

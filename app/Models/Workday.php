@@ -15,7 +15,9 @@ class Workday extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'employee_id',
         'employee_uuid',
+        'employer_id',
         'employer_uuid',
         'uuid',
         'status',

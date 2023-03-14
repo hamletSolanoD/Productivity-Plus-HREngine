@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Models\ActivityFile;
-use App\Http\Requests\StoreActivityFileRequest;
-use App\Http\Requests\UpdateActivityFileRequest;
+
+use App\Http\Requests\V1\StoreActivityFileRequest;
+use App\Http\Requests\V1\UpdateActivityFileRequest;
 
 class ActivityFileController extends Controller
 {

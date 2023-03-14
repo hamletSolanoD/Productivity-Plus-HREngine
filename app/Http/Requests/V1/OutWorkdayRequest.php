@@ -39,4 +39,20 @@ class OutWorkdayRequest extends FormRequest
     public function failedValidation(Validator $validator){
         throw new HttpResponseException(response($validator->errors(), 406));
     }
+    
+    protected function passedValidation()
+    {
+        $workday = Workday::where('uuid', $this->workday_uuid)->first();
+        if(empty($workday)){
+            throw new HttpResponseException(response("workday uuid dosent exist", 428));
+        }
+        $end = Carbon::now();
+        $minutes = Carbon::now()->diffInMinutes($workday->start);
+        $this->merge([
+            'workday_id' => $workday->id,
+            'status' => 'C',            
+            'end' => $end,
+            'minutes' => $minutes
+        ]);
+    }
 }

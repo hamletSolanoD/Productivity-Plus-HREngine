@@ -4,7 +4,7 @@ namespace App\Http\Resources\v1;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class WorkdayResource extends JsonResource
+class ActivityResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,24 +17,22 @@ class WorkdayResource extends JsonResource
         //return parent::toArray($request);
         return [
             'id' => $this->id,
-            'active' => $this->active,
-            'employer_id' => $this->employer_id,
-            'employer_uuid' => $this->employer_uuid,
-            'employee_id' => $this->employee_id,
-            'employee_uuid' => $this->employee_uuid,
+            'workday_id' => $this->workday_id,
+            'workday_uuid' => $this->workday_uuid,
             'uuid' => $this->uuid,
+            'type' => $this->type,
             'status' => $this->status,
             'date' => $this->date,
             'start' => $this->start,
             'end' => $this->end,
             'minutes' => $this->minutes,
             'timezone' => $this->timezone,
+            'description' => $this->description,
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
-            'place' => $this->place,
-            'latitude_out' => $this->latitude_out,
-            'longitude_out' => $this->longitude_out,
-            'place_out' => $this->place_out,
+            'place_end' => $this->place_end,
+            'latitude_end' => $this->latitude_end,
+            'longitude_end' => $this->longitude_end,
         ];
     }
 }

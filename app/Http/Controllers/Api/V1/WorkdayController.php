@@ -16,8 +16,8 @@ use App\Http\Requests\V1\GetWorkdayRequest;
 use App\Http\Requests\V1\InWorkdayRequest;
 use App\Http\Requests\V1\OutWorkdayRequest;
 use App\Http\Requests\V1\CheckWorkdayRequest;
-use App\Http\Requests\StoreWorkdayRequest;
-use App\Http\Requests\UpdateWorkdayRequest;
+use App\Http\Requests\V1\StoreWorkdayRequest;
+use App\Http\Requests\V1\UpdateWorkdayRequest;
 
 use App\Http\Resources\V1\WorkdayResource;
 use App\Http\Resources\V1\WorkdayCollection;
@@ -90,11 +90,15 @@ class WorkdayController extends Controller
      * @param  \App\Models\Workday  $workday
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateWorkdayRequest $request, Workday $workday)
+    /*
+    [url] http://localhost:8000/api/v1/workdays/{uuid} [patch] 
+    [request] { "place_out": "Insurgentes 5022 El Colegio Cd Juarez Chih", "latitude_out": 33.484421, "longitude_out": -106.4408055 }
+    */
+    public function update(UpdateWorkdayRequest $request, $uuid)
     {
         $workday = Workday::where('uuid', $uuid)->first();
         if(empty($workday)){
-            throw new HttpResponseException(response("workday uuid dosent exist", 428));
+            return response("workday uuid dosent exist", 428);
         }
         $workday->update($request->all());
         return response("updated workday", 200);
@@ -106,11 +110,14 @@ class WorkdayController extends Controller
      * @param  \App\Models\Workday  $workday
      * @return \Illuminate\Http\Response
      */
+    /*
+    [url] http://localhost:8000/api/v1/workdays/{uuid} [delete]
+    */
     public function destroy(Request $request, $uuid)
     {
         $workday = Workday::where('uuid', $uuid)->first();
         if(empty($workday)){
-            throw new HttpResponseException(response("workday uuid dosent exist", 428));
+            return response("workday uuid dosent exist", 428);
         }
         $workday->delete();
         return response("deleted workday", 200);
@@ -191,7 +198,7 @@ class WorkdayController extends Controller
         $latitude_out = $request->input('latitude_out');
         $longitude_out = $request->input('longitude_out');
         if(empty($workday)){
-            return;
+            return response("workday uuid dosent exist", 428);
         }
         $workday->status = "C";
         $end = Carbon::now();
