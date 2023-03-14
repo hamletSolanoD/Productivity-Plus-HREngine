@@ -1,0 +1,488 @@
+{
+	"info": {
+		"_postman_id": "2932001f-5981-457a-bf4a-ebf173124fb4",
+		"name": "HR Engine",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25778842"
+	},
+	"item": [
+		{
+			"name": "user add",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"active\": true,\r\n\t\"type\": \"e\",\r\n\t\"employee_uuid\": \"faed79cb-53a2-3024-b5ce-b39d07f67250\",\r\n\t\"name\": \"Admin\",\r\n\t\"uuid\": \"00e5a5dd-b65f-4215-bde2-0932d8619582\",\r\n\t\"email\": \"admin@ymail.com\",\r\n\t\"password\": \"Sist8293+\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/v1/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user edit",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"name\": \"System Admin\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/v1/users/00e5a5dd-b65f-4215-bde2-0932d8619582",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"00e5a5dd-b65f-4215-bde2-0932d8619582"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/v1/users/00e5a5dd-b65f-4215-bde2-0932d8619582",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"00e5a5dd-b65f-4215-bde2-0932d8619582"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"email\": \"admin@gmail.com\", \"password\": \"Sist8293\" }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/v1/users/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "workdays get",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"employer_uuid\": \"4c793288-e5fb-3638-b292-3d161edb72cb\",\r\n\t\"employee_uuid\": \"4ba4ceef-c6c6-3f1d-ae19-7b58436e3f36\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/v1/workdays/get",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"workdays",
+						"get"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "workdays in",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"uuid\": \"a5e2d452-1bce-4d34-9b21-21a34255ab86\",\r\n    \"employee_uuid\": \"4ba4ceef-c6c6-3f1d-ae19-7b58436e3f36\",\r\n    \"employer_uuid\": \"4c793288-e5fb-3638-b292-3d161edb72cb\",\r\n    \"place\": \"3079 Gorczany Loaf Apt. 301 Cormierside, WY 41845\",\r\n    \"latitude\":33.484421,\r\n    \"longitude\":127.429321,\r\n    \"timezone\": \"America/Denver\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/v1/workdays/in",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"workdays",
+						"in"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "workdays out",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"uuid\": \"ae37dfea-6db0-3d30-a3b2-c5eed0f6e99f\",\r\n    \"place_out\": \"3079 Gorczany Loaf Apt. 301 Cormierside, WY 41845\",\r\n    \"latitude_out\": 33.484421,\r\n    \"longitude_out\": 127.429321\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/v1/workdays/out",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"workdays",
+						"out"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "workdays edit",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"place_out\": \"3079 Gorczany Loaf Apt. 301 Cormierside, WY 41845\",\r\n    \"latitude_out\": 33.484421,\r\n    \"longitude_out\": 127.429321\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/v1/workdays/b589ecfd-8f5d-3c8a-b5f6-b7a2bebba2ee",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"workdays",
+						"b589ecfd-8f5d-3c8a-b5f6-b7a2bebba2ee"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "activity edit",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"status\": \"C\",\r\n    \"end\": \"2023-02-28 18:52:46\",\r\n    \"minutes\": 60,\r\n    \"timezone\": \"America/Denver\",\r\n    \"description\": \"Pause to go to the store\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/v1/activities/41dfcf59-f234-4c91-8a96-5a7cbf1841f1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"activities",
+						"41dfcf59-f234-4c91-8a96-5a7cbf1841f1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "workdays delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/v1/workdays/b589ecfd-8f5d-3c8a-b5f6-b7a2bebba2ee",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"workdays",
+						"b589ecfd-8f5d-3c8a-b5f6-b7a2bebba2ee"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "activity start",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"workday_uuid\": \"519651f9-eae9-390e-bffe-5a6551badd9f\", \r\n    \"uuid\": \"5a217fd2-0c57-4e4c-a802-c8bf10581bf8\", \r\n    \"type\": \"B\", \r\n    \"timezone\": \"America/Denver\", \r\n    \"description\": \"Pause to go to the store\", \r\n    \"place\": \"3079 Gorczany Loaf Apt. 301 Cormierside, WY 41845\", \r\n    \"latitude\": 33.484421, \r\n    \"longitude\": 127.429321\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/v1/activities/start",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"activities",
+						"start"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "activities end",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"uuid\": \"74473efd-05c2-37d5-925f-b53b527201de\", \r\n    \"description\": \"Return to job\", \r\n    \"place_end\": \"Insurgentes 5022 El Colegio Cd Juarez, Chih\", \r\n    \"latitude_end\": 31.7309313, \r\n    \"longitude_end\": -106.440384\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/v1/activities/end",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"activities",
+						"end"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "activities edit",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"status\": \"C\",\r\n\t\"end\": \"2023-03-11 06:37:50\",\r\n\t\"minutes\": 30,\r\n\t\"description\": \"Patch close\",\r\n\t\"place_end\": \"Insurgentes 5022 El Colegio Cd Juarez, Chih\", \r\n\t\"latitude_end\": 31.7309313, \r\n\t\"longitude_end\": -106.440384\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/v1/activities/3d060c7c-974a-3ec5-992f-86aa9e3ec5bb",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"activities",
+						"3d060c7c-974a-3ec5-992f-86aa9e3ec5bb"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "activity delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/v1/activities/3631f0ef-2d67-3982-8ed6-d9396612aa4b",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"activities",
+						"3631f0ef-2d67-3982-8ed6-d9396612aa4b"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "activityfile add",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/Sistemas/Documents/Backend - Plan de trabajo 06-02-2023.pdf"
+						},
+						{
+							"key": "activity_uuid",
+							"value": "bbeb3e7e-c0bb-31c3-8a18-3b3124700f7c",
+							"type": "text"
+						},
+						{
+							"key": "uuid",
+							"value": "8e494598-27fb-488c-83fb-35887db093c1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/v1/activityfiles",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"activityfiles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "activityfile view",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/v1/activityfiles/8e494598-27fb-488c-83fb-35887db093c1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"activityfiles",
+						"8e494598-27fb-488c-83fb-35887db093c1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

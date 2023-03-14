@@ -20,7 +20,8 @@ class StoreActivityFileRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
+        //return false;
     }
 
     /**
@@ -33,8 +34,12 @@ class StoreActivityFileRequest extends FormRequest
         return [
             'activity_uuid' => ['required'],
             'uuid' => ['required', 'unique:activity_files,uuid'],
-            'extension' => ['required'],
+            'file' => ['required','max:2048'],
         ];
+    }
+    
+    public function failedValidation(Validator $validator){
+        throw new HttpResponseException(response($validator->errors(), 406));
     }
     
     protected function passedValidation()
@@ -43,8 +48,10 @@ class StoreActivityFileRequest extends FormRequest
         if(empty($activity)){
             throw new HttpResponseException(response("activity uuid dosent exist", 428));
         }
+        $file = $this->file;
         $this->merge([
-            'workday_id' => $workday_id
+            'activity_id' => $activity->id,
+            'extension' => $file->getClientOriginalExtension()
         ]);
     }
 }

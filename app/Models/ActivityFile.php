@@ -14,6 +14,7 @@ class ActivityFile extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'activity_id',
         'activity_uuid',
         'uuid',
         'extension',
