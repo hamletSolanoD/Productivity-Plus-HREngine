@@ -74,6 +74,9 @@ class ActivityFileController extends Controller
     public function show(ActivityFile $activityFile, $uuid)
     {
         $activityfile = ActivityFile::where('uuid', $uuid)->first();
+        if(empty($activityfile)){
+            return response("activity file uuid dosent exist", 428);
+        }
         $file=$activityfile->uuid.".".$activityfile->extension;
         if(Storage::disk('local')->exists($file)){
             return Storage::disk('local')->download($file);
@@ -111,8 +114,20 @@ class ActivityFileController extends Controller
      * @param  \App\Models\ActivityFile  $activityFile
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ActivityFile $activityFile)
+    /*    
+    [url] http://localhost:8000/api/v1/activityfiles/{uuid} [delete]
+    */
+    public function destroy(ActivityFile $activityFile, $uuid)
     {
-        //
+        $activityfile = ActivityFile::where('uuid', $uuid)->first();
+        if(empty($activityfile)){
+            throw new HttpResponseException(response("activity file uuid dosent exist", 428));
+        }
+        $file=$activityfile->uuid.".".$activityfile->extension;
+        if(Storage::disk('local')->exists($file)){
+            Storage::disk('local')->delete($file);
+        }
+        $activityfile->delete();
+        return response("deleted activity file", 200);
     }
 }
