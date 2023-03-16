@@ -111,7 +111,7 @@ class ActivityController extends Controller
     /*
     [url] http://localhost:8000/api/v1/activities/{uuid} [delete]
     */
-    public function destroy(Request $request, $uuid)
+    public function destroy(DeleteActivityRequest  $request, $uuid)
     {
         $activity = Activity::where('uuid', $uuid)->first();
         if(empty($activity)){

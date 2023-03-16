@@ -4,7 +4,7 @@ namespace App\Http\Resources\v1;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ActivityFileResource extends JsonResource
+class EmployeeFileResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,10 +17,12 @@ class ActivityFileResource extends JsonResource
         //return parent::toArray($request);
         return [
             'id' => $this->id,
-            'activity_id' => $this->activity_id,
-            'activity_uuid' => $this->activity_uuid,
+            'employee_id' => $this->employee_id,
+            'employee_uuid' => $this->employee_uuid,
             'uuid' => $this->uuid,
-            'extension' => $this->extension
+            'file' => $this->file,
+            'checked' => $this->checked,
+            'extension' => $this->extension,
         ];
     }
 }

@@ -34,7 +34,7 @@ class StoreActivityFileRequest extends FormRequest
         return [
             'activity_uuid' => ['required'],
             'uuid' => ['required', 'unique:activity_files,uuid'],
-            'file' => ['required','max:2048'],
+            'file' => ['required', 'max:2048', 'mimes:png,jpeg,gif,jpg,ppt,pptx,doc,docx,pdf,xls,xlsx,zip'],
         ];
     }
     

@@ -27,6 +27,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
     Route::apiResource('clients', ClientController::class);
     Route::apiResource('companies', CompanyController::class);
     Route::apiResource('employees', EmployeeController::class);
+    Route::apiResource('employeefiles', EmployeeFileController::class);
     Route::apiResource('users', UserController::class);
     Route::apiResource('workdays', WorkdayController::class);
     Route::apiResource('activities', ActivityController::class);

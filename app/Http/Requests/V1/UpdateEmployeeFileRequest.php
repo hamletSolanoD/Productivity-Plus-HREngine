@@ -1,9 +1,12 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\V1;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Contracts\Validation\Validator;
 
 class UpdateEmployeeFileRequest extends FormRequest
 {
@@ -14,7 +17,8 @@ class UpdateEmployeeFileRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
+        //return false;
     }
 
     /**
@@ -25,7 +29,14 @@ class UpdateEmployeeFileRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'employee_uuid' => ['sometimes', 'required'],
+            'uuid' => ['sometimes', 'required', 'unique:employee_files,uuid'],
+            'file' => ['sometimes', 'required', 'max:2048', 'mimes:png,jpeg,gif,jpg,ppt,pptx,doc,docx,pdf,xls,xlsx,zip'],            
+            'document' => ['sometimes', 'required'],
         ];
+    }
+
+    public function failedValidation(Validator $validator){
+        throw new HttpResponseException(response($validator->errors(), 406));
     }
 }

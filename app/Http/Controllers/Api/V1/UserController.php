@@ -47,15 +47,14 @@ class UserController extends Controller
     /*    
     [url] http://localhost:8000/api/v1/users/{uuid} [delete] 
     */
-    public function destroy(Request $request, $uuid)
+    public function destroy(DeleteUserRequest $request, $uuid)
     {
         $user = User::where('uuid', $uuid)->first();
         if(empty($user)){
-            throw new HttpResponseException(response("user uuid dosent exist", 428));
+            return response("user uuid dosent exist", 428);
         }
         $user->delete();        
         return response("deleted user", 200);
-        //return response()->json(["success" => true, "message" => "deleted user"], 200);
     }
 
     /**
@@ -72,8 +71,6 @@ class UserController extends Controller
     {
         new UserResource(User::create($request->all()));
         return response("created user", 200);
-        //$user = User::where('uuid', $request->input('uuid'))->first();
-        //return response()->json(["success" => true, "message" => "created user", "data" => $user], 200);
     }
 
     /*
@@ -84,11 +81,10 @@ class UserController extends Controller
     {
         $user = User::where('uuid', $uuid)->first();
         if(empty($user)){
-            throw new HttpResponseException(response("user uuid dosent exist", 428));
+            return response("user uuid dosent exist", 428);
         }
         $user->update($request->all());
         return response("updated user", 200);
-        //return response()->json(["success" => true, "message" => "updated user", "data" => $user], 200);
     }
 
     /*
@@ -98,11 +94,7 @@ class UserController extends Controller
     public function userLogin(UserLoginRequest $request)
     {
         /*
-        Login | 200
-        Inactive user | 401
-        Inactive employer | 402
-        Error data | 409
-        Incomplete data | 406
+        Login | 200, Inactive user | 401, Inactive employer | 402, Error data | 409, Incomplete data | 406
         */
         $email = $request->input('email');
         $password = $request->input('password');
@@ -123,19 +115,14 @@ class UserController extends Controller
             if($user['active']){
                 if(Hash::check($password, $user['password'])){
                     return response()->json($user, 200);
-                    //return response()->json(['login' => true, 'message' => 'User logged', 'user' => $user], 200);
                 } else {
                     return response("Incorrect password", 409);
-                    //return response()->json(['login' => true, 'message' => 'Incorrect password'], 203);
                 }
             } else {
                 return response("Inactive user", 401);
-                //$contact = $user['type'] == 'e' ? 'employer' : 'system provider';
-                //return response()->json(['login' => false, 'message' => 'Inactive User, please contact with your ' . $contact], 203);
             }
         } else {
             return response("Email is not registered", 409);
-            //return response()->json(['login' => false, 'message' => 'Email is not registered'], 203);
         }
     }
 }

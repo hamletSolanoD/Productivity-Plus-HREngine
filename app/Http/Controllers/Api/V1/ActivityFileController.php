@@ -1,14 +1,21 @@
 <?php
-
+/*
+╔══════════════════════════════════════════════════╗
+║        © 2023 Productivity Plus HR Engine        ║
+╠══════════════════════════════════════════════════╣
+║   In memory of Patricia Ivonne Alvarez Avitia!   ║
+╚══════════════════════════════════════════════════╝
+*/
 namespace App\Http\Controllers\Api\V1;
 
 use App\Models\ActivityFile;
 
-use App\Http\Resources\V1\ActivityFileResource;
-use App\Http\Resources\V1\ActivityFileCollection;
-
 use App\Http\Requests\V1\StoreActivityFileRequest;
 use App\Http\Requests\V1\UpdateActivityFileRequest;
+use App\Http\Requests\V1\DeleteActivityFileRequest;
+
+use App\Http\Resources\V1\ActivityFileResource;
+use App\Http\Resources\V1\ActivityFileCollection;
 
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
@@ -51,15 +58,10 @@ class ActivityFileController extends Controller
     {
         $name = $request->input('uuid').".".$request->input('extension');
         if($request->hasFile('file')){
-            $request->file('file')->storeAs(".", $name);
+            $request->file('file')->storeAs("activityfiles", $name);
         }
         new ActivityFileResource(ActivityFile::create($request->all()));
         return response("created activity file", 200);
-        /*
-        $file = $request->input('uuid').".".$request->input('extension');
-        $file64 = $request->input('file64');
-        Storage::disk('local')->put($file, base64_decode($file64));
-        */
     }
 
     /**
@@ -77,11 +79,11 @@ class ActivityFileController extends Controller
         if(empty($activityfile)){
             return response("activity file uuid dosent exist", 428);
         }
-        $file=$activityfile->uuid.".".$activityfile->extension;
+        $file="activityfiles/".$activityfile->uuid.".".$activityfile->extension;
         if(Storage::disk('local')->exists($file)){
             return Storage::disk('local')->download($file);
         } else {
-            response("activity fille uuid dosent exist", 404);
+            response("activity file dosent exist", 404);
         }
     }
 
@@ -117,13 +119,13 @@ class ActivityFileController extends Controller
     /*    
     [url] http://localhost:8000/api/v1/activityfiles/{uuid} [delete]
     */
-    public function destroy(ActivityFile $activityFile, $uuid)
+    public function destroy(DeleteActivityFileRequest $request, $uuid)
     {
         $activityfile = ActivityFile::where('uuid', $uuid)->first();
         if(empty($activityfile)){
-            throw new HttpResponseException(response("activity file uuid dosent exist", 428));
+            return response("activity file uuid dosent exist", 428);            
         }
-        $file=$activityfile->uuid.".".$activityfile->extension;
+        $file="activityfiles/".$activityfile->uuid.".".$activityfile->extension;
         if(Storage::disk('local')->exists($file)){
             Storage::disk('local')->delete($file);
         }

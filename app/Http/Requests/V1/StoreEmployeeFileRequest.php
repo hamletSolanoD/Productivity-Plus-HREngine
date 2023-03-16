@@ -2,8 +2,13 @@
 
 namespace App\Http\Requests\V1;
 
+use App\Models\Employee;
+
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Contracts\Validation\Validator;
 
 class StoreEmployeeFileRequest extends FormRequest
 {
@@ -14,7 +19,8 @@ class StoreEmployeeFileRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
+        //return false;
     }
 
     /**
@@ -25,7 +31,28 @@ class StoreEmployeeFileRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'employee_uuid' => ['required'],
+            'uuid' => ['required', 'unique:employee_files,uuid'],
+            'file' => ['required', 'max:2048', 'mimes:png,jpeg,gif,jpg,ppt,pptx,doc,docx,pdf,xls,xlsx,zip'],
+            'document' => ['required']
         ];
+    }
+
+    public function failedValidation(Validator $validator){
+        throw new HttpResponseException(response($validator->errors(), 406));
+    }
+
+    protected function passedValidation()
+    {
+        $employee = Employee::where('uuid', $this->employee_uuid)->first();
+        if(empty($employee)){
+            throw new HttpResponseException(response("employee uuid dosent exist", 428));
+        }
+        $file = $this->file;
+        $this->merge([
+            'employee_id' => $employee->id,
+            'extension' => $file->getClientOriginalExtension(),
+            'checked' => false,
+        ]);
     }
 }

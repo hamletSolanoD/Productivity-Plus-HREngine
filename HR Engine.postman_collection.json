@@ -483,6 +483,28 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "activityfile delete",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/v1/activityfiles/8e494598-27fb-488c-83fb-35887db093c1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"activityfiles",
+						"8e494598-27fb-488c-83fb-35887db093c1"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

@@ -18,6 +18,7 @@ use App\Http\Requests\V1\OutWorkdayRequest;
 use App\Http\Requests\V1\CheckWorkdayRequest;
 use App\Http\Requests\V1\StoreWorkdayRequest;
 use App\Http\Requests\V1\UpdateWorkdayRequest;
+use App\Http\Requests\V1\DeleteWorkdayRequest;
 
 use App\Http\Resources\V1\WorkdayResource;
 use App\Http\Resources\V1\WorkdayCollection;
@@ -113,7 +114,7 @@ class WorkdayController extends Controller
     /*
     [url] http://localhost:8000/api/v1/workdays/{uuid} [delete]
     */
-    public function destroy(Request $request, $uuid)
+    public function destroy(DeleteWorkdayRequest $request, $uuid)
     {
         $workday = Workday::where('uuid', $uuid)->first();
         if(empty($workday)){
@@ -121,7 +122,6 @@ class WorkdayController extends Controller
         }
         $workday->delete();
         return response("deleted workday", 200);
-        //return response()->json(["success" => true, "message" => "deleted user"], 200);
     }
     
     /*
@@ -131,12 +131,9 @@ class WorkdayController extends Controller
     public function getWorkday(GetWorkdayRequest $request)
     {
         /*
-        workday | 200
-        workday closed | 409
-        workday not found | 428
+        workday | 200, workday closed | 409, workday not found | 428
         */
         //1. agregar los dias laborales del contrato
-        //se guardan todos los datos en UTC y se muestran en el timezone seleccionado
         $employee_uuid = $request->input('employee_uuid');
         $employer_uuid = $request->input('employer_uuid');
         $timezone = $request->input('timezone');
@@ -152,17 +149,11 @@ class WorkdayController extends Controller
                 $workday = $workday->makeHidden("employer_id", "employee_id")->toArray();
                 $workday['lapsedMinutes'] = $lapsedMinutes;
                 return response()->json($user, 200);
-                //$data = ['new' => false, 'message' => 'Work day opened', 'workday' => $workday, 'lapsedMinutes' => $lapsedMinutes];
-                //return response()->json($data, 203);
             } else {                
                 return response("Workday closed", 409);
-                //$data = ['new' => true, 'message' => 'New work day the last work day is closed'];
-                //return response()->json($data, 200);
             }
         } else {
             return response("employee dosent have workday", 428);
-            //$data = ['new' => true, 'message' => 'New work day'];            
-            //return response()->json($data, 200);
         }
         
     }

@@ -18,8 +18,9 @@ class EmployeeFile extends Model
         'employee_id',
         'employee_uuid',
         'uuid',
-        'file',
+        'document',
         'checked',
+        'extension',
     ];
 
     /**
@@ -29,6 +30,7 @@ class EmployeeFile extends Model
      */
     protected $hidden = [
         'id',
+        'employee_id',
         'created_at',
         'updated_at',
     ];

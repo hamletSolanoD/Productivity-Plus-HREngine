@@ -25,8 +25,9 @@ class CreateEmployeeFilesTable extends Migration
             $table->string('employee_uuid')->nullable();
             $table->foreign('employee_uuid')->references('uuid')->on('employees');
             $table->string('uuid')->unique();
-            $table->string('file');
+            $table->string('document');
             $table->boolean('checked');
+            $table->string('extension');
             $table->timestamps();
         });
     }
