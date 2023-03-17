@@ -148,7 +148,7 @@ class WorkdayController extends Controller
                 $workday['start'] = $start_tz->format('Y-m-d H:i:s');
                 $workday = $workday->makeHidden("employer_id", "employee_id")->toArray();
                 $workday['lapsedMinutes'] = $lapsedMinutes;
-                return response()->json($user, 200);
+                return response()->json($workday, 200);
             } else {                
                 return response("Workday closed", 409);
             }

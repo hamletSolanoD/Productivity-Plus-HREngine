@@ -2,11 +2,14 @@
 
 namespace App\Http\Requests\V1;
 
+use App\Models\Workday;
+
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
+use Carbon\Carbon;
 
 class OutWorkdayRequest extends FormRequest
 {
@@ -42,7 +45,7 @@ class OutWorkdayRequest extends FormRequest
     
     protected function passedValidation()
     {
-        $workday = Workday::where('uuid', $this->workday_uuid)->first();
+        $workday = Workday::where('uuid', $this->uuid)->first();
         if(empty($workday)){
             throw new HttpResponseException(response("workday uuid dosent exist", 428));
         }
