@@ -32,15 +32,16 @@ class Employee extends Model
         'birthstate',
         'matrimonialregime',
         'maritalstatus',
-        'rfc_value',
-        'curp_value',
-        'nss_value',
+        'rfc',
+        'curp',
+        'nss',
+        'fonacot',
         'fonacot_total',
         'fonacot_discount',
+        'infonavit',
         'infonavit_creditnumber',
         'infonavit_discount',
         'infonavit_factor',
-        'bankcontract_interbankkey',
     ];
 
     /**

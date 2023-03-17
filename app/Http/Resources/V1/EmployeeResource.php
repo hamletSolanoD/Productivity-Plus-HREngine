@@ -22,9 +22,13 @@ class EmployeeResource extends JsonResource
     {
         return [   
             'uuid' => $this->uuid,
+            'employeecontract_id' => $this->employeecontract_id,
             'employeecontract_uuid' => $this->employeecontract_uuid,
+            'employeeaddress_id' => $this->employeeaddress_id,
             'employeeaddress_uuid' => $this->employeeaddress_uuid,
+            'employeebeneficiary_id' => $this->employeebeneficiary_id,
             'employeebeneficiary_uuid' => $this->employeebeneficiary_uuid,
+            'employeesalary_id' => $this->employeesalary_id,
             'employeesalary_uuid' => $this->employeesalary_uuid,
             'company_uuid' => $this->company_uuid,
             'client_uuid' => $this->client_uuid,

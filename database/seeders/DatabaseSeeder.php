@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             EmployeeFileSeeder::class,
             ActivitySeeder::class,
             ActivityFileSeeder::class,
+            CustomerSeeder::class,
         ]);
         // \App\Models\User::factory(10)->create();
     }
