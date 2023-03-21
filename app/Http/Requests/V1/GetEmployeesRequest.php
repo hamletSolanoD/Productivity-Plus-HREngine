@@ -1,20 +1,13 @@
 <?php
-/*
-╔══════════════════════════════════════════════════╗
-║        © 2023 Productivity Plus HR Engine        ║
-╠══════════════════════════════════════════════════╣
-║   In memory of Patricia Ivonne Alvarez Avitia!   ║
-╚══════════════════════════════════════════════════╝
-*/
+
 namespace App\Http\Requests\V1;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
 
-class GetWorkdayRequest extends FormRequest
+class GetEmployeesRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -36,7 +29,6 @@ class GetWorkdayRequest extends FormRequest
     {
         return [
             'employer_uuid' => ['required'],
-            'employee_uuid' => ['required'],
         ];
     }
     
@@ -46,10 +38,6 @@ class GetWorkdayRequest extends FormRequest
     
     protected function passedValidation()
     {
-        $employee = Employee::where('uuid', $this->employee_uuid)->first();
-        if(empty($employee)){
-            throw new HttpResponseException(response("employee uuid dosent exist", 428));
-        }
         $employer = Employer::where('uuid', $this->employer_uuid)->first();
         if(empty($employer)){
             throw new HttpResponseException(response("employer uuid dosent exist", 428));

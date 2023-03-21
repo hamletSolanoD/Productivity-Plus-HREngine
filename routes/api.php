@@ -34,6 +34,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
     Route::apiResource('activityfiles', ActivityFileController::class);
     Route::post('users/login', ['uses' => 'UserController@userLogin']);
     Route::post('invoices/bulk', ['uses' => 'InvoiceController@bulkStore']);
+    Route::post('employees/get', ['uses' => 'WorkdayController@getEmployees']);
     Route::post('workdays/get', ['uses' => 'WorkdayController@getWorkday']);
     Route::post('workdays/in', ['uses' => 'WorkdayController@inWorkday']);
     Route::post('workdays/out', ['uses' => 'WorkdayController@outWorkday']);

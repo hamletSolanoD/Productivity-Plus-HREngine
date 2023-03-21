@@ -13,6 +13,7 @@ use App\Filters\V1\EmployeesFilter;
 use App\Http\Resources\V1\EmployeeCollection;
 
 use Illuminate\Support\Arr;
+use App\Http\Requests\GetEmployeesRequest;
 
 class EmployeeController extends Controller
 {
@@ -93,5 +94,16 @@ class EmployeeController extends Controller
     public function destroy(Employee $employee)
     {
         //
+    }
+    
+    /*
+    [url] http://localhost:8000/api/v1/workdays/get [post]
+    { "employer_uuid": "1336eb7e-b2c7-32af-b82e-2c2f488ccd7c"}
+    */
+    public function getEmployees(GetEmployeesRequest $request)
+    {
+        $employer_uuid = $request->input('employer_uuid');
+        //$id = DB::table('employees')->where('employee_uuid', '=', $employee_uuid);
+        $employees = Employee::where('employer_uuid', $employer_uuid);
     }
 }
