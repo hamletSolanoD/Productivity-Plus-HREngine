@@ -51,8 +51,8 @@ class StoreActivityFileRequest extends FormRequest
         }
         $file = $this->file;
         $this->merge([
-            'uuid' => Str::uuid()->toString(),
             'activity_id' => $activity->id,
+            'uuid' => Str::uuid()->toString(),
             'extension' => $file->getClientOriginalExtension()
         ]);
     }

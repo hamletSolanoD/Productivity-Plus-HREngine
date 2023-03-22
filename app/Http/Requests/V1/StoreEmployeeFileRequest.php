@@ -9,6 +9,7 @@ use Illuminate\Validation\Rule;
 
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Support\Str;
 
 class StoreEmployeeFileRequest extends FormRequest
 {
@@ -32,7 +33,7 @@ class StoreEmployeeFileRequest extends FormRequest
     {
         return [
             'employee_uuid' => ['required'],
-            'uuid' => ['required', 'unique:employee_files,uuid'],
+            //'uuid' => ['required', 'unique:employee_files,uuid'],
             'file' => ['required', 'max:2048', 'mimes:png,jpeg,gif,jpg,ppt,pptx,doc,docx,pdf,xls,xlsx,zip'],
             'document' => ['required']
         ];
@@ -51,6 +52,7 @@ class StoreEmployeeFileRequest extends FormRequest
         $file = $this->file;
         $this->merge([
             'employee_id' => $employee->id,
+            'uuid' => Str::uuid()->toString(),
             'extension' => $file->getClientOriginalExtension(),
             'checked' => false,
         ]);

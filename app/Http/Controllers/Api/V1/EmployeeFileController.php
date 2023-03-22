@@ -56,12 +56,13 @@ class EmployeeFileController extends Controller
     */
     public function store(StoreEmployeeFileRequest $request)
     {
-        $name = $request->input('uuid').".".$request->input('extension');
+        $uuid = $request->input('uuid');
+        $name = $uuid.".".$request->input('extension');
         if($request->hasFile('file')){
             $request->file('file')->storeAs("employeefiles", $name);
         }
         new EmployeeFileResource(EmployeeFile::create($request->all()));
-        return response("created employee file", 200);
+        return response($uuid, 200);
     }
 
     /**
