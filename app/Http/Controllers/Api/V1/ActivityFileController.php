@@ -57,12 +57,13 @@ class ActivityFileController extends Controller
     */
     public function store(StoreActivityFileRequest $request)
     {
-        $name = $request->input('uuid').".".$request->input('extension');
+        $uuid = $request->input('uuid');
+        $name = $uuid.".".$request->input('extension');
         if($request->hasFile('file')){
             $request->file('file')->storeAs("activityfiles", $name);
         }
         new ActivityFileResource(ActivityFile::create($request->all()));
-        return response("created activity file", 200);
+        return response($uuid, 200);
     }
 
     /**
