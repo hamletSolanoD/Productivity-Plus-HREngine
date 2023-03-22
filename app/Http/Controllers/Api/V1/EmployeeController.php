@@ -8,6 +8,7 @@
 */
 namespace App\Http\Controllers\Api\V1;
 
+use App\Models\Activity;
 use App\Models\Employee;
 use App\Http\Requests\StoreEmployeeRequest;
 use App\Http\Requests\UpdateEmployeeRequest;
@@ -15,16 +16,16 @@ use App\Http\Requests\UpdateEmployeeRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-use App\Filters\V1\EmployeesFilter;
-use App\Http\Resources\V1\EmployeeCollection;
 use App\Http\Resources\V1\EmployeeResource;
+use App\Http\Resources\V1\EmployeeCollection;
+use App\Filters\V1\EmployeesFilter;
 
 use Illuminate\Support\Arr;
 use App\Http\Requests\V1\GetEmployeesRequest;
+use App\Http\Requests\V1\GetEmployeeActivityRequest;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Response;
-
 class EmployeeController extends Controller
 {
     /**
@@ -107,17 +108,34 @@ class EmployeeController extends Controller
     }
     
     /*
-    [url] http://localhost:8000/api/v1/workdays/get [post]
+    [url] http://localhost:8000/api/v1/employees/get [post]
     { "employer_uuid": "1336eb7e-b2c7-32af-b82e-2c2f488ccd7c"}
     */
     public function getEmployees(GetEmployeesRequest $request)
     {
         $employer_uuid = $request->input('employer_uuid');
-        //$employees = DB::table('employees')->where('employer_uuid', '=', $employer_uuid)->get();
-        $employees = Employee::where('employer_uuid', $employer_uuid);
-        return response()->json($employees);
-        //$employees = Employee::where('employer_uuid', $employer_uuid);
-        //return $employees;
-        //return new EmployeeCollection($employees);
+        $employees = Employee::where('employer_uuid', '=', $employer_uuid)->get();
+        return $employees;
+    }
+    
+    /*
+    [url] http://localhost:8000/api/v1/employees/getActivities [post]
+    { "employee_uuid": "1336eb7e-b2c7-32af-b82e-2c2f488ccd7c"}
+    */
+    public function getActivities(GetEmployeeActivityRequest $request)
+    {
+        $employee_uuid = $request->input('employee_uuid');
+        $type = $request->input('type');
+        $conditions = array();
+        $conditions[] = array('workdays.employee_uuid', '=', $employee_uuid);
+        if(!empty($type)){
+            $conditions[] = array('type', '=', $type);
+        }
+        $activities = Activity::join('workdays', 'workdays.id', '=', 'activities.workday_id')
+        ->select('activities.*')
+        ->where($conditions)
+        ->orderBy('id', 'desc')
+        ->get();
+        return $activities;
     }
 }

@@ -24,7 +24,10 @@ class ActivityFactory extends Factory
         $start = $this->faker->dateTimeBetween($workday->start, $workday_end);
         $start_c = new Carbon($start);
         $end =  $status == "C" ? $start_c->addHours(rand(1, 4)) : null;
-        $minutes = $status == "C" ? $end->diffInMinutes($start) : null;
+        $minutes = $status == "C" ? $end->diffInMinutes($start) : null;        
+        $latitude_end = $status == "C" ? $this->faker->latitude : null;
+        $longitude_end = $status == "C" ? $this->faker->longitude : null;
+        $place_end = $status == "C" ? $this->faker->address : null;
         return [
             'workday_id' => $workday_id,
             'workday_uuid' => $workday_uuid,
@@ -36,10 +39,13 @@ class ActivityFactory extends Factory
             'end' => $end,
             'minutes' => $minutes,
             'timezone' => 'America/Denver',
-            'description' => $this->faker->uuid() ? $this->faker->sentence() : null,
+            'description' => $this->faker->boolean() ? $this->faker->sentence() : null,
             'latitude' => $this->faker->latitude,
             'longitude' => $this->faker->longitude,
             'place' => $this->faker->address,
+            'latitude_end' => $latitude_end,
+            'longitude_end' => $longitude_end,
+            'place_end' => $address_end,
         ];
     }
 }

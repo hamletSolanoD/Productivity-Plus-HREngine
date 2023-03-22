@@ -10,6 +10,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 
 class InWorkdayRequest extends FormRequest
 {
@@ -32,7 +33,7 @@ class InWorkdayRequest extends FormRequest
     public function rules()
     {
         return [
-            'uuid' => 'required|unique:workdays,uuid',
+            //'uuid' => 'required|unique:workdays,uuid',
             'employee_uuid' => 'required',
             'employer_uuid' => 'required',
             'place' => 'required',
@@ -59,7 +60,9 @@ class InWorkdayRequest extends FormRequest
         $start = Carbon::now();
         $date = $start->format("Y-m-d"); 
         $this->merge([
+            'uuid' => Str::uuid()->toString(),
             'employee_id' => $employee->id,
+            'employer_id' => $employer->id,
             'status' => 'O',            
             'start' => $start,
             'date' => $start->format("Y-m-d")

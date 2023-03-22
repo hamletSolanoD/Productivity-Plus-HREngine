@@ -9,6 +9,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Models\Activity;
+use App\Models\Workday;
 
 use App\Http\Requests\V1\StoreActivityRequest;
 use App\Http\Requests\V1\UpdateActivityRequest;
@@ -16,6 +17,7 @@ use App\Http\Requests\V1\UpdateActivityRequest;
 use App\Http\Requests\V1\StartActivityRequest;
 use App\Http\Requests\V1\EndActivityRequest;
 use App\Http\Requests\V1\DeleteActivityRequest;
+use App\Http\Requests\V1\GetActivityRequest;
 
 use App\Http\Resources\V1\ActivityResource;
 use App\Http\Resources\V1\ActivityCollection;
@@ -25,6 +27,8 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Response;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class ActivityController extends Controller
 {
@@ -127,8 +131,9 @@ class ActivityController extends Controller
     */
     public function startActivity(StartActivityRequest $request)
     {
+        $uuid = $request->input('uuid');
         new ActivityResource(Activity::create($request->all()));
-        return response("Activity start", 200);
+        return response($uuid, 200);
     }
     
     /*
@@ -152,10 +157,33 @@ class ActivityController extends Controller
         $minutes = Carbon::now()->diffInMinutes($activity->start);
         $activity->minutes = $minutes;
         if($activity->save()){
-            return response("activity out", 200);
+            return response("activity end", 200);
         } else {            
             return response("system error", 500);
         }
 
+    }
+
+    /*
+    [url] http://localhost:8000/api/v1/activities/get [post]
+    { "employer_uuid": "1336eb7e-b2c7-32af-b82e-2c2f488ccd7c"}
+    */
+    public function getActivities(GetActivityRequest $request)
+    {
+        $employee_uuid = $request->input('employee_uuid');
+        $employer_uuid = $request->input('employer_uuid');
+        $conditions = array();
+        if(!empty($employer_uuid)){
+            $conditions[] = array('workdays.employer_uuid', '=', $employer_uuid);
+        }
+        if(!empty($employee_uuid)){
+            $conditions[] = array('workdays.employee_uuid', '=', $employee_uuid);
+        }
+        $activities = Activity::join('workdays', 'workdays.id', '=', 'activities.workday_id')
+        ->select('activities.*')
+        ->where($conditions)
+        ->orderBy('id', 'desc')
+        ->get();
+        return $activities;
     }
 }

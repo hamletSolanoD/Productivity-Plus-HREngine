@@ -10,6 +10,7 @@ use Illuminate\Validation\Rule;
 use Carbon\Carbon;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Support\Str;
 
 class StartActivityRequest extends FormRequest
 {
@@ -33,7 +34,7 @@ class StartActivityRequest extends FormRequest
     {
         return [
             'workday_uuid' => ['required'],
-            'uuid' => ['required', 'unique:activities,uuid'],
+            //'uuid' => ['required', 'unique:activities,uuid'],
             'type' => ['required'],
             'timezone' => ['required'],
             'description' => ['sometimes', 'required'],
@@ -57,6 +58,7 @@ class StartActivityRequest extends FormRequest
         $date = $start->format("Y-m-d"); 
         $this->merge([
             'workday_id' => $workday->id,
+            'uuid' => Str::uuid()->toString(),
             'status' => 'O',            
             'start' => $start,
             'date' => $start->format("Y-m-d"),

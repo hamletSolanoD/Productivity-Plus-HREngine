@@ -13,6 +13,7 @@ use App\Models\ActivityFile;
 use App\Http\Requests\V1\StoreActivityFileRequest;
 use App\Http\Requests\V1\UpdateActivityFileRequest;
 use App\Http\Requests\V1\DeleteActivityFileRequest;
+use App\Http\Requests\V1\GetActivityFileRequest;
 
 use App\Http\Resources\V1\ActivityFileResource;
 use App\Http\Resources\V1\ActivityFileCollection;
@@ -131,5 +132,17 @@ class ActivityFileController extends Controller
         }
         $activityfile->delete();
         return response("deleted activity file", 200);
+    }
+
+    
+    /*
+    [url] http://localhost:8000/api/v1/activityfiles/get [post]
+    { "uuid": "1336eb7e-b2c7-32af-b82e-2c2f488ccd7c"}
+    */
+    public function getFiles(GetActivityFileRequest $request)
+    {        
+        $activity_uuid = $request->input('activity_uuid');
+        $activityfiles = ActivityFile::where('activity_uuid', '=', $activity_uuid)->get();
+        return $activityfiles;
     }
 }

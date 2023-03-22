@@ -19,6 +19,7 @@ use App\Http\Requests\V1\CheckWorkdayRequest;
 use App\Http\Requests\V1\StoreWorkdayRequest;
 use App\Http\Requests\V1\UpdateWorkdayRequest;
 use App\Http\Requests\V1\DeleteWorkdayRequest;
+use App\Http\Requests\V1\GetWorkdayByEmployeerRequest;
 
 use App\Http\Resources\V1\WorkdayResource;
 use App\Http\Resources\V1\WorkdayCollection;
@@ -165,16 +166,8 @@ class WorkdayController extends Controller
     public function inWorkday(InWorkdayRequest $request)
     {
         $uuid = $request->input('uuid');
-        $employee_id = $request->input('employee_id');
-        $employee_uuid = $request->input('employee_uuid');
-        $employer_id = $request->input('empolyer_id');
-        $employer_uuid = $request->input('empolyer_uuid');
-        $place = $request->input('place');
-        $latitude = $request->input('latitude');
-        $longitude = $request->input('longitude');
-        $timezone = $request->input('timezone');
         new WorkdayResource(WorkDay::create($request->all()));
-        return response("Workday in", 200);
+        return response($uuid, 200);
     }
 
     /*
@@ -204,5 +197,18 @@ class WorkdayController extends Controller
         } else {            
             return response("system error", 500);
         }
+    }
+    
+    /*
+    [url] http://localhost:8000/api/v1/employees/getActivities [post]
+    { "employee_uuid": "1336eb7e-b2c7-32af-b82e-2c2f488ccd7c"}
+    */
+    public function getWorkdaysByEmployeer(GetWorkdayByEmployeerRequest $request)
+    {
+        $employer_uuid = $request->input('employer_uuid');
+        $workdays = Workday::where('employer_uuid', '=', $employer_uuid)
+        ->orderBy('id', 'desc')
+        ->get();
+        return $workdays;
     }
 }

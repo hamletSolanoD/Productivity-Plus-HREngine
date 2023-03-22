@@ -35,9 +35,14 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
     Route::post('users/login', ['uses' => 'UserController@userLogin']);
     Route::post('invoices/bulk', ['uses' => 'InvoiceController@bulkStore']);
     Route::post('employees/get', ['uses' => 'EmployeeController@getEmployees']);
+    Route::post('employees/getActivity', ['uses' => 'EmployeeController@getActivities']);
+    Route::post('workdays/getByEmployeer', ['uses' => 'WorkdayController@getWorkdaysByEmployeer']);
     Route::post('workdays/get', ['uses' => 'WorkdayController@getWorkday']);
     Route::post('workdays/in', ['uses' => 'WorkdayController@inWorkday']);
     Route::post('workdays/out', ['uses' => 'WorkdayController@outWorkday']);
+    Route::post('workdays/out', ['uses' => 'WorkdayController@outWorkday']);
+    Route::post('activities/get', ['uses' => 'ActivityController@getActivities']);
     Route::post('activities/start', ['uses' => 'ActivityController@startActivity']);
     Route::post('activities/end', ['uses' => 'ActivityController@endActivity']);
+    Route::post('activityfiles/get', ['uses' => 'ActivityFileController@getFiles']);
 });
