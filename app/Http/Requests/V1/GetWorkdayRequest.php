@@ -11,6 +11,9 @@ namespace App\Http\Requests\V1;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
+use App\Models\Employer;
+use App\Models\Employee;
+
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
 

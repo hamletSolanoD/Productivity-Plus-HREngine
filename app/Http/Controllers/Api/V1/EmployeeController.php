@@ -1,5 +1,11 @@
 <?php
-
+/*
+╔══════════════════════════════════════════════════╗
+║        © 2023 Productivity Plus HR Engine        ║
+╠══════════════════════════════════════════════════╣
+║   In memory of Patricia Ivonne Alvarez Avitia!   ║
+╚══════════════════════════════════════════════════╝
+*/
 namespace App\Http\Controllers\Api\V1;
 
 use App\Models\Employee;
@@ -11,9 +17,13 @@ use Illuminate\Http\Request;
 
 use App\Filters\V1\EmployeesFilter;
 use App\Http\Resources\V1\EmployeeCollection;
+use App\Http\Resources\V1\EmployeeResource;
 
 use Illuminate\Support\Arr;
-use App\Http\Requests\GetEmployeesRequest;
+use App\Http\Requests\V1\GetEmployeesRequest;
+
+use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Response;
 
 class EmployeeController extends Controller
 {
@@ -103,7 +113,11 @@ class EmployeeController extends Controller
     public function getEmployees(GetEmployeesRequest $request)
     {
         $employer_uuid = $request->input('employer_uuid');
-        //$id = DB::table('employees')->where('employee_uuid', '=', $employee_uuid);
+        //$employees = DB::table('employees')->where('employer_uuid', '=', $employer_uuid)->get();
         $employees = Employee::where('employer_uuid', $employer_uuid);
+        return response()->json($employees);
+        //$employees = Employee::where('employer_uuid', $employer_uuid);
+        //return $employees;
+        //return new EmployeeCollection($employees);
     }
 }
