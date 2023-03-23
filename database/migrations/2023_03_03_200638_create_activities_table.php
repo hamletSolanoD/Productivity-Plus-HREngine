@@ -25,7 +25,7 @@ class CreateActivitiesTable extends Migration
             $table->string('workday_uuid');
             $table->foreign('workday_uuid')->references('uuid')->on('workdays');
             $table->string('uuid')->unique();
-            $table->string('type');
+            $table->string('type'); // a => activity, b => break
             $table->string('status');
             $table->dateTime('start');
             $table->dateTime('date');

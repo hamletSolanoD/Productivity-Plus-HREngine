@@ -13,7 +13,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\t\"active\": true,\r\n\t\"type\": \"e\",\r\n\t\"employee_uuid\": \"faed79cb-53a2-3024-b5ce-b39d07f67250\",\r\n\t\"name\": \"Admin\",\r\n\t\"uuid\": \"00e5a5dd-b65f-4215-bde2-0932d8619582\",\r\n\t\"email\": \"admin@ymail.com\",\r\n\t\"password\": \"Sist8293+\"\r\n}",
+					"raw": "{\r\n\t\"active\": true,\r\n\t\"type\": \"b\",\r\n\t\"employer_uuid\": \"a5f640ac-41e3-3cc9-8a9f-f5f82f022a09\",\r\n\t\"name\": \"Buissness\",\r\n\t\"email\": \"admin@ymail.com\",\r\n\t\"password\": \"Sist8293+\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -43,7 +43,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\t\"name\": \"System Admin\"\r\n}",
+					"raw": "{\r\n\t\"active\": true\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -51,7 +51,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8000/api/v1/users/00e5a5dd-b65f-4215-bde2-0932d8619582",
+					"raw": "http://localhost:8000/api/v1/users/7ce4ba44-71c1-323b-9c8c-bd80c684df84",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -61,7 +61,7 @@
 						"api",
 						"v1",
 						"users",
-						"00e5a5dd-b65f-4215-bde2-0932d8619582"
+						"7ce4ba44-71c1-323b-9c8c-bd80c684df84"
 					]
 				}
 			},
@@ -130,13 +130,13 @@
 			"response": []
 		},
 		{
-			"name": "workdays get",
+			"name": "workdays getbyemployeer",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\t\"employer_uuid\": \"4c793288-e5fb-3638-b292-3d161edb72cb\",\r\n\t\"employee_uuid\": \"4ba4ceef-c6c6-3f1d-ae19-7b58436e3f36\"\r\n}",
+					"raw": "{\r\n\t\"employer_uuid\": \"38a2cb7c-7e84-3026-9477-54d78a150053\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -144,7 +144,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8000/api/v1/workdays/get",
+					"raw": "http://localhost:8000/api/v1/workdays/getByEmployeer",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -154,7 +154,7 @@
 						"api",
 						"v1",
 						"workdays",
-						"get"
+						"getByEmployeer"
 					]
 				}
 			},
@@ -167,7 +167,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"uuid\": \"a5e2d452-1bce-4d34-9b21-21a34255ab86\",\r\n    \"employee_uuid\": \"4ba4ceef-c6c6-3f1d-ae19-7b58436e3f36\",\r\n    \"employer_uuid\": \"4c793288-e5fb-3638-b292-3d161edb72cb\",\r\n    \"place\": \"3079 Gorczany Loaf Apt. 301 Cormierside, WY 41845\",\r\n    \"latitude\":33.484421,\r\n    \"longitude\":127.429321,\r\n    \"timezone\": \"America/Denver\"\r\n}",
+					"raw": "{\r\n    \"employee_uuid\": \"adbe557f-77f5-35bc-93a8-372a44d3c87d\",\r\n    \"employer_uuid\": \"a0ca86f4-a88f-3935-b220-fb4441414cbb\",\r\n    \"place\": \"3079 Gorczany Loaf Apt. 301 Cormierside, WY 41845\",\r\n    \"latitude\":33.484421,\r\n    \"longitude\":127.429321,\r\n    \"timezone\": \"America/Denver\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -254,37 +254,6 @@
 			"response": []
 		},
 		{
-			"name": "activity edit",
-			"request": {
-				"method": "PATCH",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"status\": \"C\",\r\n    \"end\": \"2023-02-28 18:52:46\",\r\n    \"minutes\": 60,\r\n    \"timezone\": \"America/Denver\",\r\n    \"description\": \"Pause to go to the store\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8000/api/v1/activities/41dfcf59-f234-4c91-8a96-5a7cbf1841f1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						"api",
-						"v1",
-						"activities",
-						"41dfcf59-f234-4c91-8a96-5a7cbf1841f1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "workdays delete",
 			"request": {
 				"method": "DELETE",
@@ -307,13 +276,75 @@
 			"response": []
 		},
 		{
+			"name": "workdays get",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"employer_uuid\": \"38a2cb7c-7e84-3026-9477-54d78a150053\",\r\n    \"employee_uuid\": \"b63db878-7aab-37d7-9dff-34491a63589d\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/v1/workdays/get",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"workdays",
+						"get"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "activities get",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"employer_uuid\": \"0471e78b-0588-3fbc-ac27-63c83d738c3c\",\r\n\t\"employee_uuid\": \"fcf566ad-8a38-360d-bbad-ce52d2e5253d\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/v1/activities/get",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"activities",
+						"get"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "activity start",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"workday_uuid\": \"519651f9-eae9-390e-bffe-5a6551badd9f\", \r\n    \"uuid\": \"5a217fd2-0c57-4e4c-a802-c8bf10581bf8\", \r\n    \"type\": \"B\", \r\n    \"timezone\": \"America/Denver\", \r\n    \"description\": \"Pause to go to the store\", \r\n    \"place\": \"3079 Gorczany Loaf Apt. 301 Cormierside, WY 41845\", \r\n    \"latitude\": 33.484421, \r\n    \"longitude\": 127.429321\r\n}",
+					"raw": "{\r\n    \"workday_uuid\": \"8f7d98b4-cec4-4a5c-ac42-abf77b77cee8\",\r\n    \"type\": \"B\", \r\n    \"timezone\": \"America/Denver\", \r\n    \"description\": \"Pause to go to the store\", \r\n    \"place\": \"3079 Gorczany Loaf Apt. 301 Cormierside, WY 41845\", \r\n    \"latitude\": 33.484421, \r\n    \"longitude\": 127.429321\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -338,7 +369,7 @@
 			"response": []
 		},
 		{
-			"name": "activities end",
+			"name": "activity end",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -369,7 +400,7 @@
 			"response": []
 		},
 		{
-			"name": "activities edit",
+			"name": "activity edit",
 			"request": {
 				"method": "PATCH",
 				"header": [],
@@ -422,6 +453,37 @@
 			"response": []
 		},
 		{
+			"name": "activityfiles get",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"activity_uuid\": \"07589893-adc7-3359-880a-44086ab5b289\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/v1/activityfiles/get",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"activityfiles",
+						"get"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "activityfile add",
 			"request": {
 				"method": "POST",
@@ -432,16 +494,11 @@
 						{
 							"key": "file",
 							"type": "file",
-							"src": "/C:/Users/Sistemas/Documents/Backend - Plan de trabajo 06-02-2023.pdf"
+							"src": "/C:/Users/Sistemas/Downloads/Inscrito1D8GP24363B136900.pdf"
 						},
 						{
 							"key": "activity_uuid",
-							"value": "bbeb3e7e-c0bb-31c3-8a18-3b3124700f7c",
-							"type": "text"
-						},
-						{
-							"key": "uuid",
-							"value": "8e494598-27fb-488c-83fb-35887db093c1",
+							"value": "8ec7cd03-5025-4022-97b0-40f580389b1a",
 							"type": "text"
 						}
 					]
@@ -487,7 +544,7 @@
 		{
 			"name": "activityfile delete",
 			"request": {
-				"method": "GET",
+				"method": "DELETE",
 				"header": [],
 				"url": {
 					"raw": "http://localhost:8000/api/v1/activityfiles/8e494598-27fb-488c-83fb-35887db093c1",
@@ -501,6 +558,184 @@
 						"v1",
 						"activityfiles",
 						"8e494598-27fb-488c-83fb-35887db093c1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "employeefile add",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/Sistemas/Downloads/SATconstancia.pdf"
+						},
+						{
+							"key": "employee_uuid",
+							"value": "1d121fdd-95a5-3408-afc6-f978cd85ab32",
+							"type": "text"
+						},
+						{
+							"key": "document",
+							"value": "rfc",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/v1/employeefiles",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"employeefiles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "employeefile edit",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"checked\": false\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/v1/employeefiles/75f96f80-5c99-4e4d-b34f-6841c6a0e496",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"employeefiles",
+						"75f96f80-5c99-4e4d-b34f-6841c6a0e496"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "employeefile view",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/v1/employeefiles/75f96f80-5c99-4e4d-b34f-6841c6a0e496",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"employeefiles",
+						"75f96f80-5c99-4e4d-b34f-6841c6a0e496"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "employeefile delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/v1/employeefiles/75f96f80-5c99-4e4d-b34f-6841c6a0e496",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"employeefiles",
+						"75f96f80-5c99-4e4d-b34f-6841c6a0e496"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "employees get",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"employer_uuid\": \"ef93e5d6-ae44-3468-97d8-8e116f6ee105\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/v1/employees/get",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"employees",
+						"get"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "employees getactivity",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"employee_uuid\": \"42cd29c2-d317-3235-8426-9d7a19d5d71b\",\r\n    \"type\": \"b\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/v1/employees/getActivity",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"employees",
+						"getActivity"
 					]
 				}
 			},

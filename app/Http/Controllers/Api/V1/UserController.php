@@ -38,15 +38,7 @@ class UserController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    /*    
-    [url] http://localhost:8000/api/v1/users/{uuid} [delete] 
-    */
+    // [url] /api/v1/users/{uuid} [delete]
     public function destroy(DeleteUserRequest $request, $uuid)
     {
         $user = User::where('uuid', $uuid)->first();
@@ -57,27 +49,16 @@ class UserController extends Controller
         return response("deleted user", 200);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\V1\StoreUserRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    /*
-    [url] http://localhost:8000/api/v1/users/{uuid} [post] 
-    [request] { "active": true, "type": "e", "employee_uuid": "0ca783aa-44fe-3a6a-aee5-f433b458e8a0", "name": "Admin", "uuid": "00e5a5dd-b65f-4215-bde2-0932d8619582", "email": "admin@ymail.com", "password": "Sist8293+" }
-    */
+    // [url] /v1/users/{uuid} [post]
     public function store(StoreUserRequest $request)
     {
+        $uuid = $request->input('uuid');
         new UserResource(User::create($request->all()));
-        return response("created user", 200);
+        return response($uuid, 200);
     }
 
-    /*
-    [url] http://localhost:8000/api/v1/users/{uuid} [patch] 
-    [request] { "active": false }
-    */
-    public function update(UpdateUserRequest $request, $uuid /*User $user*/)
+    // [url] /api/v1/users/{uuid}
+    public function update(UpdateUserRequest $request, $uuid)
     {
         $user = User::where('uuid', $uuid)->first();
         if(empty($user)){
@@ -87,15 +68,10 @@ class UserController extends Controller
         return response("updated user", 200);
     }
 
-    /*
-    [url] http://localhost:8000/api/v1/users/login [post]
-    [request] { "email": "admin@gmail.com", "password": "Sist8293" }
-    */
+    // [url] /api/v1/users/login [post]
     public function userLogin(UserLoginRequest $request)
     {
-        /*
-        Login | 200, Inactive user | 401, Inactive employer | 402, Error data | 409, Incomplete data | 406
-        */
+        //200 Login, 401 Inactive user, 402 Inactive employer, 409 Error data, 406 Incomplete data, 428 Data error
         $email = $request->input('email');
         $password = $request->input('password');
         $user = User::where('email', $email)->first();

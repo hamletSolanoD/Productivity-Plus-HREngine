@@ -2,6 +2,9 @@
 
 namespace App\Http\Requests\V1;
 
+use App\Models\Employee;
+use App\Models\Employer;
+
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -31,10 +34,10 @@ class UpdateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'active' => ['sometimes', 'required'],
-            'type' => ['sometimes', 'required'],
-            'employee_id' => ['sometimes', 'required_if:type,=,e', 'integer'],
+            'active' => ['sometimes', 'required', Rule::in([true, false])],
+            'type' => ['sometimes', 'required', Rule::in(['e', 'b', 'a'])],
             'employee_uuid' => ['sometimes', 'required_if:type,=,e', 'size:36'],
+            'employer_uuid' => ['sometimes', 'required_if:type,=,r', 'size:36'],
             'name' => ['sometimes', 'required'],
             'uuid' => ['sometimes', 'required', 'size:36'],
             'email' => ['sometimes', 'required', 'email', 'unique:users,email'],
@@ -55,7 +58,25 @@ class UpdateUserRequest extends FormRequest
 
     protected function passedValidation()
     {
+        $employee_id = null;
+        $employer_id = null;
+        if($this->type == "e" && !empty($this->employee_uuid)){
+            $employee = Employee::where('uuid', $this->employee_uuid)->first();
+            if(empty($employee)){
+                throw new HttpResponseException(response("employee uuid dosent exist", 428));
+            }
+            $employee_id = $employee->id;
+        }
+        if($this->type == "b" && !empty($this->employer_uuid)){
+            $employer = Employer::where('uuid', $this->employer_uuid)->first();
+            if(empty($employer)){
+                throw new HttpResponseException(response("employer uuid dosent exist", 428));
+            }
+            $employer_id = $employer->id;
+        }
         $this->merge([
+            'employee_id' => $employee_id,
+            'employer_id' => $employer_id,
             'password' => Hash::make($this->password)
         ]);
     }

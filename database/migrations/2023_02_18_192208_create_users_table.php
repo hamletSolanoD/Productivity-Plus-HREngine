@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->boolean('active');
-            $table->string('type');
+            $table->string('type');//e => employee,  b => empoyeer,  a => admin
             $table->foreignId('employee_id')->nullable()->references('id')->on('employees');
             $table->string('employee_uuid')->nullable();
             $table->foreign('employee_uuid')->references('uuid')->on('employees');
