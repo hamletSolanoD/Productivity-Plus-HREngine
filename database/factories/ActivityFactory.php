@@ -45,7 +45,7 @@ class ActivityFactory extends Factory
             'place' => $this->faker->address,
             'latitude_end' => $latitude_end,
             'longitude_end' => $longitude_end,
-            'place_end' => $address_end,
+            'place_end' => $place_end,
         ];
     }
 }

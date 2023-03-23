@@ -12,6 +12,7 @@ use App\Models\EmployeeFile;
 use App\Http\Requests\V1\StoreEmployeeFileRequest;
 use App\Http\Requests\V1\UpdateEmployeeFileRequest;
 use App\Http\Requests\V1\DeleteEmployeeFileRequest;
+use App\Http\Requests\V1\GetEmployeeFileRequest;
 
 use App\Http\Resources\V1\EmployeeFileResource;
 use App\Http\Resources\V1\EmployeeFileCollection;
@@ -44,16 +45,7 @@ class EmployeeFileController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreEmployeeFileRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    /*
-    [url] http://localhost:8000/api/v1/employeefiles [post]
-    [request]  file employee_uuid uuid
-    */
+    //[url] /api/v1/employeefiles [post]
     public function store(StoreEmployeeFileRequest $request)
     {
         $uuid = $request->input('uuid');
@@ -65,15 +57,7 @@ class EmployeeFileController extends Controller
         return response($uuid, 200);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\EmployeeFile  $employeeFile
-     * @return \Illuminate\Http\Response
-     */
-    /*
-    [url] http://localhost:8000/api/v1/employeefiles/{uuid} [get] 
-    */
+    // [url] /api/v1/employeefiles/{uuid} [get] 
     public function show(EmployeeFile $employeeFile, $uuid)
     {
         $employeefile = EmployeeFile::where('uuid', $uuid)->first();
@@ -99,18 +83,7 @@ class EmployeeFileController extends Controller
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateEmployeeFileRequest  $request
-     * @param  \App\Models\EmployeeFile  $employeeFile
-     * @return \Illuminate\Http\Response
-     */
-    /*
-    [url] http://localhost:8000/api/v1/employeefiles/{uuid} [patch] 
-    [request] { "checked": true }
-    */
-    //public function update(UpdateEmployeeFileRequest $request, EmployeeFile $employeeFile)
+    // [url] /api/v1/employeefiles/{uuid} [patch] 
     public function update(UpdateEmployeeFileRequest $request, $uuid)
     {
         $employeefile = EmployeeFile::where('uuid', $uuid)->first();
@@ -121,15 +94,7 @@ class EmployeeFileController extends Controller
         return response("updated employe efile", 200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\EmployeeFile  $employeeFile
-     * @return \Illuminate\Http\Response
-     */
-    /*    
-    [url] http://localhost:8000/api/v1/employeefiles/{uuid} [delete]
-    */
+    // [url] /api/v1/employeefiles/{uuid} [delete]
     public function destroy(DeleteEmployeeFileRequest $request, $uuid)
     {
         $employeefile = EmployeeFile::where('uuid', $uuid)->first();
@@ -142,5 +107,13 @@ class EmployeeFileController extends Controller
         }
         $employeefile->delete();
         return response("deleted employee file", 200);
+    }
+    
+    //[url] /api/v1/employeefiles/get [post]
+    public function getFiles(GetEmployeeFileRequest $request)
+    {        
+        $employee_uuid = $request->input('employee_uuid');
+        $employeefiles = EmployeeFile::where('employee_uuid', '=', $employee_uuid)->get();
+        return $employeefiles;
     }
 }

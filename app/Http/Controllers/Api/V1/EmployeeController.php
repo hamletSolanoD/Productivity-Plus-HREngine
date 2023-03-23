@@ -107,10 +107,7 @@ class EmployeeController extends Controller
         //
     }
     
-    /*
-    [url] http://localhost:8000/api/v1/employees/get [post]
-    { "employer_uuid": "1336eb7e-b2c7-32af-b82e-2c2f488ccd7c"}
-    */
+    // [url] /api/v1/employees/get [post]
     public function getEmployees(GetEmployeesRequest $request)
     {
         $employer_uuid = $request->input('employer_uuid');
@@ -118,10 +115,7 @@ class EmployeeController extends Controller
         return $employees;
     }
     
-    /*
-    [url] http://localhost:8000/api/v1/employees/getActivities [post]
-    { "employee_uuid": "1336eb7e-b2c7-32af-b82e-2c2f488ccd7c"}
-    */
+    // [url] /api/v1/employees/getActivities [post]
     public function getActivities(GetEmployeeActivityRequest $request)
     {
         $employee_uuid = $request->input('employee_uuid');

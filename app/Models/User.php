@@ -22,6 +22,8 @@ class User extends Authenticatable
         'type',
         'employee_id',
         'employee_uuid',
+        'employer_id',
+        'employer_uuid',
         'uuid',
         'name',
         'email',
@@ -36,6 +38,7 @@ class User extends Authenticatable
     protected $hidden = [
         'id',
         'employee_id',
+        'employer_id',
         'email_verified_at',
         'password',
         'remember_token',

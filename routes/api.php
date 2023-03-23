@@ -36,6 +36,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
     Route::post('invoices/bulk', ['uses' => 'InvoiceController@bulkStore']);
     Route::post('employees/get', ['uses' => 'EmployeeController@getEmployees']);
     Route::post('employees/getActivity', ['uses' => 'EmployeeController@getActivities']);
+    Route::post('employeefiles/get', ['uses' => 'EmployeeFileController@getFiles']);
     Route::post('workdays/getByEmployeer', ['uses' => 'WorkdayController@getWorkdaysByEmployeer']);
     Route::post('workdays/get', ['uses' => 'WorkdayController@getWorkday']);
     Route::post('workdays/in', ['uses' => 'WorkdayController@inWorkday']);

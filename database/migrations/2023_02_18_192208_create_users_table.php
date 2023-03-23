@@ -26,6 +26,9 @@ class CreateUsersTable extends Migration
             $table->foreignId('employee_id')->nullable()->references('id')->on('employees');
             $table->string('employee_uuid')->nullable();
             $table->foreign('employee_uuid')->references('uuid')->on('employees');
+            $table->foreignId('employer_id')->nullable()->references('id')->on('employers');
+            $table->string('employer_uuid')->nullable();
+            $table->foreign('employer_uuid')->references('uuid')->on('employers');
             $table->string('name');
             $table->string('uuid')->unique();
             $table->string('email')->unique();

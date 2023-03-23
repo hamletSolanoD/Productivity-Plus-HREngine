@@ -85,17 +85,7 @@ class WorkdayController extends Controller
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateWorkdayRequest  $request
-     * @param  \App\Models\Workday  $workday
-     * @return \Illuminate\Http\Response
-     */
-    /*
-    [url] http://localhost:8000/api/v1/workdays/{uuid} [patch] 
-    [request] { "place_out": "Insurgentes 5022 El Colegio Cd Juarez Chih", "latitude_out": 33.484421, "longitude_out": -106.4408055 }
-    */
+    // [url] /api/v1/workdays/{uuid} [patch]
     public function update(UpdateWorkdayRequest $request, $uuid)
     {
         $workday = Workday::where('uuid', $uuid)->first();
@@ -106,15 +96,7 @@ class WorkdayController extends Controller
         return response("updated workday", 200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Workday  $workday
-     * @return \Illuminate\Http\Response
-     */
-    /*
-    [url] http://localhost:8000/api/v1/workdays/{uuid} [delete]
-    */
+    // [url] /api/v1/workdays/{uuid} [delete]
     public function destroy(DeleteWorkdayRequest $request, $uuid)
     {
         $workday = Workday::where('uuid', $uuid)->first();
@@ -125,15 +107,10 @@ class WorkdayController extends Controller
         return response("deleted workday", 200);
     }
     
-    /*
-    [url] http://localhost:8000/api/v1/workdays/get [post]
-    { "employer_uuid": "1336eb7e-b2c7-32af-b82e-2c2f488ccd7c", "employee_uuid": "9e35e454-8f31-3f04-b8fb-77d2ed9eaee9" }
-    */
+    //[url] /api/v1/workdays/get [post]
     public function getWorkday(GetWorkdayRequest $request)
     {
-        /*
-        workday | 200, workday closed | 409, workday not found | 428
-        */
+        //200 workday opened, 409 workday closed, 428 workday not found
         //1. agregar los dias laborales del contrato
         $employee_uuid = $request->input('employee_uuid');
         $employer_uuid = $request->input('employer_uuid');
@@ -159,10 +136,7 @@ class WorkdayController extends Controller
         
     }
     
-    /*
-    [url] http://localhost:8000/api/v1/workdays/in [post]
-    { "uuid": "a5e2d452-1bce-4d34-9b21-21a34255ab86", "employee_uuid": "4ba4ceef-c6c6-3f1d-ae19-7b58436e3f36", "employer_uuid": "4c793288-e5fb-3638-b292-3d161edb72cb", "place": "3079 Gorczany Loaf Apt. 301 Cormierside, WY 41845", "latitude":33.484421, "longitude":127.429321, "timezone": "America/Denver" }
-    */
+    // [url] http://localhost:8000/api/v1/workdays/in [post]
     public function inWorkday(InWorkdayRequest $request)
     {
         $uuid = $request->input('uuid');
@@ -170,10 +144,7 @@ class WorkdayController extends Controller
         return response($uuid, 200);
     }
 
-    /*
-    [url] http://localhost:8000/api/v1/workdays/out [post]
-    { "uuid": "ae37dfea-6db0-3d30-a3b2-c5eed0f6e99f", "place_out": "3079 Gorczany Loaf Apt. 301 Cormierside, WY 41845", "latitude_out": 33.484421, "longitude_out": 127.429321 }
-    */
+    // [url] http://localhost:8000/api/v1/workdays/out [post]
     public function outWorkday(OutWorkdayRequest $request)
     {
         $uuid = $request->input('uuid');
@@ -199,10 +170,7 @@ class WorkdayController extends Controller
         }
     }
     
-    /*
-    [url] http://localhost:8000/api/v1/employees/getActivities [post]
-    { "employee_uuid": "1336eb7e-b2c7-32af-b82e-2c2f488ccd7c"}
-    */
+    // [url] /api/v1/employees/getActivities [post]
     public function getWorkdaysByEmployeer(GetWorkdayByEmployeerRequest $request)
     {
         $employer_uuid = $request->input('employer_uuid');

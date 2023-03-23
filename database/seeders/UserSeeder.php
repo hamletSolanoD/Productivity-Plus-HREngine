@@ -21,15 +21,27 @@ class UserSeeder extends Seeder
         $employee = \App\Models\Employee::factory()->create();
         $employee_id = $employee->id;
         $employee_uuid = $employee->uuid;
-        $uuid = $faker->uuid();
+        $employer = \App\Models\Employer::factory()->create();
+        $employer_id = $employer->id;
+        $employer_uuid = $employer->uuid;
         $user = User::create([
             'active' => true,
             'type' => 'e', 
             'employee_id' => $employee_id,
             'employee_uuid' => $employee_uuid,
-            'uuid' => $uuid,
+            'uuid' => $faker->uuid(),
             'name' => 'Admin', 
             'email' => 'admin@gmail.com',
+            'password' => Hash::make('Sist8293')
+        ]);
+        $user = User::create([
+            'active' => true,
+            'type' => 'b', 
+            'employer_id' => $employer_id,
+            'employer_uuid' => $employer_uuid,
+            'uuid' => $faker->uuid(),
+            'name' => 'System Admin', 
+            'email' => 'system@gmail.com',
             'password' => Hash::make('Sist8293')
         ]);
     }

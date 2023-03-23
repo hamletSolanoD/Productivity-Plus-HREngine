@@ -85,17 +85,7 @@ class ActivityController extends Controller
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateActivityRequest  $request
-     * @param  \App\Models\Activity  $activity
-     * @return \Illuminate\Http\Response
-     */
-    /*
-    [url] http://localhost:8000/api/v1/activities/{uuid} [patch] 
-    [request] { "type": "B", "timezone": "America/Denver", "description": "Pause to go to the store" }
-    */
+    // [url] /api/v1/activities/{uuid} [patch]
     public function update(UpdateActivityRequest $request, $uuid)
     {
         $activity = Activity::where('uuid', $uuid)->first();
@@ -106,15 +96,7 @@ class ActivityController extends Controller
         return response("updated activity", 200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Activity  $activity
-     * @return \Illuminate\Http\Response
-     */
-    /*
-    [url] http://localhost:8000/api/v1/activities/{uuid} [delete]
-    */
+    // [url] /api/v1/activities/{uuid} [delete]
     public function destroy(DeleteActivityRequest  $request, $uuid)
     {
         $activity = Activity::where('uuid', $uuid)->first();
@@ -125,10 +107,7 @@ class ActivityController extends Controller
         return response("deleted activity", 200);
     }
 
-    /*
-    [url] http://localhost:8000/api/v1/activities/start [post]
-    [request] { "workday_uuid": "b8a494b4-ab5c-339d-9cda-18ab5e182c75", "uuid": "5a217fd2-0c57-4e4c-a802-c8bf10581bf8", "type": "B", "timezone": "America/Denver", "description": "Pause to go to the store", "place": "3079 Gorczany Loaf Apt. 301 Cormierside, WY 41845", "latitude": 33.484421, "longitude": 127.429321 }
-    */
+    // [url] /api/v1/activities/start [post]
     public function startActivity(StartActivityRequest $request)
     {
         $uuid = $request->input('uuid');
@@ -136,10 +115,7 @@ class ActivityController extends Controller
         return response($uuid, 200);
     }
     
-    /*
-    [url] http://localhost:8000/api/v1/activities/end [post]
-    [request] { "uuid": "74473efd-05c2-37d5-925f-b53b527201de", "description": "Return to job", "place_end": "Insurgentes 5022 El Colegio Cd Juarez, Chih", "latitude_end": 31.7309313, "longitude_end": -106.440384 }
-    */
+    // [url] /api/v1/activities/end [post]
     public function endActivity(EndActivityRequest $request)
     {
         $uuid = $request->input('uuid');
@@ -164,10 +140,7 @@ class ActivityController extends Controller
 
     }
 
-    /*
-    [url] http://localhost:8000/api/v1/activities/get [post]
-    { "employer_uuid": "1336eb7e-b2c7-32af-b82e-2c2f488ccd7c"}
-    */
+    // [url] /api/v1/activities/get [post]
     public function getActivities(GetActivityRequest $request)
     {
         $employee_uuid = $request->input('employee_uuid');

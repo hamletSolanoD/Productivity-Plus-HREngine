@@ -45,16 +45,7 @@ class ActivityFileController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreActivityFileRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    /*
-    [url] http://localhost:8000/api/v1/activityfiles [post]
-    [request]  file activity_uuid uuid
-    */
+    //[url] http://localhost:8000/api/v1/activityfiles [post]
     public function store(StoreActivityFileRequest $request)
     {
         $uuid = $request->input('uuid');
@@ -66,15 +57,7 @@ class ActivityFileController extends Controller
         return response($uuid, 200);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\ActivityFile  $activityFile
-     * @return \Illuminate\Http\Response
-     */
-    /*
-    [url] http://localhost:8000/api/v1/activityfiles/{uuid} [get] 
-    */
+    //[url] http://localhost:8000/api/v1/activityfiles/{uuid} [get] 
     public function show(ActivityFile $activityFile, $uuid)
     {
         $activityfile = ActivityFile::where('uuid', $uuid)->first();
@@ -111,16 +94,8 @@ class ActivityFileController extends Controller
     {
         //
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\ActivityFile  $activityFile
-     * @return \Illuminate\Http\Response
-     */
-    /*    
-    [url] http://localhost:8000/api/v1/activityfiles/{uuid} [delete]
-    */
+    
+    //[url] http://localhost:8000/api/v1/activityfiles/{uuid} [delete]
     public function destroy(DeleteActivityFileRequest $request, $uuid)
     {
         $activityfile = ActivityFile::where('uuid', $uuid)->first();
@@ -135,11 +110,7 @@ class ActivityFileController extends Controller
         return response("deleted activity file", 200);
     }
 
-    
-    /*
-    [url] http://localhost:8000/api/v1/activityfiles/get [post]
-    { "uuid": "1336eb7e-b2c7-32af-b82e-2c2f488ccd7c"}
-    */
+    //[url] http://localhost:8000/api/v1/activityfiles/get [post]
     public function getFiles(GetActivityFileRequest $request)
     {        
         $activity_uuid = $request->input('activity_uuid');
