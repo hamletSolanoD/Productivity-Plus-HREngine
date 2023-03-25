@@ -76,13 +76,19 @@ class UserController extends Controller
         $password = $request->input('password');
         $user = User::where('email', $email)->first();
         if(!empty($user)){            
-            $employee = Employee::where('id', $user['employee_id'])->first();
-            if(empty($employee)){
-                return response("Data error", 428);
+            if($user['type'] == "e"){
+                $employee = Employee::where('id', $user['employee_id'])->first();
+                if(empty($employee)){
+                    return response("employee uuid dosent exist", 428);
+                }
             }
-            $employer = Employer::where('id', $employee['employer_id'])->first();
+            $employer_id = $user['type'] == "e" ? $employee['employer_id'] : $user['employer_id'];
+            $employer = Employer::where('id', $employer_id)->first();
             if(empty($employer)){
-                return response("Data error", 428);
+                return response("employer uuid dosent exist", 428);
+            }
+            if($user['type'] == "e"){
+                $user->employer_uuid = $employer['uuid'];
             }
             if(!$employer['active']){
                 return response("Inactive employer", 402);
