@@ -6,11 +6,12 @@
 ║   In memory of Patricia Ivonne Alvarez Avitia!   ║
 ╚══════════════════════════════════════════════════╝
 */
-namespace App\Http\Resources\V1;
+
+namespace App\Http\Resources\v1;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class EmployeeResource extends JsonResource
+class EmployerResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -20,26 +21,24 @@ class EmployeeResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [   
+        return [
+            'active' => $this->active,
+            'outsource' => $this->outsource,
             'uuid' => $this->uuid,
-            'active',
-            'active',
-            'outsource',
-            'uuid',
-            'outsourceat',
-            'persontype',
-            'rfc',
-            'employerregistry',
-            'tradename',
-            'businessname',
-            'firstname',
-            'paternalsurname',
-            'maternalsurname',
-            'gender',
-            'birthdate',
-            'legalrepresentative',
-            'phone',
-            'email',
+            'outsourceat' => $this->outsourceat,
+            'persontype' => $this->persontype,
+            'rfc' => $this->rfc,
+            'employerregistry' => $this->employerregistry,
+            'tradename' => $this->tradename,
+            'businessname' => $this->businessname,
+            'firstname' => $this->firstname,
+            'paternalsurname' => $this->paternalsurname,
+            'maternalsurname' => $this->maternalsurname,
+            'gender' => $this->gender,
+            'birthdate' => $this->birthdate,
+            'legalrepresentative' => $this->legalrepresentative,
+            'phone' => $this->phone,
+            'email' => $this->email,
         ];
     }
 }

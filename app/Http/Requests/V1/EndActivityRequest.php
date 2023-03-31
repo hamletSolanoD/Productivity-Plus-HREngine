@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\V1;
 
+use App\Models\User;
 use App\Models\Activity;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -10,6 +11,9 @@ use Illuminate\Validation\Rule;
 use Carbon\Carbon;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
+
+use App\Http\Controllers\Api\V1\BinnacleController;
+use Illuminate\Http\Request;
 
 class EndActivityRequest extends FormRequest
 {
@@ -43,7 +47,6 @@ class EndActivityRequest extends FormRequest
         throw new HttpResponseException(response($validator->errors(), 406));
     }
     
-    /*
     protected function passedValidation()
     {
         $uuid = $request->input('uuid');
@@ -66,6 +69,25 @@ class EndActivityRequest extends FormRequest
             'end' => $end,
             'minutes' => $minutes
         ]);
+        
+        $uuid = $request->input('uuid');
+        $activity = Activity::where('uuid', $uuid)->first();
+        if(empty($activity)){
+            return response("activity uuid dosent exist", 428);
+        }
+        $activity->description = $request->input('description');
+        $activity->place_end = $request->input('place_end');
+        $activity->latitude_end = $request->input('latitude_end');
+        $activity->longitude_end = $request->input('longitude_end');
+        $activity->status = "C";
+        $end = Carbon::now();
+        $activity->end = $end;
+        $minutes = Carbon::now()->diffInMinutes($activity->start);
+        $activity->minutes = $minutes;
+        if($activity->save()){
+            return response("activity end", 200);
+        } else {            
+            return response("system error", 500);
+        }
     }
-    */
 }

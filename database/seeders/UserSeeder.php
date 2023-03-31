@@ -30,8 +30,8 @@ class UserSeeder extends Seeder
             'employee_id' => $employee_id,
             'employee_uuid' => $employee_uuid,
             'uuid' => $faker->uuid(),
-            'name' => 'Admin', 
-            'email' => 'admin@gmail.com',
+            'name' => 'Employee', 
+            'email' => 'employee@gmail.com',
             'password' => Hash::make('Sist8293')
         ]);
         $user = User::create([
@@ -40,8 +40,16 @@ class UserSeeder extends Seeder
             'employer_id' => $employer_id,
             'employer_uuid' => $employer_uuid,
             'uuid' => $faker->uuid(),
-            'name' => 'System Admin', 
-            'email' => 'system@gmail.com',
+            'name' => 'Employer', 
+            'email' => 'employer@gmail.com',
+            'password' => Hash::make('Sist8293')
+        ]);
+        $user = User::create([
+            'active' => true,
+            'type' => 'a',
+            'uuid' => $faker->uuid(),
+            'name' => 'Admin', 
+            'email' => 'admin@gmail.com',
             'password' => Hash::make('Sist8293')
         ]);
     }

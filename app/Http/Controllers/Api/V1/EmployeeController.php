@@ -52,17 +52,6 @@ class EmployeeController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreEmployeeRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreEmployeeRequest $request)
-    {
-        //
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  \App\Models\Employee  $employee
@@ -83,28 +72,23 @@ class EmployeeController extends Controller
     {
         //
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateEmployeeRequest  $request
-     * @param  \App\Models\Employee  $employee
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateEmployeeRequest $request, Employee $employee)
+    
+    // [url] /v1/employees/ [post]
+    public function store(StoreEmployeeRequest $request)
     {
-        //
+
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Employee  $employee
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Employee $employee)
+    // [url] /v1/employees/{uuid} [patch]
+    public function update(UpdateEmployeeRequest $request)
     {
-        //
+
+    }
+
+    // [url] /v1/employers/{uuid} [delete]
+    public function destroy(DeleteEmployeeRequest $employee)
+    {
+
     }
     
     // [url] /api/v1/employees/get [post]

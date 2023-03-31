@@ -6,11 +6,16 @@
 ║   In memory of Patricia Ivonne Alvarez Avitia!   ║
 ╚══════════════════════════════════════════════════╝
 */
-namespace App\Http\Controllers\V1;
+namespace App\Http\Controllers\Api\V1;
 
 use App\Models\Employer;
-use App\Http\Requests\StoreEmployerRequest;
-use App\Http\Requests\UpdateEmployerRequest;
+
+use App\Http\Requests\V1\StoreEmployerRequest;
+use App\Http\Requests\V1\UpdateEmployerRequest;
+use App\Http\Requests\V1\DeleteEmployerRequest;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 class EmployerController extends Controller
 {
@@ -30,17 +35,6 @@ class EmployerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreEmployerRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreEmployerRequest $request)
     {
         //
     }
@@ -67,26 +61,21 @@ class EmployerController extends Controller
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateEmployerRequest  $request
-     * @param  \App\Models\Employer  $employer
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateEmployerRequest $request, Employer $employer)
+    // [url] /v1/employers/ [post]
+    public function store(StoreEmployerRequest $request)
     {
-        //
+
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Employer  $employer
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Employer $employer)
+    // [url] /v1/employers/{uuid} [patch]
+    public function update(UpdateEmployerRequest $request)
     {
-        //
+
+    }
+
+    // [url] /v1/employers/{uuid} [delete]
+    public function destroy(DeleteEmployerRequest $request)
+    {
+
     }
 }

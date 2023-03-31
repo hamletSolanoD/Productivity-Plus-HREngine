@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\V1;
 
+use App\Models\Employee;
 use App\Models\User;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -10,7 +11,10 @@ use Illuminate\Validation\Rule;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
 
-class DeleteEmployeeFileRequest extends FormRequest
+use App\Http\Controllers\Api\V1\BinnacleController;
+use Illuminate\Http\Request;
+
+class DeleteEmployeeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -31,22 +35,31 @@ class DeleteEmployeeFileRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_uuid' => ['required'],
+            'user_uuid' => ['required']
         ];
     }
     
     public function failedValidation(Validator $validator){
         throw new HttpResponseException(response($validator->errors(), 406));
     }
-        
+    
     protected function passedValidation()
     {
+        $uuid = request('employer');
+        $employer = Employer::where('uuid', $uuid)->first();
+        if(empty($employer)){
+            throw new HttpResponseException(response("Employer uuid dosent exist", 428));
+        }
         $session_user = User::where('uuid', $this->user_uuid)->first();
         if(empty($session_user)){
             throw new HttpResponseException(response("Session user uuid dosent exist", 428));
         }
-        if($session_user['type'] != "b"){
-            throw new HttpResponseException(response("Session user does not have privileges ", 401));
+        if($session_user['type'] != "a"){
+            throw new HttpResponseException(response("Session user does not have privileges", 401));
         }
+        $employer->delete();
+        $employer->table = "employer";
+        BinnacleController::Log($employer, 'd', $session_user);
+        throw new HttpResponseException(response("Deleted employer", 200));
     }
 }

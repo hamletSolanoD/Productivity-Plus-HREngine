@@ -88,23 +88,12 @@ class ActivityController extends Controller
     // [url] /api/v1/activities/{uuid} [patch]
     public function update(UpdateActivityRequest $request, $uuid)
     {
-        $activity = Activity::where('uuid', $uuid)->first();
-        if(empty($activity)){
-            return response("activity uuid dosent exist", 428);
-        }
-        $activity->update($request->all());
-        return response("updated activity", 200);
     }
 
     // [url] /api/v1/activities/{uuid} [delete]
     public function destroy(DeleteActivityRequest  $request, $uuid)
     {
-        $activity = Activity::where('uuid', $uuid)->first();
-        if(empty($activity)){
-            return response("activity uuid dosent exist", 428);
-        }
-        $activity->delete();
-        return response("deleted activity", 200);
+
     }
 
     // [url] /api/v1/activities/start [post]
@@ -118,25 +107,6 @@ class ActivityController extends Controller
     // [url] /api/v1/activities/end [post]
     public function endActivity(EndActivityRequest $request)
     {
-        $uuid = $request->input('uuid');
-        $activity = Activity::where('uuid', $uuid)->first();
-        if(empty($activity)){
-            return response("activity uuid dosent exist", 428);
-        }
-        $activity->description = $request->input('description');
-        $activity->place_end = $request->input('place_end');
-        $activity->latitude_end = $request->input('latitude_end');
-        $activity->longitude_end = $request->input('longitude_end');
-        $activity->status = "C";
-        $end = Carbon::now();
-        $activity->end = $end;
-        $minutes = Carbon::now()->diffInMinutes($activity->start);
-        $activity->minutes = $minutes;
-        if($activity->save()){
-            return response("activity end", 200);
-        } else {            
-            return response("system error", 500);
-        }
 
     }
 

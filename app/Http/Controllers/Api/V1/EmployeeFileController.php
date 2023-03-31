@@ -13,6 +13,7 @@ use App\Http\Requests\V1\StoreEmployeeFileRequest;
 use App\Http\Requests\V1\UpdateEmployeeFileRequest;
 use App\Http\Requests\V1\DeleteEmployeeFileRequest;
 use App\Http\Requests\V1\GetEmployeeFileRequest;
+use App\Http\Requests\V1\ViewEmployeeFileRequest;
 
 use App\Http\Resources\V1\EmployeeFileResource;
 use App\Http\Resources\V1\EmployeeFileCollection;
@@ -58,17 +59,17 @@ class EmployeeFileController extends Controller
     }
 
     // [url] /api/v1/employeefiles/{uuid} [get] 
-    public function show(EmployeeFile $employeeFile, $uuid)
+    public function show(ViewEmployeeFileRequest $request, $uuid)
     {
         $employeefile = EmployeeFile::where('uuid', $uuid)->first();
         if(empty($employeefile)){
-            return response("activity file uuid dosent exist", 428);
+            return response("employee file uuid dosent exist", 428);
         }
         $file="employeefiles/".$employeefile->uuid.".".$employeefile->extension;
         if(Storage::disk('local')->exists($file)){
             return Storage::disk('local')->download($file);
         } else {
-            response("employee file dosent exist", 404);
+            return response("employee file dosent exist", 404);
         }
     }
 

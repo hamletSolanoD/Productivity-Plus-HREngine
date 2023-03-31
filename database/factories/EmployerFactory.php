@@ -14,15 +14,15 @@ class EmployerFactory extends Factory
     public function definition()
     {
         $active = $this->faker->boolean();
-        $outsource = $this->faker->boolean();
-        $persontype = $this->faker->randomElement(['F', 'M']);//F Fisica M Moral
-        $name = $persontype == 'F' ? $this->faker->name() : $this->faker->company();
-        $gender = $persontype == 'F' ? $this->faker->randomElement(['M', 'F']) : null;
-        $firstname = $persontype == 'F'? $gender == 'M' ? $this->faker->firstNameMale() : $this->faker->firstNameFemale() : null;
-        $paternalsurname = $persontype == 'F' ? $this->faker->lastName() : null;
-        $maternalsurname = $persontype == 'F' ?$this->faker->lastName() : null;
+        $persontype = $this->faker->randomElement(['f', 'm']);//F Fisica M Moral
+        $outsource = $persontype == 'f' ? $this->faker->boolean() : null;
+        $name = $persontype == 'f' ? $this->faker->name() : $this->faker->company();
+        $gender = $persontype == 'f' ? $this->faker->randomElement(['m', 'f']) : null; //M Male F Female
+        $firstname = $persontype == 'f'? $gender == 'm' ? $this->faker->firstNameMale() : $this->faker->firstNameFemale() : null;
+        $paternalsurname = $persontype == 'f' ? $this->faker->lastName() : null;
+        $maternalsurname = $persontype == 'f' ?$this->faker->lastName() : null;
         $date = $this->faker->date();
-        $legalrepresentative = $persontype == "M" ? $this->faker->name() : null;
+        $legalrepresentative = $persontype == "m" ? $this->faker->name() : null;
         $outsourceat = $outsource ? $this->faker->company() : null;
         return [
             'active' => $active,

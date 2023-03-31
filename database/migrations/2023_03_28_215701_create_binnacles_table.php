@@ -10,7 +10,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateWorkcontractsTable extends Migration
+class CreateBinnaclesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -19,10 +19,15 @@ class CreateWorkcontractsTable extends Migration
      */
     public function up()
     {
-        Schema::create('workcontracts', function (Blueprint $table) {
-            $table->id();
-            //lowcause
-            $table->timestamps();
+        Schema::create('binnacles', function (Blueprint $table) {
+            $table->id(); 
+            $table->string('table');
+            $table->integer('table_id');
+            $table->string('table_uuid');
+            $table->integer('user_id');
+            $table->string('user_uuid');
+            $table->string('type');
+            $table->dateTime('time');
         });
     }
 
@@ -33,6 +38,6 @@ class CreateWorkcontractsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('workcontracts');
+        Schema::dropIfExists('binnacles');
     }
 }

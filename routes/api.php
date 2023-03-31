@@ -26,6 +26,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
     Route::apiResource('invoices', InvoiceController::class);
     Route::apiResource('clients', ClientController::class);
     Route::apiResource('companies', CompanyController::class);
+    Route::apiResource('employers', EmployerController::class);
     Route::apiResource('employees', EmployeeController::class);
     Route::apiResource('employeefiles', EmployeeFileController::class);
     Route::apiResource('users', UserController::class);

@@ -2,9 +2,11 @@
 
 namespace App\Http\Requests\V1;
 
-use Illuminate\Foundation\Http\FormRequest;
-
+use App\Models\User;
 use App\Models\Employer;
+
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
@@ -31,6 +33,7 @@ class GetEmployeesRequest extends FormRequest
     {
         return [
             'employer_uuid' => ['required'],
+            'user_uuid' => ['required']
         ];
     }
     
@@ -40,9 +43,16 @@ class GetEmployeesRequest extends FormRequest
     
     protected function passedValidation()
     {
+        $user = User::where('uuid', $this->user_uuid)->first();
+        if(empty($user)){
+            throw new HttpResponseException(response("Session user uuid dosent exist", 428));
+        }
+        if($user['type'] != "b"){
+            throw new HttpResponseException(response("Session user does not have privileges ", 401));
+        }
         $employer = Employer::where('uuid', $this->employer_uuid)->first();
         if(empty($employer)){
-            throw new HttpResponseException(response("employer uuid dosent exist", 428));
+            throw new HttpResponseException(response("Employer uuid dosent exist", 428));
         }
     }
 }

@@ -22,22 +22,22 @@ class CreateEmployersTable extends Migration
         Schema::create('employers', function (Blueprint $table) {
             $table->id();
             $table->boolean('active');
-            $table->boolean('outsource');
+            $table->boolean('outsource')->nullable();
             $table->string('uuid')->unique();
+            $table->string('outsourceat')->nullable();
             $table->string('persontype');//M moral F fisica
-            $table->string('rfc');      
+            $table->string('rfc');
+            $table->string('employerregistry')->nullable();
+            $table->string('tradename')->unique();
+            $table->string('businessname')->nullable();
             $table->string('firstname')->nullable();
             $table->string('paternalsurname')->nullable();
             $table->string('maternalsurname')->nullable();
-            $table->string('gender')->nullable();
+            $table->string('gender')->nullable();//M male F female
             $table->string('birthdate')->nullable();
-            $table->string('employerregistry')->nullable();
-            $table->string('businessname');
-            $table->string('tradename');
             $table->string('legalrepresentative')->nullable();
             $table->string('phone')->nullable();
             $table->string('email')->nullable();
-            $table->string('outsourceat')->nullable();
             $table->timestamps();
         });
     }

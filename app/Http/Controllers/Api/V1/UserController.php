@@ -39,33 +39,21 @@ class UserController extends Controller
     }
 
     // [url] /api/v1/users/{uuid} [delete]
-    public function destroy(DeleteUserRequest $request, $uuid)
+    public function destroy(DeleteUserRequest $request)
     {
-        $user = User::where('uuid', $uuid)->first();
-        if(empty($user)){
-            return response("user uuid dosent exist", 428);
-        }
-        $user->delete();        
-        return response("deleted user", 200);
+        
     }
 
-    // [url] /v1/users/{uuid} [post]
+    // [url] /v1/users/ [post]
     public function store(StoreUserRequest $request)
     {
-        $uuid = $request->input('uuid');
-        new UserResource(User::create($request->all()));
-        return response($uuid, 200);
+        
     }
 
     // [url] /api/v1/users/{uuid}
-    public function update(UpdateUserRequest $request, $uuid)
+    public function update(UpdateUserRequest $request)
     {
-        $user = User::where('uuid', $uuid)->first();
-        if(empty($user)){
-            return response("user uuid dosent exist", 428);
-        }
-        $user->update($request->all());
-        return response("updated user", 200);
+        
     }
 
     // [url] /api/v1/users/login [post]

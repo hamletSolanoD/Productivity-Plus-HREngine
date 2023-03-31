@@ -14,18 +14,14 @@ class Employee extends Model
      *
      * @var array<int, string>
      */
+
     protected $fillable = [
-        'uuid',
-        'employeecontract_uuid',
-        'employeeaddress_uuid',
-        'employeebeneficiary_uuid',
-        'employeesalary_uuid',
         'employer_uuid',
-        'type',
-        'gender',
+        'uuid',
         'firstname',
         'paternalsurname',
         'maternalsurname',
+        'gender',
         'phone',
         'email',
         'birthdate',
@@ -51,10 +47,6 @@ class Employee extends Model
      */
     protected $hidden = [
         'id',
-        'employeecontract_id',
-        'employeeaddress_id',
-        'employeebeneficiary_id',
-        'employeesalary_id',
         'employer_id',
         'created_at',
         'updated_at',
