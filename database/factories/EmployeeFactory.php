@@ -13,26 +13,12 @@ class EmployeeFactory extends Factory
      */
     public function definition()
     {
-        /*  
-        'employeecontract_id',
-        'employeecontract_uuid',
-        'employeeaddress_id',
-        'employeeaddress_uuid',
-        'employeebeneficiary_id',
-        'employeebeneficiary_uuid',
-        'employeesalary_id',
-        'employeesalary_uuid',
-        'employer_id',
-        'employer_uuid',
-        */
-        //$type = \App\Models\Company::factory()->create()->id ? $this->faker->randomElement(['I', 'C', 'E']);
         $employer = \App\Models\Employer::factory()->create();
         $employer_id = $employer->id;
         $employer_uuid = $employer->uuid;
-        $gender = $this->faker->randomElement(['M', 'F']);
-        $firstname = $gender == 'M' ? $this->faker->firstNameMale() : $this->faker->firstNameFemale();
+        $gender = $this->faker->randomElement(['m', 'f']);
+        $firstname = $gender == 'm' ? $this->faker->firstNameMale() : $this->faker->firstNameFemale();
         $rfc = $this->faker->boolean() ? $this->faker->bothify('RFC###???') : null;
-        $curp = $this->faker->boolean() ? $this->faker->bothify('CURP###???') : null;
         $nss = $this->faker->boolean() ? $this->faker->bothify('NSS###???') : null;
         $fonacot = $this->faker->boolean();
         $fonacot_total = $fonacot ? $this->faker->numberBetween(1000,100000) : null;
@@ -41,9 +27,9 @@ class EmployeeFactory extends Factory
         $infonavit_creditnumber =  $infonavit ? $this->faker->bothify('INF###???') : null;
         $infonavit_discount = $infonavit ? $this->faker->numberBetween(1,1600) : null;
         $infonavit_factor = $infonavit ? $this->faker->randomElement(['VSM', 'UDIS', 'MXN']) : null;
-        $maritalstatus = $this->faker->randomElement(['S', 'M']);
+        $maritalstatus = $this->faker->randomElement(['s', 'm']);
         //S Single M Married
-        $matrimonialregime =  $maritalstatus == 'M' ? $this->faker->randomElement(['SP', 'CS']) : null;
+        $matrimonialregime =  $maritalstatus == 'm' ? $this->faker->randomElement(['sp', 'cs']) : null;
         //SP separate property Single CS conjugal society
         return [
             'uuid' => $this->faker->uuid(),
@@ -61,7 +47,7 @@ class EmployeeFactory extends Factory
             'matrimonialregime' => $matrimonialregime,
             'maritalstatus' => $maritalstatus,
             'rfc' => $rfc,
-            'curp' => $curp,
+            'curp' => $this->faker->bothify('CURP###???'),
             'nss' => $nss,
             'fonacot' => $fonacot,
             'fonacot_total' => $fonacot_total,

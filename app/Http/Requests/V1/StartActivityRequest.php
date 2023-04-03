@@ -35,7 +35,7 @@ class StartActivityRequest extends FormRequest
         return [
             'workday_uuid' => ['required'],
             //'uuid' => ['required', 'unique:activities,uuid'],
-            'type' => ['required'],
+            'type' => ['required', Rule::in(['b', 'w'])],
             'timezone' => ['required'],
             'description' => ['sometimes', 'required'],
             'place' => ['sometimes', 'required'],

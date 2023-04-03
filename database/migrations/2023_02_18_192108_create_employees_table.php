@@ -36,7 +36,7 @@ class CreateEmployeesTable extends Migration
             $table->string('matrimonialregime')->nullable(); //SP Separation of Property', 'CS conjugal society
             $table->string('maritalstatus')->nullable();            
             $table->string('rfc')->nullable();    
-            $table->string('curp')->nullable();
+            $table->string('curp')->unique();
             $table->string('nss')->nullable();
             $table->boolean('fonacot')->nullable()->default(false);
             $table->decimal('fonacot_total')->nullable();
