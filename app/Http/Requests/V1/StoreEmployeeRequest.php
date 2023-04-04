@@ -6,6 +6,9 @@ use App\Models\User;
 use App\Models\Employee;
 use App\Models\Employer;
 
+use App\Http\Resources\V1\EmployeeResource;
+use App\Http\Resources\V1\EmployeeCollection;
+
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -39,23 +42,23 @@ class StoreEmployeeRequest extends FormRequest
             'paternalsurname' => ['required'],
             'gender' => ['required', Rule::in(['m', 'f'])],
             'birthdate' => ['required', 'date_format:Y-m-d'],
-            'curp' => ['required', 'unique:employees,uuid'],
+            'curp' => ['required', 'unique:employees,curp'],
             //'employer_id' => ,
             //'employer_uuid' => , 
             //'maternalsurname' => ,
             //'phone' => ,
             'email' => ['email', 'unique:users,email'],
             //'birthstate' =>sp cs
-            'matrimonialregime' => ['required_if:maritalstatus,=,m', 'prohibited_if:maritalstatus,=,s', Rule::in(['sp', 'cs'])],
             'maritalstatus' => [Rule::in(['s', 'm'])],
+            'matrimonialregime' => ['required_if:maritalstatus,=,m', 'prohibited_if:maritalstatus,=,s', Rule::in(['sp', 'cs'])],
             //'rfc' => ,
             //'nss' => ,
             'fonacot' => [Rule::in([true, false])],
-            'fonacot_total' => ['decimal:2', 'required_if:fonacot,=,true', 'prohibited_if:fonacot,=,false'],
-            'fonacot_discount' => ['decimal:2', 'required_if:fonacot,=,true', 'prohibited_if:fonacot,=,false'],
+            'fonacot_total' => ['required_if:fonacot,=,true', 'prohibited_if:fonacot,=,false'],
+            'fonacot_discount' => ['required_if:fonacot,=,true', 'prohibited_if:fonacot,=,false'],
             'infonavit' => [Rule::in([true, false])],
             'infonavit_creditnumber' => ['required_if:infonavit,=,true', 'prohibited_if:infonavit,=,false'],
-            'infonavit_discount' => ['decimal:2', 'required_if:infonavit,=,true', 'prohibited_if:infonavit,=,false'],
+            'infonavit_discount' => ['required_if:infonavit,=,true', 'prohibited_if:infonavit,=,false'],
             'infonavit_factor' => ['required_if:infonavit,=,true', 'prohibited_if:infonavit,=,false'],
         ];
     }
@@ -65,11 +68,25 @@ class StoreEmployeeRequest extends FormRequest
     }
     
     protected function passedValidation()
-    {
+    {        
+        $numerics = (object) [];
+        if(!is_numeric($this->fonacot_total)){
+            $numerics->fonacot_total = ["The fonacot total must be a number."];
+        }
+        if(!is_numeric($this->fonacot_discount)){
+            $numerics->fonacot_discount = ["The fonacot discount must be a number."];
+        }
+        if(!is_numeric($this->infonavit_discount)){
+            $numerics->infonavit_discount = ["The infonavit discount must be a number."];
+        }
+        if((array)$numerics){
+            throw new HttpResponseException(response()->json($numerics, 406));
+        }
         $employer = Employer::where('uuid', $this->employer_uuid)->first();
-        if(empty($employer)){
+        if(empty($employer) && !empty($this->employer_uuid)){
             throw new HttpResponseException(response("Employer uuid dosent exist", 428));
-        }        
+        }
+        $employer_id = !empty($employer) ? $employer->id : null;
         $session_user = User::where('uuid', $this->user_uuid)->first();
         if(empty($session_user)){
             throw new HttpResponseException(response("Session user uuid dosent exist", 428));
@@ -77,9 +94,12 @@ class StoreEmployeeRequest extends FormRequest
         if($session_user['type'] == "e"){
             throw new HttpResponseException(response("Session user does not have privileges", 401));
         }
+        $uuid = Str::uuid()->toString();
         $this->merge([
-            'uuid' => Str::uuid()->toString(),
-            'employer_id' => $employer->id,
+            'uuid' => $uuid,
+            'employer_id' => $employer_id
         ]);
+        new EmployeeResource(Employee::create(request()->all()));
+        throw new HttpResponseException(response($uuid, 200));
     }
 }

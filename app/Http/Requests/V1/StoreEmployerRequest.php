@@ -71,6 +71,6 @@ class StoreEmployerRequest extends FormRequest
             'uuid' => $uuid
         ]);
         new EmployerResource(Employer::create(request()->all()));
-        return response($uuid, 200);
+        throw new HttpResponseException(response($uuid, 200));
     }
 }

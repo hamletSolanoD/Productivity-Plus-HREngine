@@ -10,8 +10,9 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Models\Activity;
 use App\Models\Employee;
-use App\Http\Requests\StoreEmployeeRequest;
-use App\Http\Requests\UpdateEmployeeRequest;
+use App\Http\Requests\V1\StoreEmployeeRequest;
+use App\Http\Requests\V1\UpdateEmployeeRequest;
+use App\Http\Requests\V1\DeleteEmployeeRequest;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -26,6 +27,7 @@ use App\Http\Requests\V1\GetEmployeeActivityRequest;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Response;
+
 class EmployeeController extends Controller
 {
     /**

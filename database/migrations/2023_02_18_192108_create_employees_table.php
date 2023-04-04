@@ -38,10 +38,10 @@ class CreateEmployeesTable extends Migration
             $table->string('rfc')->nullable();    
             $table->string('curp')->unique();
             $table->string('nss')->nullable();
-            $table->boolean('fonacot')->nullable()->default(false);
+            $table->boolean('fonacot')->default(false);
             $table->decimal('fonacot_total')->nullable();
             $table->decimal('fonacot_discount')->nullable();
-            $table->boolean('infonavit')->nullable()->default(false);
+            $table->boolean('infonavit')->default(false);
             $table->string('infonavit_creditnumber')->nullable();
             $table->decimal('infonavit_discount')->nullable();
             $table->string('infonavit_factor')->nullable();
