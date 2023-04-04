@@ -24,6 +24,7 @@ class Activity extends Model
         'end',
         'timezone',
         'minutes',
+        'title',
         'description',
         'place',
         'latitude',

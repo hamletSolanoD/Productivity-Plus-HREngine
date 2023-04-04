@@ -27,6 +27,7 @@ class ActivityResource extends JsonResource
             'end' => $this->end,
             'minutes' => $this->minutes,
             'timezone' => $this->timezone,
+            'title' => $this->title,
             'description' => $this->description,
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,

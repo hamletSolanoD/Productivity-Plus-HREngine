@@ -39,6 +39,7 @@ class ActivityFactory extends Factory
             'end' => $end,
             'minutes' => $minutes,
             'timezone' => 'America/Denver',
+            'title' => $type == "W" && $this->faker->boolean() ? $this->faker->sentence() : null,
             'description' => $this->faker->boolean() ? $this->faker->sentence() : null,
             'latitude' => $this->faker->latitude,
             'longitude' => $this->faker->longitude,

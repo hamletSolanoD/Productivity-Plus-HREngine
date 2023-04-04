@@ -32,6 +32,7 @@ class CreateActivitiesTable extends Migration
             $table->dateTime('end')->nullable();
             $table->integer('minutes')->nullable();
             $table->string('timezone');
+            $table->string('title')->nullable();
             $table->string('description')->nullable();
             $table->string('place')->nullable();
             $table->double('latitude')->nullable();
