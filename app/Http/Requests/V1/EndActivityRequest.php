@@ -49,15 +49,16 @@ class EndActivityRequest extends FormRequest
     
     protected function passedValidation()
     {
-        $uuid = $request->input('uuid');
+        /*
+        $uuid =  request('uuid');
         $activity = Activity::where('uuid', $uuid)->first();
         if(empty($activity)){
             throw new HttpResponseException(response("activity uuid dosent exist", 428));
         }
-        $description = $request->input('description');
-        $place_out = $request->input('place_out');
-        $latitude_out = $request->input('latitude_out');
-        $longitude_out = $request->input('longitude_out');
+        $description = request('description');
+        $place_out = request('place_out');
+        $latitude_out = request('latitude_out');
+        $longitude_out = request('longitude_out');
         $end = Carbon::now();
         $minutes = Carbon::now()->diffInMinutes($activity->start);
         $this->merge([
@@ -69,25 +70,25 @@ class EndActivityRequest extends FormRequest
             'end' => $end,
             'minutes' => $minutes
         ]);
-        
-        $uuid = $request->input('uuid');
+        */
+        $uuid = request('uuid');
         $activity = Activity::where('uuid', $uuid)->first();
         if(empty($activity)){
-            return response("activity uuid dosent exist", 428);
+            throw new HttpResponseException(response("activity uuid dosent exist", 428));
         }
-        $activity->description = $request->input('description');
-        $activity->place_end = $request->input('place_end');
-        $activity->latitude_end = $request->input('latitude_end');
-        $activity->longitude_end = $request->input('longitude_end');
+        $activity->description = request('description');
+        $activity->place_end = request('place_end');
+        $activity->latitude_end = request('latitude_end');
+        $activity->longitude_end = request('longitude_end');
         $activity->status = "C";
         $end = Carbon::now();
         $activity->end = $end;
         $minutes = Carbon::now()->diffInMinutes($activity->start);
         $activity->minutes = $minutes;
         if($activity->save()){
-            return response("activity end", 200);
+            throw new HttpResponseException(response("activity end", 200));
         } else {            
-            return response("system error", 500);
+            throw new HttpResponseException(response("system error", 500));
         }
     }
 }
