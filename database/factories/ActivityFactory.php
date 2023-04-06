@@ -17,17 +17,17 @@ class ActivityFactory extends Factory
         $workday = \App\Models\Workday::factory()->create();
         $workday_id = $workday->id;
         $workday_uuid = $workday->uuid;
-        $type = $this->faker->randomElement(['W', 'B']);//W Work B Brake brake
-        $status = $this->faker->randomElement(['O', 'C']);//O Open C Close
+        $type = $this->faker->randomElement(['w', 'b']);//W Work B Brake brake
+        $status = $this->faker->randomElement(['o', 'c']);//O Open C Close
         $workday_start_c = new Carbon($workday->start);
         $workday_end = empty($workday->end)? $workday_start_c->addHours(rand(8, 12))  :$workday->start;
         $start = $this->faker->dateTimeBetween($workday->start, $workday_end);
         $start_c = new Carbon($start);
-        $end =  $status == "C" ? $start_c->addHours(rand(1, 4)) : null;
-        $minutes = $status == "C" ? $end->diffInMinutes($start) : null;        
-        $latitude_end = $status == "C" ? $this->faker->latitude : null;
-        $longitude_end = $status == "C" ? $this->faker->longitude : null;
-        $place_end = $status == "C" ? $this->faker->address : null;
+        $end =  $status == "c" ? $start_c->addHours(rand(1, 4)) : null;
+        $minutes = $status == "c" ? $end->diffInMinutes($start) : null;        
+        $latitude_end = $status == "c" ? $this->faker->latitude : null;
+        $longitude_end = $status == "c" ? $this->faker->longitude : null;
+        $place_end = $status == "c" ? $this->faker->address : null;
         return [
             'workday_id' => $workday_id,
             'workday_uuid' => $workday_uuid,

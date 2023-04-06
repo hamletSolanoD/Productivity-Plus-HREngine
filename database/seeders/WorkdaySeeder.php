@@ -15,7 +15,7 @@ class WorkdaySeeder extends Seeder
     public function run()
     {
         Workday::factory()
-            ->count(20)
+            ->count(5)
             ->create();
     }
 }

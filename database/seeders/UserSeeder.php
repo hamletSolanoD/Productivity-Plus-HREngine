@@ -17,6 +17,10 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+        User::factory()
+            ->count(3)
+            ->create();
+
         $faker = app(Generator::class);
         $employee = \App\Models\Employee::factory()->create();
         $employee_id = $employee->id;

@@ -20,13 +20,13 @@ class WorkdayFactory extends Factory
         $employer_uuid = $employer->uuid;
         $employee_id = $employee->id;
         $employee_uuid = $employee->uuid;
-        $status = $this->faker->randomElement(['O', 'C']); //open closed
+        $status = $this->faker->randomElement(['o', 'c']); //open closed
         $startWeek = Carbon::now()->subWeek()->startOfWeek();
         $endWeek   = Carbon::now()->subWeek()->endOfWeek();
         $start = $this->faker->dateTimeBetween($startWeek, $endWeek);
         $start_c = new Carbon($start);
-        $end =  $status == "C" ? $start_c->addHours(rand(8, 12)) : null;
-        $minutes = $status == "C" ? $end->diffInMinutes($start) : null;
+        $end =  $status == "c" ? $start_c->addHours(rand(8, 12)) : null;
+        $minutes = $status == "c" ? $end->diffInMinutes($start) : null;
         $uuid = $this->faker->uuid();
         return [
             'employer_id' => $employer_id,

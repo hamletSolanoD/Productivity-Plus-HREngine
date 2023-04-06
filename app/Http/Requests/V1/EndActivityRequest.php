@@ -49,28 +49,6 @@ class EndActivityRequest extends FormRequest
     
     protected function passedValidation()
     {
-        /*
-        $uuid =  request('uuid');
-        $activity = Activity::where('uuid', $uuid)->first();
-        if(empty($activity)){
-            throw new HttpResponseException(response("activity uuid dosent exist", 428));
-        }
-        $description = request('description');
-        $place_out = request('place_out');
-        $latitude_out = request('latitude_out');
-        $longitude_out = request('longitude_out');
-        $end = Carbon::now();
-        $minutes = Carbon::now()->diffInMinutes($activity->start);
-        $this->merge([
-            'status' => 'C',
-            'description' => $description,
-            'place_out' => $place_out,
-            'latitude_out' => $latitude_out,
-            'longitude_out' => $longitude_out,
-            'end' => $end,
-            'minutes' => $minutes
-        ]);
-        */
         $uuid = request('uuid');
         $activity = Activity::where('uuid', $uuid)->first();
         if(empty($activity)){
