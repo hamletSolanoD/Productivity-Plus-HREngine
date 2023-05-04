@@ -6,6 +6,7 @@
 ║   In memory of Patricia Ivonne Alvarez Avitia!   ║
 ╚══════════════════════════════════════════════════╝
 */
+
 namespace App\Http\Controllers\Api\V1;
 
 use App\Models\Activity;
@@ -74,25 +75,22 @@ class EmployeeController extends Controller
     {
         //
     }
-    
+
     // [url] /v1/employees/ [post]
     public function store(StoreEmployeeRequest $request)
     {
-
     }
 
     // [url] /v1/employees/{uuid} [patch]
     public function update(UpdateEmployeeRequest $request)
     {
-
     }
 
     // [url] /v1/employers/{uuid} [delete]
     public function destroy(DeleteEmployeeRequest $employee)
     {
-
     }
-    
+
     // [url] /api/v1/employees/get [post]
     public function getEmployees(GetEmployeesRequest $request)
     {
@@ -100,7 +98,7 @@ class EmployeeController extends Controller
         $employees = Employee::where('employer_uuid', '=', $employer_uuid)->get();
         return $employees;
     }
-    
+
     // [url] /api/v1/employees/getActivities [post]
     public function getActivities(GetEmployeeActivityRequest $request)
     {
@@ -108,14 +106,14 @@ class EmployeeController extends Controller
         $type = $request->input('type');
         $conditions = array();
         $conditions[] = array('workdays.employee_uuid', '=', $employee_uuid);
-        if(!empty($type)){
+        if (!empty($type)) {
             $conditions[] = array('type', '=', $type);
         }
         $activities = Activity::join('workdays', 'workdays.id', '=', 'activities.workday_id')
-        ->select('activities.*')
-        ->where($conditions)
-        ->orderBy('id', 'desc')
-        ->get();
+            ->select('activities.*')
+            ->where($conditions)
+            ->orderBy('id', 'desc')
+            ->get();
         return $activities;
     }
 }
