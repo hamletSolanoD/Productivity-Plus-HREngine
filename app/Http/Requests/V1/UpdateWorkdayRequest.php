@@ -45,18 +45,19 @@ class UpdateWorkdayRequest extends FormRequest
             'longitude_out' => ['sometimes', 'required'],
         ];
     }
-    
-    public function failedValidation(Validator $validator){
+
+    public function failedValidation(Validator $validator)
+    {
         throw new HttpResponseException(response($validator->errors(), 406));
     }
-    
+
     protected function passedValidation()
     {
         $user = User::where('uuid', $this->user_uuid)->first();
-        if(empty($user)){
+        if (empty($user)) {
             throw new HttpResponseException(response("Session user uuid dosent exist", 428));
         }
-        if($user['type'] != "b"){
+        if ($user['type'] != "b" && $user['type'] != "a") {
             throw new HttpResponseException(response("Session user does not have privileges ", 401));
         }
     }

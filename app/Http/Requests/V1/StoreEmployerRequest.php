@@ -63,7 +63,7 @@ class StoreEmployerRequest extends FormRequest
         if (empty($session_user)) {
             throw new HttpResponseException(response("Session user uuid dosent exist", 428));
         }
-        if ($session_user['type'] != "b") {
+        if ($session_user['type'] != "b" && $session_user['type'] != "a") {
             throw new HttpResponseException(response("Session user does not have privileges ", 401));
         }
         $uuid = Str::uuid()->toString();

@@ -6,10 +6,13 @@
 ║   In memory of Patricia Ivonne Alvarez Avitia!   ║
 ╚══════════════════════════════════════════════════╝
 */
+
 namespace App\Http\Controllers\Api\V1;
 
 use App\Models\Activity;
 use App\Models\Workday;
+use App\Models\User;
+
 
 use App\Http\Requests\V1\StoreActivityRequest;
 use App\Http\Requests\V1\UpdateActivityRequest;
@@ -93,7 +96,6 @@ class ActivityController extends Controller
     // [url] /api/v1/activities/{uuid} [delete]
     public function destroy(DeleteActivityRequest  $request, $uuid)
     {
-
     }
 
     // [url] /api/v1/activities/start [post]
@@ -101,32 +103,45 @@ class ActivityController extends Controller
     {
         $uuid = $request->input('uuid');
         new ActivityResource(Activity::create($request->all()));
+
+
         return response($uuid, 200);
     }
-    
+
     // [url] /api/v1/activities/end [post]
     public function endActivity(EndActivityRequest $request)
     {
-
     }
 
     // [url] /api/v1/activities/get [post]
     public function getActivities(GetActivityRequest $request)
     {
-        $employee_uuid = $request->input('employee_uuid');
-        $employer_uuid = $request->input('employer_uuid');
+        /**
+         * solo se  le pasara el userUUID dependiendo del tipo de user uuid que sea le apareceran diferentes actividades
+         * si es e le apareceran unicamente sus actividades como empleado
+         * si es b le apareceran todas las actividades de sus empleados
+         * si es a le apareceran todas las actividades de todo
+         */
+        $user_uuid = $request->input('user_uuid');
+        $user = User::where('uuid', $user_uuid)->first();
         $conditions = array();
-        if(!empty($employer_uuid)){
-            $conditions[] = array('workdays.employer_uuid', '=', $employer_uuid);
+
+        switch ($user["type"]) {
+            case "e":
+                $conditions[] = array('workdays.employee_uuid', '=', $user["employee_uuid"]);
+                break;
+            case "a":
+                break;
+            case "b":
+                $conditions[] = array('workdays.employer_uuid', '=', $user["employer_uuid"]);
+                break;
         }
-        if(!empty($employee_uuid)){
-            $conditions[] = array('workdays.employee_uuid', '=', $employee_uuid);
-        }
+
         $activities = Activity::join('workdays', 'workdays.id', '=', 'activities.workday_id')
-        ->select('activities.*')
-        ->where($conditions)
-        ->orderBy('id', 'desc')
-        ->get();
+            ->select('activities.*')
+            ->where($conditions)
+            ->orderBy('id', 'desc')
+            ->get();
         return $activities;
     }
 }
