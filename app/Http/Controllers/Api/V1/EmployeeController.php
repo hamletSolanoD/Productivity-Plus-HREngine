@@ -25,7 +25,7 @@ use App\Filters\V1\EmployeesFilter;
 use Illuminate\Support\Arr;
 use App\Http\Requests\V1\GetEmployeesRequest;
 use App\Http\Requests\V1\GetEmployeeActivityRequest;
-
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Response;
 
@@ -94,8 +94,13 @@ class EmployeeController extends Controller
     // [url] /api/v1/employees/get [post]
     public function getEmployees(GetEmployeesRequest $request)
     {
-        $employer_uuid = $request->input('employer_uuid');
-        $employees = Employee::where('employer_uuid', '=', $employer_uuid)->get();
+        //if the user is employer then all the users of type employee that also have their employeer the same
+        $user_uuid = $request->input('user_uuid');
+        $user = User::where('uuid', '=', $user_uuid)->get()->first();
+
+        $employees = User::where('type', '=', 'e')->where('employer_uuid', '=', $user["employer_uuid"])->get();
+
+
         return $employees;
     }
 

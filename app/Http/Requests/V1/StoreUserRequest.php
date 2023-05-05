@@ -41,7 +41,7 @@ class StoreUserRequest extends FormRequest
             'active' => 'required', Rule::in([true, false]),
             'type' => ['required', Rule::in(['e', 'b', 'a'])],
             'employee_uuid' => ['required_if:type,=,e', 'prohibited_if:persontype,<>,e'],
-            'employer_uuid' => ['required_if:type,=,b', 'prohibited_if:persontype,<>,b'],
+            'employer_uuid' => ['required_if:type,=,b', 'required_if:type,=,e'],
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => [
@@ -78,7 +78,7 @@ class StoreUserRequest extends FormRequest
             }
             $employee_id = $employee->id;
         }
-        if ($this->type == "b") {
+        if ($this->type == "b" || $this->type == "e") {
             $employer = Employer::where('uuid', $this->employer_uuid)->first();
             if (empty($employer)) {
                 throw new HttpResponseException(response("Employer uuid dosent exist", 428));

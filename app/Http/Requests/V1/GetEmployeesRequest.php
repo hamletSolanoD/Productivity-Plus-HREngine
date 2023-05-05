@@ -32,7 +32,6 @@ class GetEmployeesRequest extends FormRequest
     public function rules()
     {
         return [
-            'employer_uuid' => ['required'],
             'user_uuid' => ['required']
         ];
     }
@@ -50,10 +49,6 @@ class GetEmployeesRequest extends FormRequest
         }
         if ($user['type'] != "b" && $user['type'] != "a") {
             throw new HttpResponseException(response("Session user does not have privileges ", 401));
-        }
-        $employer = Employer::where('uuid', $this->employer_uuid)->first();
-        if (empty($employer)) {
-            throw new HttpResponseException(response("Employer uuid dosent exist", 428));
         }
     }
 }
