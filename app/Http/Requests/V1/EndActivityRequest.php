@@ -36,25 +36,24 @@ class EndActivityRequest extends FormRequest
     public function rules()
     {
         return [
-            'description' => ['sometimes', 'required'],
             'place_end' => ['sometimes', 'required'],
             'longitud_end' => ['sometimes', 'required'],
             'latitude_end' => ['sometimes', 'required'],
         ];
     }
-    
-    public function failedValidation(Validator $validator){
+
+    public function failedValidation(Validator $validator)
+    {
         throw new HttpResponseException(response($validator->errors(), 406));
     }
-    
+
     protected function passedValidation()
     {
         $uuid = request('uuid');
         $activity = Activity::where('uuid', $uuid)->first();
-        if(empty($activity)){
+        if (empty($activity)) {
             throw new HttpResponseException(response("activity uuid dosent exist", 428));
         }
-        $activity->description = request('description');
         $activity->place_end = request('place_end');
         $activity->latitude_end = request('latitude_end');
         $activity->longitude_end = request('longitude_end');
@@ -63,9 +62,9 @@ class EndActivityRequest extends FormRequest
         $activity->end = $end;
         $minutes = Carbon::now()->diffInMinutes($activity->start);
         $activity->minutes = $minutes;
-        if($activity->save()){
+        if ($activity->save()) {
             throw new HttpResponseException(response("activity end", 200));
-        } else {            
+        } else {
             throw new HttpResponseException(response("system error", 500));
         }
     }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\V1;
 
+use App\Http\Resources\V1\UserResource;
 use App\Models\User;
 use App\Models\Employee;
 use App\Models\Employer;
@@ -40,45 +41,46 @@ class StoreUserRequest extends FormRequest
             'active' => 'required', Rule::in([true, false]),
             'type' => ['required', Rule::in(['e', 'b', 'a'])],
             'employee_uuid' => ['required_if:type,=,e', 'prohibited_if:persontype,<>,e'],
-            'employer_uuid' => ['required_if:type,=,b', 'prohibited_if:persontype,<>,b'],
+            'employer_uuid' => ['required_if:type,=,b', 'required_if:type,=,e'],
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => [
                 'required',
                 Password::min(8)
-                ->letters()
-                ->mixedCase()
-                ->numbers()
-                ->symbols()
+                    ->letters()
+                    ->mixedCase()
+                    ->numbers()
+                    ->symbols()
             ],
         ];
     }
 
-    public function failedValidation(Validator $validator){
+    public function failedValidation(Validator $validator)
+    {
         throw new HttpResponseException(response($validator->errors(), 406));
     }
 
     protected function passedValidation()
     {
         $user = User::where('uuid', $this->user_uuid)->first();
-        if(empty($user)){
+        if (empty($user)) {
             throw new HttpResponseException(response("Session user uuid dosent exist", 428));
         }
-        if($user['type'] == "e" || ($this->type == "a" && $user['type'] != "a") || ($this->type == "b" && $user['type'] != "a")){
+        if ($user['type'] == "e" || ($this->type == "a" && $user['type'] != "a") || ($this->type == "b" && $user['type'] != "a")) {
             throw new HttpResponseException(response("Session user does not have privileges", 401));
         }
         $employee_id = null;
         $employer_id = null;
-        if($this->type == "e"){
+        if ($this->type == "e") {
             $employee = Employee::where('uuid', $this->employee_uuid)->first();
-            if(empty($employee)){
+            if (empty($employee)) {
                 throw new HttpResponseException(response("Employee uuid dosent exist", 428));
             }
             $employee_id = $employee->id;
         }
-        if($this->type == "b"){
+        if ($this->type == "b" || $this->type == "e") {
             $employer = Employer::where('uuid', $this->employer_uuid)->first();
-            if(empty($employer)){
+            if (empty($employer)) {
                 throw new HttpResponseException(response("Employer uuid dosent exist", 428));
             }
             $employer_id = $employer->id;
@@ -90,7 +92,7 @@ class StoreUserRequest extends FormRequest
             'employer_id' => $employer_id,
             'password' => Hash::make($this->password)
         ]);
-        new UserResource(User::create($request->all()));
+        new UserResource(User::create($this->all()));
         return response($uuid, 200);
     }
 }
