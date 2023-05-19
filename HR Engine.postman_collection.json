@@ -7,13 +7,339 @@
 	},
 	"item": [
 		{
-			"name": "user add",
+			"name": "employers add [person]",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\t\"active\": true,\r\n\t\"type\": \"b\",\r\n\t\"employer_uuid\": \"a5f640ac-41e3-3cc9-8a9f-f5f82f022a09\",\r\n\t\"name\": \"Buissness\",\r\n\t\"email\": \"admin@ymail.com\",\r\n\t\"password\": \"Sist8293+\"\r\n}",
+					"raw": "{\r\n    \"user_uuid\": \"ea565116-5efd-3d14-8a49-948fa9f4d616\",\r\n    \"active\": true,\r\n    \"persontype\": \"f\",\r\n    \"rfc\": \"POVE881208CB0\",\t\r\n    \"employerregistry\": \"A8361986540\",\r\n    \"tradename\": \"United Systems\",\r\n    \"firstname\": \"Edgar Ramon\",\r\n    \"paternalsurname\": \"Posada\",\r\n    \"maternalsurname\": \"Valles\",\r\n    \"gender\": \"m\",\r\n    \"birthdate\": \"1988-12-08\",\r\n    \"phone\": \"656 834 2966\",\r\n    \"email\": \"jrz.soft.mx@gmai.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/v1/employers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"employers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "employers add [buissnes]",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_uuid\": \"ea565116-5efd-3d14-8a49-948fa9f4d616\",\r\n    \"active\": true,\r\n    \"outsource\": true,\r\n    \"outsourceat\": \"Noble\",\r\n    \"persontype\": \"m\",\r\n    \"rfc\": \"HPR190228647\",\r\n    \"employerregistry\": \"Y771970110\",\r\n    \"businessname\": \"HP Proveedores, S. DE R.L. DE C.V.\",\r\n    \"tradename\": \"Productivity Plus\",\r\n    \"legalrepresentative\": \"Mario Reyes\",\r\n    \"phone\": \"656 477 3352\",\r\n    \"email\": \"sistemas@productivity-plusnew.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/v1/employers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"employers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "employers edit",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_uuid\": \"6800ed23-9d2f-3df1-aec7-7db34da7cdd5\",\r\n\t\"active\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/v1/employers/203f105f-2f1c-361f-a261-a13b4d09029a",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"employers",
+						"203f105f-2f1c-361f-a261-a13b4d09029a"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "employers detete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_uuid\": \"6800ed23-9d2f-3df1-aec7-7db34da7cdd5\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/v1/employers/203f105f-2f1c-361f-a261-a13b4d09029a",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"employers",
+						"203f105f-2f1c-361f-a261-a13b4d09029a"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "employees add [required]",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"user_uuid\": \"ff8e20bf-7792-37b4-9807-0c0fdf930fa3\",\r\n\t\"firstname\": \"Edgar Ramon\",\r\n\t\"paternalsurname\": \"Posada\",\r\n\t\"gender\": \"m\",\r\n\t\"birthdate\": \"1988-12-08\",\r\n\t\"curp\": \"POVE881208HCHSLD03\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/v1/employees",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"employees"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "employees add [full]",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"user_uuid\": \"ff8e20bf-7792-37b4-9807-0c0fdf930fa3\",\r\n\t\"employer_uuid\": \"b393c0f6-b2ed-31d4-bc1b-22f8fb05868e\",\r\n\t\"firstname\": \"Edgar Ramon\",\r\n\t\"paternalsurname\": \"Posada\",\r\n\t\"maternalsurname\": \"Valles\",\r\n\t\"gender\": \"m\",\r\n\t\"birthdate\": \"1988-12-08\",\r\n\t\"curp\": \"POVE881208HCHSLD03\",\r\n\t\"phone\": \"656 834 2966\",\r\n\t\"email\": \"pelonetejuarez@gmail.com\",\r\n\t\"birthstate\": \"Chihuahua\",\r\n\t\"maritalstatus\": \"m\",\r\n\t\"matrimonialregime\": \"cs\",\r\n\t\"rfc\": \"POVE881208CB0\",\r\n\t\"nss\": \"33088814299\",\r\n\t\"fonacot\": true,\r\n    \"fonacot_total\": \"5000\",\r\n\t\"fonacot_discount\": \"500\",\r\n    \"infonavit\": true,\t\t\r\n\t\"infonavit_creditnumber\": \"INF5606\",\r\n\t\"infonavit_discount\": \"500\",\r\n\t\"infonavit_factor\": \"MXN\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/v1/employees",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"employees"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "employees edit",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/v1/employees/ff216610-f382-4a4b-92c8-6b5084ed4e81",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"employees",
+						"ff216610-f382-4a4b-92c8-6b5084ed4e81"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "employees get",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_uuid\": \"2eb8956a-faea-3317-a50c-8f19dfb7a670\",\r\n\t\"employer_uuid\": \"a99f728e-d066-3506-ad8f-9f4890bc25e9\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/v1/employees/get",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"employees",
+						"get"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "employees getactivity",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_uuid\": \"2eb8956a-faea-3317-a50c-8f19dfb7a670\",\r\n\t\"employee_uuid\": \"0855fc4e-0746-39c0-9c83-a1de6c9c986d\",\r\n    \"type\": \"b\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/v1/employees/getActivity",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"employees",
+						"getActivity"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user add [employer]",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_uuid\": \"6800ed23-9d2f-3df1-aec7-7db34da7cdd5\",\r\n\t\"active\": true,\r\n\t\"type\": \"b\",\r\n\t\"employer_uuid\": \"203f105f-2f1c-361f-a261-a13b4d09029a\",\r\n\t\"name\": \"Buissness\",\r\n\t\"email\": \"employer@outlook.com\",\r\n\t\"password\": \"S1$t.Cr3@\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/v1/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user add [employee]",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_uuid\": \"6800ed23-9d2f-3df1-aec7-7db34da7cdd5\",\r\n\t\"active\": true,\r\n\t\"type\": \"e\",\r\n\t\"employee_uuid\": \"b9c7cf62-53fc-334e-b5ee-b1304ef5d4c0\",\r\n\t\"name\": \"Employee2\",\r\n\t\"email\": \"employee2@outlook.com\",\r\n\t\"password\": \"S1$t.Cr3@\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/v1/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user add [admin]",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_uuid\": \"6800ed23-9d2f-3df1-aec7-7db34da7cdd5\",\r\n\t\"active\": true,\r\n\t\"type\": \"a\",\r\n\t\"name\": \"Admin\",\r\n\t\"email\": \"admin@outlook.com\",\r\n\t\"password\": \"S1$t.Cr3@\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -43,7 +369,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\t\"active\": true\r\n}",
+					"raw": "{\r\n    \"user_uuid\": \"627deb83-0182-40af-9bcd-572cdc265227\",\r\n\t\"active\": false\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -51,7 +377,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8000/api/v1/users/7ce4ba44-71c1-323b-9c8c-bd80c684df84",
+					"raw": "http://localhost:8000/api/v1/users/6800ed23-9d2f-3df1-aec7-7db34da7cdd5",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -61,7 +387,7 @@
 						"api",
 						"v1",
 						"users",
-						"7ce4ba44-71c1-323b-9c8c-bd80c684df84"
+						"6800ed23-9d2f-3df1-aec7-7db34da7cdd5"
 					]
 				}
 			},
@@ -74,7 +400,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "",
+					"raw": "{\r\n    \"user_uuid\": \"6800ed23-9d2f-3df1-aec7-7db34da7cdd5\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -82,7 +408,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8000/api/v1/users/00e5a5dd-b65f-4215-bde2-0932d8619582",
+					"raw": "http://localhost:8000/api/v1/users/8324df9b-e3e6-4d04-99c3-d3f04b428af1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -92,7 +418,7 @@
 						"api",
 						"v1",
 						"users",
-						"00e5a5dd-b65f-4215-bde2-0932d8619582"
+						"8324df9b-e3e6-4d04-99c3-d3f04b428af1"
 					]
 				}
 			},
@@ -105,7 +431,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{ \"email\": \"admin@gmail.com\", \"password\": \"Sist8293\" }",
+					"raw": "{ \"email\": \"pat42@hotmail.com\", \"password\": \"Sist8293\" }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -136,7 +462,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\t\"employer_uuid\": \"38a2cb7c-7e84-3026-9477-54d78a150053\"\r\n}",
+					"raw": "{\t\r\n    \"user_uuid\": \"a4094fd6-6a0c-39be-a976-8c81ccf2bd17\",\r\n    \"employer_uuid\": \"bfbc242a-2b70-3339-990e-fcc8fb289092\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -229,7 +555,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"place_out\": \"3079 Gorczany Loaf Apt. 301 Cormierside, WY 41845\",\r\n    \"latitude_out\": 33.484421,\r\n    \"longitude_out\": 127.429321\r\n}",
+					"raw": "{\r\n    \"user_uuid\": \"2eb8956a-faea-3317-a50c-8f19dfb7a670\",\r\n    \"place_out\": \"3079 Gorczany Loaf Apt. 301 Cormierside, WY 41845\",\r\n    \"latitude_out\": 33.484421,\r\n    \"longitude_out\": 127.429321\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -237,7 +563,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8000/api/v1/workdays/b589ecfd-8f5d-3c8a-b5f6-b7a2bebba2ee",
+					"raw": "http://localhost:8000/api/v1/workdays/88634535-7f47-3058-ad7c-ed986b71410c",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -247,7 +573,7 @@
 						"api",
 						"v1",
 						"workdays",
-						"b589ecfd-8f5d-3c8a-b5f6-b7a2bebba2ee"
+						"88634535-7f47-3058-ad7c-ed986b71410c"
 					]
 				}
 			},
@@ -258,8 +584,17 @@
 			"request": {
 				"method": "DELETE",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_uuid\": \"2eb8956a-faea-3317-a50c-8f19dfb7a670\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "http://localhost:8000/api/v1/workdays/b589ecfd-8f5d-3c8a-b5f6-b7a2bebba2ee",
+					"raw": "http://localhost:8000/api/v1/workdays/88634535-7f47-3058-ad7c-ed986b71410c",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -269,7 +604,7 @@
 						"api",
 						"v1",
 						"workdays",
-						"b589ecfd-8f5d-3c8a-b5f6-b7a2bebba2ee"
+						"88634535-7f47-3058-ad7c-ed986b71410c"
 					]
 				}
 			},
@@ -282,7 +617,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\t\"employer_uuid\": \"38a2cb7c-7e84-3026-9477-54d78a150053\",\r\n    \"employee_uuid\": \"b63db878-7aab-37d7-9dff-34491a63589d\"\r\n}",
+					"raw": "{\r\n\t\"employer_uuid\": \"75f90444-af8b-3209-ae36-db21d7071f1e\",\r\n    \"employee_uuid\": \"c4406179-1b84-3e52-88ef-475ff86b6793\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -313,7 +648,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\t\"employer_uuid\": \"0471e78b-0588-3fbc-ac27-63c83d738c3c\",\r\n\t\"employee_uuid\": \"fcf566ad-8a38-360d-bbad-ce52d2e5253d\"\r\n}",
+					"raw": "{\r\n    \"user_uuid\": \"2eb8956a-faea-3317-a50c-8f19dfb7a670\",\r\n\t\"employer_uuid\": \"966638f4-04ae-3aac-a84c-a8326116c289\",\r\n\t\"employee_uuid\": \"0855fc4e-0746-39c0-9c83-a1de6c9c986d\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -344,7 +679,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"workday_uuid\": \"8f7d98b4-cec4-4a5c-ac42-abf77b77cee8\",\r\n    \"type\": \"B\", \r\n    \"timezone\": \"America/Denver\", \r\n    \"description\": \"Pause to go to the store\", \r\n    \"place\": \"3079 Gorczany Loaf Apt. 301 Cormierside, WY 41845\", \r\n    \"latitude\": 33.484421, \r\n    \"longitude\": 127.429321\r\n}",
+					"raw": "{\r\n    \"workday_uuid\": \"d2031684-defc-3bb3-99aa-c4413d940402\",\r\n    \"type\": \"w\", \r\n    \"timezone\": \"America/Denver\", \r\n    \"title\": \"Clean\", \r\n    \"description\": \"Test of very hi character long, this test evaluete long strings issue reported by frontend, part 2 Test of very hi character long, this test evaluete long strings issue reported by frontend, part 3 Test of very hi character long, this test evaluete long strings issue reported by frontend, part 4 Test of very hi character long, this test evaluete long strings issue reported by frontend, part 5 Test of very hi character long, this test evaluete long strings issue reported by frontend, part 6 Test of very hi character long, this test evaluete long strings issue reported by frontend, part 7 Test of very hi character long, this test evaluete long strings issue reported by frontend, part 8 Test of very hi character long, this test evaluete long strings issue reported by frontend, part 9 Test of very hi character long, this test evaluete long strings issue reported by frontend, part 10 Test of very hi character long, this test evaluete long strings issue reported by frontend, part 11 Test of very hi character long, this test evaluete long strings issue reported by frontend, part 12 Test of very hi character long, this test evaluete long strings issue reported by frontend\", \r\n    \"place\": \"3079 Gorczany Loaf Apt. 301 Cormierside, WY 41845\", \r\n    \"latitude\": 33.484421, \r\n    \"longitude\": 127.429321\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -375,7 +710,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"uuid\": \"74473efd-05c2-37d5-925f-b53b527201de\", \r\n    \"description\": \"Return to job\", \r\n    \"place_end\": \"Insurgentes 5022 El Colegio Cd Juarez, Chih\", \r\n    \"latitude_end\": 31.7309313, \r\n    \"longitude_end\": -106.440384\r\n}",
+					"raw": "{\r\n    \"uuid\": \"987f8d45-dae7-3185-a3d1-0456da6cbe8e\", \r\n    \"description\": \"Return to job\", \r\n    \"place_end\": \"Insurgentes 5022 El Colegio Cd Juarez, Chih\", \r\n    \"latitude_end\": 31.7309313, \r\n    \"longitude_end\": -106.440384\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -406,7 +741,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\t\"status\": \"C\",\r\n\t\"end\": \"2023-03-11 06:37:50\",\r\n\t\"minutes\": 30,\r\n\t\"description\": \"Patch close\",\r\n\t\"place_end\": \"Insurgentes 5022 El Colegio Cd Juarez, Chih\", \r\n\t\"latitude_end\": 31.7309313, \r\n\t\"longitude_end\": -106.440384\r\n}",
+					"raw": "{\r\n    \"user_uuid\": \"a4094fd6-6a0c-39be-a976-8c81ccf2bd17\",\r\n\t\"status\": \"C\",\r\n\t\"end\": \"2023-03-11 06:37:50\",\r\n\t\"minutes\": 30,\r\n\t\"description\": \"Patch close\",\r\n\t\"place_end\": \"Insurgentes 5022 El Colegio Cd Juarez, Chih\", \r\n\t\"latitude_end\": 31.7309313, \r\n\t\"longitude_end\": -106.440384\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -414,7 +749,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8000/api/v1/activities/3d060c7c-974a-3ec5-992f-86aa9e3ec5bb",
+					"raw": "http://localhost:8000/api/v1/activities/9b5b6b50-92c7-380e-a0c4-9490ab32021b",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -424,7 +759,7 @@
 						"api",
 						"v1",
 						"activities",
-						"3d060c7c-974a-3ec5-992f-86aa9e3ec5bb"
+						"9b5b6b50-92c7-380e-a0c4-9490ab32021b"
 					]
 				}
 			},
@@ -435,8 +770,17 @@
 			"request": {
 				"method": "DELETE",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_uuid\": \"a4094fd6-6a0c-39be-a976-8c81ccf2bd17\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "http://localhost:8000/api/v1/activities/3631f0ef-2d67-3982-8ed6-d9396612aa4b",
+					"raw": "http://localhost:8000/api/v1/activities/9b5b6b50-92c7-380e-a0c4-9490ab32021b",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -446,7 +790,7 @@
 						"api",
 						"v1",
 						"activities",
-						"3631f0ef-2d67-3982-8ed6-d9396612aa4b"
+						"9b5b6b50-92c7-380e-a0c4-9490ab32021b"
 					]
 				}
 			},
@@ -521,11 +865,23 @@
 		},
 		{
 			"name": "activityfile view",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"method": "GET",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_uuid\": \"2eb8956a-faea-3317-a50c-8f19dfb7a670\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "http://localhost:8000/api/v1/activityfiles/8e494598-27fb-488c-83fb-35887db093c1",
+					"raw": "http://localhost:8000/api/v1/activityfiles/38ade845-fefb-3133-836f-801313c338af",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -535,7 +891,7 @@
 						"api",
 						"v1",
 						"activityfiles",
-						"8e494598-27fb-488c-83fb-35887db093c1"
+						"38ade845-fefb-3133-836f-801313c338af"
 					]
 				}
 			},
@@ -546,8 +902,17 @@
 			"request": {
 				"method": "DELETE",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_uuid\": \"2eb8956a-faea-3317-a50c-8f19dfb7a670\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "http://localhost:8000/api/v1/activityfiles/8e494598-27fb-488c-83fb-35887db093c1",
+					"raw": "http://localhost:8000/api/v1/activityfiles/38ade845-fefb-3133-836f-801313c338af",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -557,7 +922,7 @@
 						"api",
 						"v1",
 						"activityfiles",
-						"8e494598-27fb-488c-83fb-35887db093c1"
+						"38ade845-fefb-3133-836f-801313c338af"
 					]
 				}
 			},
@@ -611,7 +976,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\t\"checked\": false\r\n}",
+					"raw": "{\r\n    \"user_uuid\": \"2eb8956a-faea-3317-a50c-8f19dfb7a670\",\r\n\t\"checked\": true\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -619,7 +984,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8000/api/v1/employeefiles/75f96f80-5c99-4e4d-b34f-6841c6a0e496",
+					"raw": "http://localhost:8000/api/v1/employeefiles/a4c07306-2355-3829-9d58-149a771425f4",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -629,7 +994,7 @@
 						"api",
 						"v1",
 						"employeefiles",
-						"75f96f80-5c99-4e4d-b34f-6841c6a0e496"
+						"a4c07306-2355-3829-9d58-149a771425f4"
 					]
 				}
 			},
@@ -637,11 +1002,23 @@
 		},
 		{
 			"name": "employeefile view",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"method": "GET",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_uuid\": \"2eb8956a-faea-3317-a50c-8f19dfb7a670\"\r\n}   ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "http://localhost:8000/api/v1/employeefiles/75f96f80-5c99-4e4d-b34f-6841c6a0e496",
+					"raw": "http://localhost:8000/api/v1/employeefiles/a4c07306-2355-3829-9d58-149a771425f4",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -651,7 +1028,7 @@
 						"api",
 						"v1",
 						"employeefiles",
-						"75f96f80-5c99-4e4d-b34f-6841c6a0e496"
+						"a4c07306-2355-3829-9d58-149a771425f4"
 					]
 				}
 			},
@@ -662,8 +1039,17 @@
 			"request": {
 				"method": "DELETE",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_uuid\": \"2eb8956a-faea-3317-a50c-8f19dfb7a670\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "http://localhost:8000/api/v1/employeefiles/75f96f80-5c99-4e4d-b34f-6841c6a0e496",
+					"raw": "http://localhost:8000/api/v1/employeefiles/a4c07306-2355-3829-9d58-149a771425f4",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -673,28 +1059,23 @@
 						"api",
 						"v1",
 						"employeefiles",
-						"75f96f80-5c99-4e4d-b34f-6841c6a0e496"
+						"a4c07306-2355-3829-9d58-149a771425f4"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "employees get",
+			"name": "http://localhost:8000/api/v1/workdays/inByPin",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\t\"employer_uuid\": \"ef93e5d6-ae44-3468-97d8-8e116f6ee105\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
+					"raw": "{\r\n    \"pin\": \"8293\",\r\n    \"place\": \"3079 Gorczany Loaf Apt. 301 Cormierside, WY 41845\",\r\n    \"latitude\":33.484421,\r\n    \"longitude\":127.429321,\r\n    \"timezone\": \"America/Denver\"\r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8000/api/v1/employees/get",
+					"raw": "http://localhost:8000/api/v1/workdays/inByPin",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -703,39 +1084,8 @@
 					"path": [
 						"api",
 						"v1",
-						"employees",
-						"get"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "employees getactivity",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n\t\"employee_uuid\": \"42cd29c2-d317-3235-8426-9d7a19d5d71b\",\r\n    \"type\": \"b\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8000/api/v1/employees/getActivity",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						"api",
-						"v1",
-						"employees",
-						"getActivity"
+						"workdays",
+						"inByPin"
 					]
 				}
 			},

@@ -17,10 +17,14 @@ class UserFactory extends Factory
         $type = $this->faker->randomElement(['a', 'b', 'e']);//A admin B employeer E employee
         $employee_id = null;
         $employee_uuid = null;
+        $pin_activated = false;
+        $pin = null;
         if($type == 'e'){            
             $employee = \App\Models\Employee::factory()->create();
             $employee_id = $employee->id;
             $employee_uuid = $employee->uuid;
+            $pin_activated = $this->faker->boolean();
+            $pin = $pin_activated ? "8293" : null;
         }
         $employer_id = null;
         $employer_uuid = null;
@@ -36,6 +40,7 @@ class UserFactory extends Factory
         return [
             'uuid' => $uuid,
             'active' => $active,
+            'pin_activated' => $pin_activated,
             'type' => $type, 
             'employee_id' => $employee_id, 
             'employee_uuid' => $employee_uuid, 
@@ -46,6 +51,7 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => Hash::make('Sist8293'), // password
             'remember_token' => Str::random(10),
+            'pin' => $pin,
         ];
     }
 

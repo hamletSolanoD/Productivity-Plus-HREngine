@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->boolean('active');
+            $table->boolean('pin_activated')->default(false);
             $table->string('type');//e => employee,  b => empoyeer,  a => admin
             $table->foreignId('employee_id')->nullable()->references('id')->on('employees');
             $table->string('employee_uuid')->nullable();
@@ -34,6 +35,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('pin')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
