@@ -70,7 +70,7 @@ class InWorkdayRequest extends FormRequest
             'uuid' => Str::uuid()->toString(),
             'employee_id' => $employee->id,
             'employer_id' => $employer->id,
-            'status' => 'O',            
+            'status' => 'o',            
             'start' => $start,
             'date' => $start->format("Y-m-d")
         ]);

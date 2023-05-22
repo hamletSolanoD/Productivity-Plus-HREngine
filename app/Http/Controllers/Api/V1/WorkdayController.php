@@ -122,7 +122,7 @@ class WorkdayController extends Controller
         $workday = WorkDay::where('id', $id)->first();
         if(!empty($workday)){
             $now_c = Carbon::now();
-            if($workday['status'] == "O"){
+            if($workday['status'] == "o"){
                 $lapsedMinutes = $now_c->diffInMinutes($workday['start']);
                 $start_tz = new \DateTime($workday['start'], new \DateTimeZone('UTC') );
                 $start_tz->setTimeZone(new \DateTimeZone($workday['timezone']));
@@ -166,7 +166,7 @@ class WorkdayController extends Controller
         if(empty($workday)){
             return response("workday uuid dosent exist", 428);
         }
-        $workday->status = "C";
+        $workday->status = "c";
         $end = Carbon::now();
         $minutes = Carbon::now()->diffInMinutes($workday->start);
         $workday->minutes = $minutes;
@@ -192,7 +192,7 @@ class WorkdayController extends Controller
         if(empty($workday)){
             return response("workday uuid dosent exist", 428);
         }
-        $workday->status = "C";
+        $workday->status = "c";
         $end = Carbon::now();
         $minutes = Carbon::now()->diffInMinutes($workday->start);
         $workday->minutes = $minutes;

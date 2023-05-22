@@ -73,8 +73,10 @@ class InWorkdayByPinRequest extends FormRequest
         $this->merge([
             'uuid' => Str::uuid()->toString(),
             'employee_id' => $employee->id,
+            'employee_uuid' => $employee->uuid,
             'employer_id' => $employer->id,
-            'status' => 'O',            
+            'employer_uuid' => $employer->uuid,
+            'status' => 'o',            
             'start' => $start,
             'date' => $start->format("Y-m-d")
         ]);

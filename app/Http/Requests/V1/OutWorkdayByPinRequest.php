@@ -18,6 +18,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class OutWorkdayByPinRequest extends FormRequest
 {
@@ -40,7 +41,7 @@ class OutWorkdayByPinRequest extends FormRequest
     public function rules()
     {
         return [
-            'pin' => ['pin'],
+            'pin' => ['required'],
             'place_out' => ['required'],
             'latitude_out' => ['required'],
             'longitude_out' => ['required'],
@@ -57,14 +58,16 @@ class OutWorkdayByPinRequest extends FormRequest
         if(empty($user)){
             throw new HttpResponseException(response("user pin dosent exist", 428));
         }
-        $workday = Workday::where(['employee_id', 'status'], [$user->employee_id, 'o'])->first();
-        if(empty($workday)){
+        $uuid = DB::table('workdays')->where('employee_id', '=', $user->employee_id)->orderBy('id', 'desc')->take(1)->value('uuid');
+        $workday = WorkDay::where('uuid', $uuid)->first();
+        //$workday = Workday::where('employee_id', $user->employee_id)->first();
+        if(empty($workday) || $workday->status == "c"){
             throw new HttpResponseException(response("workday open dosent exist", 428));
         }
         $end = Carbon::now();
         $minutes = Carbon::now()->diffInMinutes($workday->start);
         $this->merge([
-            'uuid' => $workday->$uuid,
+            'uuid' => $uuid,
             'workday_id' => $workday->id,
             'status' => 'C',            
             'end' => $end,
