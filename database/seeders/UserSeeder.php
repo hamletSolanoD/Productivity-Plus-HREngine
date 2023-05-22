@@ -25,6 +25,8 @@ class UserSeeder extends Seeder
         $employee = \App\Models\Employee::factory()->create();
         $employee_id = $employee->id;
         $employee_uuid = $employee->uuid;
+        $pin_activated = true;
+        $pin = random_int(100000,999999);
         $employer = \App\Models\Employer::factory()->create();
         $employer_id = $employer->id;
         $employer_uuid = $employer->uuid;
@@ -33,6 +35,8 @@ class UserSeeder extends Seeder
             'type' => 'e', 
             'employee_id' => $employee_id,
             'employee_uuid' => $employee_uuid,
+            'pin_activated' => $pin_activated,
+            'pin' => $pin,
             'uuid' => $faker->uuid(),
             'name' => 'Employee', 
             'email' => 'employee@gmail.com',

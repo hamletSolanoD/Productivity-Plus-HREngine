@@ -41,8 +41,9 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
     Route::post('workdays/getByEmployeer', ['uses' => 'WorkdayController@getWorkdaysByEmployeer']);
     Route::post('workdays/get', ['uses' => 'WorkdayController@getWorkday']);
     Route::post('workdays/in', ['uses' => 'WorkdayController@inWorkday']);
+    Route::post('workdays/inByPin', ['uses' => 'WorkdayController@inWorkdayByPin']);
     Route::post('workdays/out', ['uses' => 'WorkdayController@outWorkday']);
-    Route::post('workdays/out', ['uses' => 'WorkdayController@outWorkday']);
+    Route::post('workdays/outByPin', ['uses' => 'WorkdayController@outWorkdayByPin']);
     Route::post('activities/get', ['uses' => 'ActivityController@getActivities']);
     Route::post('activities/start', ['uses' => 'ActivityController@startActivity']);
     Route::post('activities/end', ['uses' => 'ActivityController@endActivity']);

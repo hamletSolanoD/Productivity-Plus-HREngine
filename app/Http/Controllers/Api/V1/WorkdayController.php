@@ -11,10 +11,13 @@ namespace App\Http\Controllers\Api\V1;
 use App\Models\Workday;
 use App\Models\Employee;
 use App\Models\Employer;
+use App\Models\User;
 
 use App\Http\Requests\V1\GetWorkdayRequest;
 use App\Http\Requests\V1\InWorkdayRequest;
+use App\Http\Requests\V1\InWorkdayByPinRequest;
 use App\Http\Requests\V1\OutWorkdayRequest;
+use App\Http\Requests\V1\OutWorkdayByPinRequest;
 use App\Http\Requests\V1\CheckWorkdayRequest;
 use App\Http\Requests\V1\StoreWorkdayRequest;
 use App\Http\Requests\V1\UpdateWorkdayRequest;
@@ -144,6 +147,14 @@ class WorkdayController extends Controller
         return response($uuid, 200);
     }
 
+    // [url] http://localhost:8000/api/v1/workdays/inByPin [post]
+    public function inWorkdayByPin(InWorkdayByPinRequest $request)
+    {
+        $uuid = $request->input('uuid');
+        new WorkdayResource(WorkDay::create($request->all()));
+        return response($uuid, 200);
+    }
+
     // [url] http://localhost:8000/api/v1/workdays/out [post]
     public function outWorkday(OutWorkdayRequest $request)
     {
@@ -170,6 +181,32 @@ class WorkdayController extends Controller
         }
     }
     
+    // [url] http://localhost:8000/api/v1/workdays/outByPin [post]
+    public function outWorkdayByPin(OutWorkdayByPinRequest $request)
+    {
+        $uuid = $request->input('uuid');
+        $workday = Workday::where('uuid', $uuid)->first();
+        $place_out = $request->input('place_out');
+        $latitude_out = $request->input('latitude_out');
+        $longitude_out = $request->input('longitude_out');
+        if(empty($workday)){
+            return response("workday uuid dosent exist", 428);
+        }
+        $workday->status = "C";
+        $end = Carbon::now();
+        $minutes = Carbon::now()->diffInMinutes($workday->start);
+        $workday->minutes = $minutes;
+        $workday->end = $end;
+        $workday->place_out = $place_out;
+        $workday->latitude_out = $latitude_out;
+        $workday->longitude_out = $longitude_out;
+        if($workday->save()){
+            return response("workday out", 200);
+        } else {            
+            return response("system error", 500);
+        }
+    }
+
     // [url] /api/v1/employees/getActivities [post]
     public function getWorkdaysByEmployeer(GetWorkdayByEmployeerRequest $request)
     {

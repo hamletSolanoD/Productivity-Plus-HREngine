@@ -24,7 +24,7 @@ class UserFactory extends Factory
             $employee_id = $employee->id;
             $employee_uuid = $employee->uuid;
             $pin_activated = $this->faker->boolean();
-            $pin = $pin_activated ? "8293" : null;
+            $pin = $pin_activated ? random_int(100000,999999) : null;
         }
         $employer_id = null;
         $employer_uuid = null;
