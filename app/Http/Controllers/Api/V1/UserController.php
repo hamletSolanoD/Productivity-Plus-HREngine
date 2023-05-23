@@ -21,6 +21,7 @@ use App\Http\Resources\V1\UserResource;
 use App\Http\Resources\V1\UserCollection;
 
 use App\Http\Requests\V1\UserLoginRequest;
+use App\Http\Requests\V1\UserPinRequest;
 use App\Http\Requests\V1\StoreUserRequest;
 use App\Http\Requests\V1\UpdateUserRequest;
 use App\Http\Requests\V1\DeleteUserRequest;
@@ -60,5 +61,19 @@ class UserController extends Controller
     public function userLogin(UserLoginRequest $request)
     {
         
-    }    
+    }
+
+    // [url] /api/v1/users/pin [post]
+    public function userPin(UserPinRequest $request)
+    {
+        $user = User::where('employee_uuid', $request->input('employee_uuid'))->first();
+        $user->pin_activated = $request->input('activated');
+        $user->pin = $user->pin_activated ? random_int(100000,999999) : null;
+        $response = $user->pin_activated ? $user->pin : "Pin deactivated";
+        if($user->save()){
+            return response($response, 200);
+        } else {            
+            return response("system error", 500);
+        }
+    }
 }

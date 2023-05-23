@@ -34,6 +34,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
     Route::apiResource('activities', ActivityController::class);
     Route::apiResource('activityfiles', ActivityFileController::class);
     Route::post('users/login', ['uses' => 'UserController@userLogin']);
+    Route::post('users/pin', ['uses' => 'UserController@userPin']);
     Route::post('invoices/bulk', ['uses' => 'InvoiceController@bulkStore']);
     Route::post('employees/get', ['uses' => 'EmployeeController@getEmployees']);
     Route::post('employees/getActivity', ['uses' => 'EmployeeController@getActivities']);
